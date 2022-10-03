@@ -1,17 +1,17 @@
 <div class="container-fluid d-flex justify-content-center align-items-center pt-5">
-  <form>
+  <form method="post">
     <!-- Email input -->
     <div class="form-outline mb-2">
-      <input type="email" id="form2Example1" class="form-control"/>
-      <label class="form-label" for="form2Example1">Email address</label>
+      <input type="email" id="userEmail" class="form-control" name="txtEmail"/>
+      <label class="form-label" for="userEmail">Email address</label>
     </div>
-  
+
     <!-- Password input -->
     <div class="form-outline mb-2">
-      <input type="password" id="form2Example2" class="form-control" />
-      <label class="form-label" for="form2Example2">Password</label>
+      <input type="password" id="UserPassword" class="form-control" name="txtPassword"/>
+      <label class="form-label" for="UserPassword">Password</label>
     </div>
-  
+
     <!-- 2 column grid layout for inline styling -->
     <div class="row mb-4">
       <div class="col d-flex justify-content-center">
@@ -21,16 +21,16 @@
           <label class="form-check-label" for="form2Example31"> Remember me </label>
         </div>
       </div>
-  
+
       <div class="col">
         <!-- Simple link -->
         <a href="#!">Forgot password?</a>
       </div>
     </div>
-  
+
     <!-- Submit button -->
     <div class="row">
-      <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+      <button type="submit" class="btn btn-primary btn-block mb-4" name="btnLogin">Login</button>
     </div>
   </form>
 </div>
