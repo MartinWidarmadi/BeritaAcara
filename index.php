@@ -104,7 +104,6 @@ else:
     if ($menu == "forgot") {
         $forgotController = new ForgotController();
         $forgotController->index();
-        $forgotController->checkingEmail();
     } else if ($menu == "changepw") {
         $changepwController = new ChangePWController();
         $changepwController->index();

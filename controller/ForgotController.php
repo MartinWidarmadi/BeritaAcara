@@ -7,16 +7,14 @@ class ForgotController
     {
         $this->userDao = new UserDaoImpl();
     }
+
     public function index(){
-        include_once 'view/forgot-view.php';
-    }
-    public function checkingEmail(){
         $checkSubmitted = filter_input(INPUT_POST,'check-email');
         if (isset($checkSubmitted)) {
             $email = filter_input(INPUT_POST, 'email');
             $result = $this->userDao->checkEmail($email);
             if ($result) {
-                header('location:?menu=changepw');
+                header('location:?menu=changepw&email=' . $email);
 
             }elseif (empty($email)){
                 $message = "Harap Email Diisi";
@@ -26,5 +24,6 @@ class ForgotController
                 echo "<script type='text/javascript'>alert('$message');</script>";
             }
         }
+        include_once 'view/forgot-view.php';
     }
 }

@@ -26,10 +26,10 @@ class UserDaoImpl
     public function updatePassword(User $user) {
         $result = 0;
         $link = PDOUtil::connectDb();
-        $query = 'UPDATE user SET password = ? WHERE email = ?';
+        $query = 'UPDATE user SET Password = MD5(?) WHERE idUser = ?';
         $stmt = $link->prepare($query);
         $stmt->bindValue(1,$user->getPassword());
-        $stmt->bindValue(2,$user->getEmail());
+        $stmt->bindValue(2,$user->getIdUser());
         $link->beginTransaction();
         if ($stmt->execute()) {
             $link->commit();
