@@ -23,7 +23,8 @@
 
       <div class="col">
         <!-- Simple link -->
-        <a href="view/forgot-view.php">Forgot password?</a>
+<!--        <a href="view/forgot-view.php">Forgot password?</a>-->
+          <a href="?menu=forgot">Forgot Password</a>
       </div>
     </div>
 

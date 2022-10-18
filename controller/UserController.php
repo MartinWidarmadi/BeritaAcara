@@ -49,6 +49,22 @@ class UserController
         include_once 'view/login-view.php';
     }
 
+    public function checkingEmail(){
+        $checkSubmitted = filter_input(INPUT_POST,'check-email');
+        if (isset($checkSubmitted)) {
+            $email = filter_input(INPUT_POST, 'email');
+            $result = $this->userDao->checkEmail($email);
+            if ($result) {
+                $message = "Email Yang Dimasukkan Salah!!!";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+            } else {
+                $message = "Email Yang Dimasukkan Salah!!!";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+            }
+        }
+        include_once 'view/changepassword-view.php';
+    }
+
     public function logout() {
         session_unset();
         session_destroy();

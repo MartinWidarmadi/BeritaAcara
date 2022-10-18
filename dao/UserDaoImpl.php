@@ -12,4 +12,14 @@ class UserDaoImpl
         $stmt->execute();
         return $stmt->fetchObject('User');
     }
+
+    public function checkEmail($userEmail) {
+        $link = PDOUtil::connectDb();
+        $query = 'SELECT * FROM User WHERE Email = ?';
+        $stmt = $link->prepare($query);
+        $stmt->bindParam(1,$userEmail);
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        $stmt->execute();
+        return $stmt->fetchObject('User');
+    }
 }
