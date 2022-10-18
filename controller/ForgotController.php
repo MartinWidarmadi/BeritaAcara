@@ -16,7 +16,11 @@ class ForgotController
             $email = filter_input(INPUT_POST, 'email');
             $result = $this->userDao->checkEmail($email);
             if ($result) {
-                header('location:index.php?menu=changepw');
+                header('location:?menu=changepw');
+
+            }elseif (empty($email)){
+                $message = "Harap Email Diisi";
+                echo "<script type='text/javascript'>alert('$message');</script>";
             } else {
                 $message = "Email Yang Dimasukkan Salah!!!";
                 echo "<script type='text/javascript'>alert('$message');</script>";

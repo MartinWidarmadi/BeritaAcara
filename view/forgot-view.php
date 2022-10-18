@@ -1,15 +1,3 @@
-<?php
-include_once 'controller/UserController.php';
-?>
-<head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-<?php
-$userController = new UserController();
-$userController->checkingEmail();
-?>
 <div class="container">
     <form method="post">
     <div class="row">
