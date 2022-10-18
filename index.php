@@ -1,8 +1,11 @@
 <?php
 session_start();
 include_once 'controller/UserController.php';
+include_once 'controller/HomeController.php';
 include_once 'dao/UserDaoImpl.php';
+include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
+include_once 'dao/ProdiDaoImpl.php';
 include_once 'db-util/PDOUtil.php';
 include_once 'entity/Dosen.php';
 include_once 'entity/Kelas.php';
@@ -26,7 +29,7 @@ if (!isset($_SESSION['is_logged'])) {
     <title>Berita Acara PBM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
@@ -45,7 +48,7 @@ if (!isset($_SESSION['is_logged'])) {
 if ($_SESSION['is_logged']):
     ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid m-0">
+        <div class="container m-0">
             <a class="navbar-brand" href="#">PPL</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -79,7 +82,8 @@ if ($_SESSION['is_logged']):
 
     switch ($menu) {
         case 'home':
-            include_once 'view/home-view.php';
+            $homeController = new HomeController();
+            $homeController->index();
             break;
         case 'dashboard':
             include_once 'view/dashboard-view.php';
@@ -89,8 +93,8 @@ if ($_SESSION['is_logged']):
             $userController->logout();
             break;
         default:
-            include_once 'view/home-view.php';
-            break;
+            $homeController = new HomeController();
+            $homeController->index();
     }
 else:
     $userController = new UserController();

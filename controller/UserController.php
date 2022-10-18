@@ -3,6 +3,7 @@
 class UserController
 {
     private $userDao;
+    private $dosenDao;
     public function __construct()
     {
         $this->userDao = new UserDaoImpl();
