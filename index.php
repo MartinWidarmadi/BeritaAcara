@@ -4,16 +4,20 @@ include_once 'controller/UserController.php';
 include_once 'controller/ForgotController.php';
 include_once 'controller/ChangePWController.php';
 include_once 'controller/HomeController.php';
+include_once 'controller/SecondController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
 include_once 'dao/ProdiDaoImpl.php';
+include_once 'dao/JadwalDaoImpl.php';
 include_once 'db-util/PDOUtil.php';
 include_once 'entity/Dosen.php';
 include_once 'entity/Kelas.php';
 include_once 'entity/MataKuliah.php';
 include_once 'entity/Prodi.php';
 include_once 'entity/User.php';
+include_once 'entity/Jadwal.php';
+include_once 'entity/Semester.php';
 
 if (!isset($_SESSION['is_logged'])) {
     $_SESSION['is_logged'] = false;
@@ -88,6 +92,10 @@ if ($_SESSION['is_logged']):
         case 'home':
             $homeController = new HomeController();
             $homeController->index();
+            break;
+        case 'second':
+            $secondController = new SecondController();
+            $secondController->index();
             break;
         case 'dashboard':
             include_once 'view/dashboard-view.php';

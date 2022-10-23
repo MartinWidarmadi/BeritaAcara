@@ -6,27 +6,24 @@ class HomeController
     private $mataKuliahDao;
     private $dosenDao;
     private $prodiDao;
+    private $jadwalDao;
     public function __construct()
     {
         $this->mataKuliahDao = new MataKuliahDaoImpl();
         $this->dosenDao = new DosenDaoImpl();
         $this->userDao = new UserDaoImpl();
         $this->prodiDao = new ProdiDaoImpl();
+        $this->jadwalDao = new JadwalDaoImpl();
     }
 
     public function index() {
-
-
-        $prodis = $this->prodiDao->fetchAllProdi();
-
-        $mataKuliah = $this->mataKuliahDao->fetchAllMataKuliah(2, 1); 
-        // var_dump($mataKuliah);
+        $btnNext = filter_input(INPUT_POST, 'btnNext');
+        if (isset($btnNext)) {
+            header('location: index.php?menu=second');
+        }
+        $dosenId = $this->dosenDao->fetchDosen($_SESSION['user_id'])->getNIP();
+        $jadwal = $this->jadwalDao->fetchJadwal($dosenId);
+        // echo '<pre>' . var_dump($jadwal) . '</pre>'; 
         include_once 'view/home-view.php';
-    }
-
-    public function logout() {
-        session_unset();
-        session_destroy();
-        header('location:index.php');
     }
 }
