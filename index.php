@@ -5,6 +5,7 @@ include_once 'controller/ForgotController.php';
 include_once 'controller/ChangePWController.php';
 include_once 'controller/HomeController.php';
 include_once 'controller/SecondController.php';
+include_once 'controller/OTPController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
@@ -119,7 +120,11 @@ else:
     } else if ($menu == "login") {
         $userController = new UserController();
         $userController->index();
-    } else {
+    } else if ($menu == "otp") {
+        $OTPController = new  OTPController();
+        $OTPController->index();
+        $OTPController->updateindex();
+    } else{
         $userController = new UserController();
         $userController->index();
     }
