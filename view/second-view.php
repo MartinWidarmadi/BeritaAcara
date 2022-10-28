@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid p-3">
   <form method="POST">
     <div class="mb-3">
       <label for="calendar" class="form-label">Masukkan tanggal Pertemuan</label>
@@ -67,6 +67,11 @@
   const kolomAsdos = document.querySelectorAll('.kolom-asdos');
   const foto = document.querySelector('#foto');
   const btnSubmit = document.querySelector('.btnSubmit');
+
+  const empty = (str) => (str.toString().trim().length == 0 );
+
+  
+
   kolomAsdos.forEach((element) => {
     element.disabled = true;
   })
@@ -85,9 +90,19 @@
 
   const formCheck = document.querySelectorAll('.form-second');
 
-  formCheck.forEach((element) => {
-    element.addEventListener('change', () => {
-      
-    })
+  btnSubmit.disabled = true;
+  document.addEventListener('change', function() {
+    if (!empty(date.value) && !empty(jamMulai) && !empty(jamAkhir) && !empty(jmlMahasiswa) && !empty(materi) && !empty(pbm) && !empty(foto.value)) {
+      // if (check.checked) {
+      //    if(!empty())
+      // }
+      btnSubmit.disabled = false;
+    } else {
+      btnSubmit.disabled = true;
+    }
+  })
+
+  btnSubmit.addEventListener('click', function() {
+    empty(jamAkhir);
   })
 </script>

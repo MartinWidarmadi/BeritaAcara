@@ -1,4 +1,4 @@
-<div class="container p-5">
+<div class="container-fluid p-3">
   <h1>Welcome</h1>
   <?php
   echo '<p>Hello ' . $_SESSION['web_user_full_name'] .' '. '<i class="fa-solid fa-user"></i>'. '</p>';
