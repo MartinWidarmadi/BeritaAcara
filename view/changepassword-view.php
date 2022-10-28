@@ -7,9 +7,9 @@
                 <div class="form-group">
                     <input class="form-control" type="Password" name="password" placeholder="New Password">
                 </div>
-<!--                <div class="form-group">-->
-<!--                    <input class="form-control" type="Password" name="confirmpassword" placeholder="Confirm Password">-->
-<!--                </div>-->
+                <div class="form-group">
+                    <input class="form-control" type="Password" name="confirmpassword" placeholder="Confirm Password">
+                </div>
                 <div class="form-group">
                     <input class="form-control button" type="submit" name="check-password" value="Continue">
                 </div>
