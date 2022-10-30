@@ -8,7 +8,7 @@
                     <input class="form-control" type="email" name="email" placeholder="Enter email address">
                 </div>
                 <div class="form-group">
-                    <input class="form-control button" type="submit" name="check-email" value="Continue">
+                    <input class="form-control button" type="submit" name="check-email" value="Send OTP">
                 </div>
         </div>
     </div>

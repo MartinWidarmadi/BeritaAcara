@@ -4,16 +4,21 @@ include_once 'controller/UserController.php';
 include_once 'controller/ForgotController.php';
 include_once 'controller/ChangePWController.php';
 include_once 'controller/HomeController.php';
+include_once 'controller/SecondController.php';
+include_once 'controller/OTPController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
 include_once 'dao/ProdiDaoImpl.php';
+include_once 'dao/JadwalDaoImpl.php';
 include_once 'db-util/PDOUtil.php';
 include_once 'entity/Dosen.php';
 include_once 'entity/Kelas.php';
 include_once 'entity/MataKuliah.php';
 include_once 'entity/Prodi.php';
 include_once 'entity/User.php';
+include_once 'entity/Jadwal.php';
+include_once 'entity/Semester.php';
 
 if (!isset($_SESSION['is_logged'])) {
     $_SESSION['is_logged'] = false;
@@ -31,7 +36,7 @@ if (!isset($_SESSION['is_logged'])) {
     <title>Berita Acara PBM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
@@ -89,6 +94,10 @@ if ($_SESSION['is_logged']):
             $homeController = new HomeController();
             $homeController->index();
             break;
+        case 'second':
+            $secondController = new SecondController();
+            $secondController->index();
+            break;
         case 'dashboard':
             include_once 'view/dashboard-view.php';
             break;
@@ -111,7 +120,11 @@ else:
     } else if ($menu == "login") {
         $userController = new UserController();
         $userController->index();
-    } else {
+    } else if ($menu == "otp") {
+        $OTPController = new  OTPController();
+        $OTPController->index();
+        $OTPController->updateindex();
+    } else{
         $userController = new UserController();
         $userController->index();
     }

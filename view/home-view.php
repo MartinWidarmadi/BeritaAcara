@@ -1,27 +1,16 @@
-<div class="container p-5">
+<div class="container-fluid p-3">
   <h1>Welcome</h1>
   <?php
   echo '<p>Hello ' . $_SESSION['web_user_full_name'] .' '. '<i class="fa-solid fa-user"></i>'. '</p>';
   ?>
   <form method="POST">
-    <div class="mb-4">
-      <label for="prodi">Pilih Prodi</label>
-      <select class="form-select" id="prodi" aria-label="Default select example">
-      <option selected value="0">Pilih</option>
-      <?php echo var_dump($prodis) ?>
-      <?php foreach($prodis as $item): ?>
-        <option value="<?= $item->getIdProdi(); ?>"><?= $item->getNamaProdi(); ?></option>
-        <?php endforeach; ?>
-      </select>
-    </div> 
-    
       <div class="mb-4">
         <label for="jadwal">Pilih Jadwal</label>
         <select class="form-select" id="jadwal" aria-label="Default select example">
         <option selected value="0">Pilih</option>
-        <?php echo var_dump($prodis) ?>
-        <?php foreach($prodis as $item): ?>
-      <option value="<?= $item->getIdProdi(); ?>"><?= $item->getNamaProdi(); ?></option>
+        <?php foreach($jadwal as $item): 
+          var_dump($item->getIdMatkul());?>
+      <option value="<?= $item->getIdJadwal(); ?>"><?= $item->getIdMatkul()->getIdMataKuliah() . " " . $item->getIdMatkul()->getNamaMataKuliah() . " " . $item->getJamAwal() . " - " . $item->getJamAkhir(); ?></option>
       <?php endforeach; ?>
         </select>
       </div>
@@ -40,7 +29,7 @@
     </select>
     </div>
 
-    <input type="submit" value="Next" id="js-btn-submit" class="btn btn-primary mb-4">
+    <input type="submit" value="Next" id="js-btn-submit"  name="btnNext" class="btn btn-primary mb-4">
     </form>
 </div>
   
@@ -49,21 +38,15 @@
   const btnSubmit = document.querySelector('input[type="submit"]');
   const select = document.querySelector('#pertemuan');
   let empty = true;
-  console.log(allInput);
+
+  btnSubmit.disabled = true;
   allInput.forEach((el) => {
     el.addEventListener('change', () => {
-      if (el.value == '0') {
-        empty = true;
-        console.log(empty);
+      if ((allInput[0].value !== '0') && (allInput[1].value !== '0')) {
+        btnSubmit.disabled = false;
       } else {
-        empty = false
-        console.log(empty);
+        btnSubmit.disabled = true;
       }
     })
   })
-  if (empty) {
-    btnSubmit.disabled = empty;
-  } else {
-    btnSubmit.disabled = false;
-  }
 </script>
