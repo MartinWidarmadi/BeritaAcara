@@ -1,15 +1,29 @@
 <?php 
 
 class Jadwal {
+  private $nipDosen;
   private $idJadwal;
   private $kodeKelas;
-  private $hari;
-  private $jamAwal;
-  private $jamAkhir;
   private $idSemester;
-  private $nipDosen;
-  private $idMatkul;
   private $type;
+  private $pertemuan;
+  private $tanggalPertemuan;
+
+  /**
+     * @return mixed
+     */
+    public function getNipDosen()
+    {
+        return $this->nipDosen;
+    }
+
+    /**
+     * @param mixed $NipDosen
+     */
+    public function setNipDosen($nipDosen)
+    {
+        $this->nipDosen = $nipDosen;
+    }
 
   /**
      * @return mixed $idJadwal
@@ -46,54 +60,6 @@ class Jadwal {
     /**
      * @return mixed
      */
-    public function getHari()
-    {
-        return $this->hari;
-    }
-
-    /**
-     * @param mixed $Hari
-     */
-    public function setHari($hari)
-    {
-        $this->Hari = $hari;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getJamAwal()
-    {
-        return $this->jamAwal;
-    }
-
-    /**
-     * @param mixed $JamAwal
-     */
-    public function setJamAwal($jamAwal)
-    {
-        $this->jamAwal = $jamAwal;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getJamAkhir()
-    {
-        return $this->jamAkhir;
-    }
-
-    /**
-     * @param mixed $JamAkhir
-     */
-    public function setJamAkhir($jamAkhir)
-    {
-        $this->jamAkhir = $jamAkhir;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getIdSemester()
     {
         return $this->idSemester;
@@ -110,38 +76,6 @@ class Jadwal {
     /**
      * @return mixed
      */
-    public function getNipDosen()
-    {
-        return $this->nipDosen;
-    }
-
-    /**
-     * @param mixed $NipDosen
-     */
-    public function setNipDosen($nipDosen)
-    {
-        $this->nipDosen = $nipDosen;
-    }
-    
-    /**
-     * @return mixed
-     */
-    public function getIdMatkul()
-    {
-        return $this->idMatkul;
-    }
-
-    /**
-     * @param mixed $IdMatkul
-     */
-    public function setIdMatkul($idMatkul)
-    {
-        $this->idMatkul = $idMatkul;
-    }
-    
-    /**
-     * @return mixed
-     */
     public function getType()
     {
         return $this->type;
@@ -153,6 +87,38 @@ class Jadwal {
     public function setType($type)
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPertemuan()
+    {
+        return $this->pertemuan;
+    }
+
+    /**
+     * @param mixed $pertemuan
+     */
+    public function setPertemuan($pertemuan)
+    {
+        $this->pertemuan = $pertemuan;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTanggalPertemuan()
+    {
+        return $this->tanggalPertemuan;
+    }
+
+    /**
+     * @param mixed $tanggalPertemuan
+     */
+    public function setTanggalPertemuan($tanggalPertemuan)
+    {
+        $this->tanggalPertemuan = $tanggalPertemuan;
     }
 
     public function __set($name,$value)
@@ -168,25 +134,25 @@ class Jadwal {
       }
 
         switch ($name) {
-          case "id_jadwal":
+          case "jadwal_Dosen_NIP":
             $this->idJadwal = $value;
             break;
-          case "kode_kelas":
+          case "jadwal_kode_kelas":
             $this->kodeKelas = $value;
             break;
-          case "jam_awal":
-            $this->jamAwal = $value;
+          case "jadwal_type":
+            $this->type = $value;
             break;
-          case "jam_akhir":
-            $this->jamAkhir = $value;
+          case "tanggal_pertemuan":
+            $this->tanggalPertemuan = $value;
             break;
-          case "Semester_id_Semester":
+          case "jadwal_Semester_id_Semester":
             $this->idSemester->setIdSemester($value);
             break;
           case "Dosen_NIP":
             $this->nipDosen->setNIP($value);
             break;
-          case "MataKuliah_idMataKuliah":
+          case "jadwal_MataKuliah_idMataKuliah":
             $this->idMatkul->setIdMataKuliah($value);
             break;
           case "matakuliah":
@@ -194,7 +160,6 @@ class Jadwal {
             break;
         }
     }
-
-}
+  }
 
 ?>

@@ -10,7 +10,7 @@
         <option selected value="0">Pilih</option>
         <?php foreach($jadwal as $item): 
           var_dump($item->getIdMatkul());?>
-      <option value="<?= $item->getIdJadwal(); ?>"><?= $item->getIdMatkul()->getIdMataKuliah() . " " . $item->getIdMatkul()->getNamaMataKuliah() . " " . $item->getJamAwal() . " - " . $item->getJamAkhir(); ?></option>
+      <option value="<?= $item->getIdJadwal(); ?>"><?=  $item->getIdMatkul()->getNamaMataKuliah() . " " . $item->getJamAwal() . " - " . $item->getJamAkhir() . ' Kelas ' . $item->getKodeKelas() . ' ' . $item->getType(); ?></option>
       <?php endforeach; ?>
         </select>
       </div>
@@ -21,8 +21,18 @@
       <option selected value="0">Pilih</option>
       <?php 
       for ($i = 1; $i <= 16; $i++) :
+        if ($i == 8):
+      ?>
+      <option value="<?= $i; ?>">UTS</option>
+      <?php 
+        elseif ($i == 16):
+          ?>
+      <option value="<?= $i; ?>">UAS</option>
+      <?php 
+        else:
       ?>
       <option value="<?= $i; ?>"><?= $i; ?></option>
+      <?php endif; ?>
       <?php endfor; ?>
       <option value="perbaikan">UJIAN PERBAIKAN</option>
       <option value="susulan">UJIAN SUSULAN</option>
@@ -48,5 +58,9 @@
         btnSubmit.disabled = true;
       }
     })
+  })
+
+  btnSubmit.addEventListener('click', (id) => {
+    
   })
 </script>

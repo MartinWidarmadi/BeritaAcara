@@ -1,5 +1,5 @@
 <div class="container-fluid p-3">
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="calendar" class="form-label">Masukkan tanggal Pertemuan</label>
       <input type="date" name="calendar" id="calendar" class="form-control form-second">
