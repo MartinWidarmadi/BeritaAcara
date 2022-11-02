@@ -12,6 +12,16 @@ class JadwalDaoImpl {
     return $stmt->fetchAll();
   }
 
+  public function fetchAllJadwals() {
+    $link = PDOUtil::connectDb();
+    $query = 'SELECT jadwal.*,Dosen.NamaDosen AS "dosen", matakuliah.NamaMataKuliah AS "matakuliah" FROM jadwal JOIN dosen ON dosen.NIP = jadwal.Dosen_NIP JOIN matakuliah ON matakuliah.idMataKuliah = jadwal.MataKuliah_idMataKuliah';
+    $stmt = $link->prepare($query);
+    $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Jadwal');
+    $stmt->execute();
+    $link = null;
+    return $stmt->fetchAll();
+  }
+
   public function fetchJadwal($nipDosen, $idMatkul) {
     $link = PDOUtil::connectDb();
     $query = 'SELECT * FROM jadwal WHERE Dosen_NIP = ? AND MataKuliah_idMataKuliah = ?';

@@ -8,11 +8,13 @@ include_once 'controller/SecondController.php';
 include_once 'controller/OTPController.php';
 include_once 'controller/DosenController.php';
 include_once 'controller/JadwalController.php';
+include_once 'controller/AcaraController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
 include_once 'dao/ProdiDaoImpl.php';
 include_once 'dao/JadwalDaoImpl.php';
+include_once 'dao/DetailJadwalDaoImpl.php';
 include_once 'db-util/PDOUtil.php';
 include_once 'entity/Dosen.php';
 include_once 'entity/Kelas.php';
@@ -21,6 +23,7 @@ include_once 'entity/Prodi.php';
 include_once 'entity/User.php';
 include_once 'entity/Jadwal.php';
 include_once 'entity/Semester.php';
+include_once 'entity/DetailJadwal.php';
 
 if (!isset($_SESSION['is_logged'])) {
     $_SESSION['is_logged'] = false;
@@ -119,6 +122,10 @@ if ($_SESSION['is_logged']):
         case 'jadwal' :
             $jadwalController = new JadwalController();
             $jadwalController->index();
+            break;
+        case 'acara' :
+            $acaraController = new AcaraController();
+            $acaraController->index();
             break;
         case 'logout':
             $userController = new UserController();

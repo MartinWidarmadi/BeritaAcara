@@ -2,12 +2,113 @@
 
 class DetailJadwal {
   private $nipDosen;
-  private $idJadwal;
+  private $idMatkul;
   private $kodeKelas;
   private $idSemester;
   private $type;
   private $pertemuan;
   private $tanggalPertemuan;
+  private $jamAwal;
+  private $jamAkhir;
+  private $rangkuman;
+  private $presensi;
+  private $kelas;
+
+    /**
+     * @return mixed
+     */
+    public function getKelas()
+    {
+        return $this->kelas;
+    }
+
+    /**
+     * @param mixed $kelas
+     */
+    public function setKelas($kelas)
+    {
+        $this->kelas = $kelas;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdMatkul()
+    {
+        return $this->idMatkul;
+    }
+
+    /**
+     * @param mixed $idMatkul
+     */
+    public function setIdMatkul($idMatkul)
+    {
+        $this->idMatkul = $idMatkul;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJamAwal()
+    {
+        return $this->jamAwal;
+    }
+
+    /**
+     * @param mixed $jamAwal
+     */
+    public function setJamAwal($jamAwal)
+    {
+        $this->jamAwal = $jamAwal;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJamAkhir()
+    {
+        return $this->jamAkhir;
+    }
+
+    /**
+     * @param mixed $jamAkhir
+     */
+    public function setJamAkhir($jamAkhir)
+    {
+        $this->jamAkhir = $jamAkhir;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRangkuman()
+    {
+        return $this->rangkuman;
+    }
+
+    /**
+     * @param mixed $rangkuman
+     */
+    public function setRangkuman($rangkuman)
+    {
+        $this->rangkuman = $rangkuman;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPresensi()
+    {
+        return $this->presensi;
+    }
+
+    /**
+     * @param mixed $presensi
+     */
+    public function setPresensi($presensi)
+    {
+        $this->presensi = $presensi;
+    }
 
   /**
      * @return mixed
@@ -23,22 +124,6 @@ class DetailJadwal {
     public function setNipDosen($nipDosen)
     {
         $this->nipDosen = $nipDosen;
-    }
-
-  /**
-     * @return mixed $idJadwal
-     */
-    public function getIdJadwal()
-    {
-        return $this->idJadwal;
-    }
-
-    /**
-     * @param mixed $idKelas
-     */
-    public function setidJadwal($idJadwal)
-    {
-        $this->idJadwal = $idJadwal;
     }
 
     /**
@@ -142,6 +227,9 @@ class DetailJadwal {
             break;
           case "jadwal_type":
             $this->type = $value;
+            break;
+          case "jadwal_kelas":
+            $this->kelas = $value;
             break;
           case "tanggal_pertemuan":
             $this->tanggalPertemuan = $value;

@@ -15,7 +15,7 @@ class DosenDaoImpl
 
     public function fetchAllDosen() {
         $link = PDOUtil::connectDb();
-        $query = 'SELECT NIP, NamaDosen FROM Dosen ORDER BY NIP ASC';
+        $query = 'SELECT NIP, NamaDosen FROM Dosen WHERE NIP != 1 ORDER BY NIP ASC ';
         $stmt = $link->prepare($query);
         $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Dosen');
         $stmt->execute();

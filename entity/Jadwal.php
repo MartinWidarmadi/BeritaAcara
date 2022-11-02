@@ -10,6 +10,23 @@ class Jadwal {
   private $nipDosen;
   private $idMatkul;
   private $type;
+  private $kelas;
+
+    /**
+     * @return mixed
+     */
+    public function getKelas()
+    {
+        return $this->kelas;
+    }
+
+    /**
+     * @param mixed $kelas
+     */
+    public function setKelas($kelas)
+    {
+        $this->kelas = $kelas;
+    }
 
   /**
      * @return mixed $idJadwal
