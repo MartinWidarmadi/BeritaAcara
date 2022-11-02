@@ -16,7 +16,7 @@
         <option selected value="0">Pilih</option>
         <?php foreach($jadwal as $item): 
           var_dump($item->getIdMatkul());?>
-      <option value="<?= $item->getIdMatkul()->getIdMataKuliah(); ?>"><?=  $item->getIdMatkul()->getNamaMataKuliah() . " " . $item->getJamAwal() . " - " . $item->getJamAkhir() . ' Kelas ' . $item->getKodeKelas() . ' ' . $item->getType(); ?></option>
+      <option value="<?= $item->getIdMatkul()->getIdMataKuliah(); ?>"><?= $item->getKodeKelas() . ' ' . $item->getIdMatkul()->getNamaMataKuliah() . " " . $item->getJamAwal() . " - " . $item->getJamAkhir() . ' Kelas ' . $item->getKelas() . ' ' . $item->getType(); ?></option>
       <?php endforeach; ?>
         </select>
       </div>

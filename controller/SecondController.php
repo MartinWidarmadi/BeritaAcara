@@ -44,7 +44,7 @@ class SecondController {
 
       $detailJadwal = new DetailJadwal();
       $detailJadwal->setNipDosen($nipDosen);
-      $detailJadwal->setidJadwal($idMatKul);
+      $detailJadwal->setidMatkul($idMatKul);
       $detailJadwal->setKodeKelas($kodeKelas);
       $detailJadwal->setIdSemester($semester);
       $detailJadwal->setType($tipe);
@@ -57,7 +57,7 @@ class SecondController {
       if (isset($_FILES['photoFile']['name']) && ($_FILES['photoFile']['name'] != '')) {
         $directory = 'uploads/';
         $fileExtension = pathinfo($_FILES['photoFile']['name'], PATHINFO_EXTENSION);
-        $newFileName = "{$detailJadwal->getIdJadwal()}_pertemuan{$detailJadwal->getPertemuan()}_{$detailJadwal->getType()}";
+        $newFileName = "{$detailJadwal->getIdMatkul()}_pertemuan{$detailJadwal->getPertemuan()}_{$detailJadwal->getType()}";
         $targetFile = $directory . $newFileName;
 
         if ($_FILES['photoFile']['size'] > 1024 * 2048) {

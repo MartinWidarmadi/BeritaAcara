@@ -18,12 +18,13 @@ if ($_SESSION['roles'] == "dosen") :
     <tbody>
     <?php
     foreach($jadwal as $item) {
+        var_dump($item->getKelas());
         echo '<tr>';
         echo '<td>' . $item->getPertemuan() . '</td>';
         echo '<td>' . $item->getKodeKelas() . '</td>';
         echo '<td>' . $item->getIdMatkul()->getNamaMataKuliah() . '</td>';
-        echo '<td>' . $item->getJamAwal() . '</td>';
-        echo '<td>' . $item->getJamAkhir() . '</td>';
+        echo '<td>' . $item->getWaktuMulai() . '</td>';
+        echo '<td>' . $item->getWaktuSelesai() . '</td>';
         echo '<td>' . $item->getType() . '</td>';
         echo '<td>' . $item->getKelas() . '</td>';
         echo '<td>' . $item->getRangkuman() . '</td>';
@@ -64,8 +65,8 @@ else:
             echo '<td>' . $item->getNipDosen()->getNamaDosen() . '</td>';
             echo '<td>' . $item->getKodeKelas() . '</td>';
             echo '<td>' . $item->getIdMatkul()->getNamaMataKuliah() . '</td>';
-            echo '<td>' . $item->getJamAwal() . '</td>';
-            echo '<td>' . $item->getJamAkhir() . '</td>';
+            echo '<td>' . $item->getWaktuMulai() . '</td>';
+            echo '<td>' . $item->getWaktuSelesai() . '</td>';
             echo '<td>' . $item->getType() . '</td>';
             echo '<td>' . $item->getKelas() . '</td>';
             echo '<td>' . $item->getRangkuman() . '</td>';

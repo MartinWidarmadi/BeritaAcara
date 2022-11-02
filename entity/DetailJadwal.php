@@ -220,7 +220,7 @@ class DetailJadwal {
 
         switch ($name) {
           case "jadwal_Dosen_NIP":
-            $this->nipDosen = $value;
+            $this->nipDosen->setNIP($value);
             break;
           case "jadwal_kode_kelas":
             $this->kodeKelas = $value;
