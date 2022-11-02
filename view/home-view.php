@@ -6,18 +6,18 @@
   <form method="POST">
       <div class="mb-4">
         <label for="jadwal">Pilih Jadwal</label>
-        <select class="form-select" id="jadwal" aria-label="Default select example">
+        <select class="form-select" id="jadwal" name="jadwal" aria-label="Default select example">
         <option selected value="0">Pilih</option>
         <?php foreach($jadwal as $item): 
           var_dump($item->getIdMatkul());?>
-      <option value="<?= $item->getIdJadwal(); ?>"><?=  $item->getIdMatkul()->getNamaMataKuliah() . " " . $item->getJamAwal() . " - " . $item->getJamAkhir() . ' Kelas ' . $item->getKodeKelas() . ' ' . $item->getType(); ?></option>
+      <option value="<?= $item->getIdMatkul()->getIdMataKuliah(); ?>"><?=  $item->getIdMatkul()->getNamaMataKuliah() . " " . $item->getJamAwal() . " - " . $item->getJamAkhir() . ' Kelas ' . $item->getKodeKelas() . ' ' . $item->getType(); ?></option>
       <?php endforeach; ?>
         </select>
       </div>
 
     <div class="mb-4">
     <label for="pertemuan">Pilih Pertemuan</label>
-    <select class="form-select" id="pertemuan" aria-label="Default select example">
+    <select class="form-select" id="pertemuan" aria-label="Default select example" name="pertemuan">
       <option selected value="0">Pilih</option>
       <?php 
       for ($i = 1; $i <= 16; $i++) :
@@ -39,7 +39,10 @@
     </select>
     </div>
 
-    <input type="submit" value="Next" id="js-btn-submit"  name="btnNext" class="btn btn-primary mb-4">
+
+
+    <input type="submit" value="Next" id="js-btn-submit"  name="btnNext" class="btn btn-primary mb-4" 
+    onclick="inputBerita(<?= $jadwal ;?>, <?= $pertemuan ;?>)">
     </form>
 </div>
   
@@ -59,8 +62,17 @@
       }
     })
   })
+  // const inputBerita = (idJadwal, idPertemuan) => {
+  //     window.location = `index.php?menu=second&idJadwal=${idJadwal}&idPertemuan=${idPertemuan}`;
+  // }
 
-  btnSubmit.addEventListener('click', (id) => {
-    
-  })
+  // let idJadwal = document.querySelector('#jadwal').value;
+  // let idPertemuan = document.querySelector('#pertemuan').value;
+
+  // let inputBeritaFunc = inputBerita(idJadwal, idPertemuan)
+
+    // btnSubmit.addEventListener('click', inputBerita(idJadwal, idPertemuan));
+
+
+
 </script>

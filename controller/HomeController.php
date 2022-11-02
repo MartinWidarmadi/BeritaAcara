@@ -17,13 +17,18 @@ class HomeController
     }
 
     public function index() {
-        $btnNext = filter_input(INPUT_POST, 'btnNext');
-        if (isset($btnNext)) {
-            header('location: index.php?menu=second');
+        $btnSubmit = filter_input(INPUT_POST, 'btnNext');
+        $pertemuan = filter_input(INPUT_POST, 'pertemuan');
+        $jadwal = filter_input(INPUT_POST, 'jadwal');
+        
+        if (isset($btnSubmit)) {
+            header('location: index.php?menu=second&idJadwal=' . $jadwal . '&idPertemuan=' . $pertemuan);
         }
+
         $dosenId = $this->dosenDao->fetchDosen($_SESSION['user_id'])->getNIP();
-        $jadwal = $this->jadwalDao->fetchJadwal($dosenId);
+        $jadwal = $this->jadwalDao->fetchAllJadwal($dosenId);
         // echo '<pre>' . var_dump($jadwal) . '</pre>'; 
+
         include_once 'view/home-view.php';
     }
 }

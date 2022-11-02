@@ -28,10 +28,10 @@
       <textarea name="pbm" id="pbm" cols="30" rows="2" class="form-control form-second"></textarea>
     </div>
 
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <label for="materi" class="form-label">Masukkan Materi Pokok Bahasan</label>
       <input type="text" name="materi" id="materi" class="form-control form-second">
-    </div>
+    </div> -->
 
     <div class="mb-3">
       <label for="" class="form-label">Masukkan Asdos (Jika Ada)</label>
@@ -102,7 +102,9 @@
     }
   })
 
-  btnSubmit.addEventListener('click', function() {
-    empty(jamAkhir);
-  })
+  // btnSubmit.addEventListener('click', function() {
+  //   empty(jamAkhir);
+  // })
+
+
 </script>
