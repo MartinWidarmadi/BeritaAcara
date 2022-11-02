@@ -8,6 +8,10 @@ class DetailJadwal {
   private $type;
   private $pertemuan;
   private $tanggalPertemuan;
+  private $waktuMulai;
+  private $waktuSelesai;
+  private $rangkuman;
+  private $fotoPresensi;
 
   /**
      * @return mixed
@@ -121,6 +125,70 @@ class DetailJadwal {
         $this->tanggalPertemuan = $tanggalPertemuan;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getWaktuMulai()
+    {
+        return $this->waktuMulai;
+    }
+
+    /**
+     * @param mixed $waktuMulai
+     */
+    public function setWaktuMulai($waktuMulai)
+    {
+        $this->waktuMulai = $waktuMulai;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWaktuSelesai()
+    {
+        return $this->waktuSelesai;
+    }
+
+    /**
+     * @param mixed $waktuSelesai
+     */
+    public function setWaktuSelesai($waktuSelesai)
+    {
+        $this->waktuSelesai = $waktuSelesai;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRangkuman()
+    {
+        return $this->rangkuman;
+    }
+
+    /**
+     * @param mixed $rangkuman
+     */
+    public function setRangkuman($rangkuman)
+    {
+        $this->rangkuman = $rangkuman;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFotoPresensi()
+    {
+        return $this->fotoPresensi;
+    }
+
+    /**
+     * @param mixed $fotoPresensi
+     */
+    public function setFotoPresensi($fotoPresensi)
+    {
+        $this->fotoPresensi = $fotoPresensi;
+    }
+
     public function __set($name,$value)
     {
       if (!isset($this->idSemester)) {
@@ -157,6 +225,18 @@ class DetailJadwal {
             break;
           case "matakuliah":
             $this->idMatkul->setNamaMataKuliah($value);
+            break;
+          case "tanggal_pertemuan":
+            $this->tanggalPertemuan = $value;
+            break;
+          case "waktu_mulai":
+            $this->waktuMulai = $value;
+            break;
+          case "waktu_selesai":
+            $this->waktuSelesai = $value;
+            break;
+          case "foto_presensi":
+            $this->fotoPresensi = $value;
             break;
         }
     }

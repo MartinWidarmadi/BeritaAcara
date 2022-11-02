@@ -13,6 +13,7 @@ include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
 include_once 'dao/ProdiDaoImpl.php';
 include_once 'dao/JadwalDaoImpl.php';
+include_once 'dao/DetailJadwalDaoImpl.php';
 include_once 'db-util/PDOUtil.php';
 include_once 'entity/Dosen.php';
 include_once 'entity/Kelas.php';
@@ -21,6 +22,7 @@ include_once 'entity/Prodi.php';
 include_once 'entity/User.php';
 include_once 'entity/Jadwal.php';
 include_once 'entity/Semester.php';
+include_once 'entity/DetailJadwal.php';
 
 if (!isset($_SESSION['is_logged'])) {
     $_SESSION['is_logged'] = false;
@@ -48,9 +50,7 @@ if (!isset($_SESSION['is_logged'])) {
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#example').DataTable();
-        });
+        
     </script>
 </head>
 <body>
@@ -152,7 +152,12 @@ endif; ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+    
+    $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
 
 </body>
 </html>
