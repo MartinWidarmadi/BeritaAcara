@@ -1,6 +1,6 @@
 <?php 
 
-class Jadwal {
+class DetailJadwal {
   private $nipDosen;
   private $idJadwal;
   private $kodeKelas;

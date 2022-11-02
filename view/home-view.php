@@ -1,8 +1,14 @@
 <div class="container-fluid p-3">
   <h1>Welcome</h1>
-  <?php
-  echo '<p>Hello ' . $_SESSION['web_user_full_name'] .' '. '<i class="fa-solid fa-user"></i>'. '</p>';
-  ?>
+    <?php
+    if ($_SESSION['roles'] == "admin"):
+        echo '<p>Hello ' . $_SESSION['web_user_full_name'] .' '. '<i class="fa-solid fa-user"></i>'. '</p>';
+    ?>
+
+    <?php
+    else :
+    echo '<p>Hello ' . $_SESSION['web_user_full_name'] .' '. '<i class="fa-solid fa-user"></i>'. '</p>';
+    ?>
   <form method="POST">
       <div class="mb-4">
         <label for="jadwal">Pilih Jadwal</label>
@@ -73,6 +79,8 @@
 
     // btnSubmit.addEventListener('click', inputBerita(idJadwal, idPertemuan));
 
-
+  <?php
+  endif;
+  ?>
 
 </script>

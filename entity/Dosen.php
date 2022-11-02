@@ -97,6 +97,14 @@ class Dosen
                 $this->MataKuliah_idMataKuliah = $value;
                 break;
         }
+        if(!isset($this->user)) {
+            $this->user = new User();
+        }
+        switch ($name) {
+            case 'User_idUser':
+                $this->user->setIdUser($value);
+                break;
+        }
     }
 
 

@@ -6,6 +6,8 @@ include_once 'controller/ChangePWController.php';
 include_once 'controller/HomeController.php';
 include_once 'controller/SecondController.php';
 include_once 'controller/OTPController.php';
+include_once 'controller/DosenController.php';
+include_once 'controller/JadwalController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
@@ -70,14 +72,23 @@ if ($_SESSION['is_logged']):
                         <i class="fa-solid fa-house nav-img"></i>
                         <a class="nav-link" href="?menu=home">Home</a>
                     </li>
-<!--                    <li class="nav-item">-->
-<!--                        <i class="fa-solid fa-user nav-img"></i>-->
-<!--                        <a class="nav-link" href="?menu=dashboard">Supplier Management</a>-->
-<!--                    </li>-->
-                    <!-- <li class="nav-item">
+                    <?php
+                    if ($_SESSION['roles'] == "admin") :
+                    ?>
+                        <li class="nav-item">
+                            <i class="fa-solid fa-user nav-img"></i>
+                            <a class="nav-link" href="?menu=dosen">Dosen</a>
+                        </li>
+                    <?php
+                    endif; ?>
+                    <li class="nav-item">
                         <i class="fa-solid fa-bag-shopping nav-img"></i>
-                        <a class="nav-link" href="?menu=product">Product Management</a>
-                    </li> -->
+                        <a class="nav-link" href="?menu=jadwal">Jadwal</a>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-bag-shopping nav-img"></i>
+                        <a class="nav-link" href="?menu=acara">Berita Acara</a>
+                    </li>
                     <li class="nav-item">
                         <i class="fa-solid fa-right-from-bracket"></i>
                         <a class="nav-link" href="?menu=logout">Log Out</a>
@@ -100,6 +111,14 @@ if ($_SESSION['is_logged']):
             break;
         case 'dashboard':
             include_once 'view/dashboard-view.php';
+            break;
+        case 'dosen':
+            $dosenController = new DosenController();
+            $dosenController->index();
+            break;
+        case 'jadwal' :
+            $jadwalController = new JadwalController();
+            $jadwalController->index();
             break;
         case 'logout':
             $userController = new UserController();
