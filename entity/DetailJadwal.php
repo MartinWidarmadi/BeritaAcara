@@ -2,7 +2,7 @@
 
 class DetailJadwal {
   private $nipDosen;
-  private $idJadwal;
+  private $idMatkul;
   private $kodeKelas;
   private $idSemester;
   private $type;
@@ -12,6 +12,7 @@ class DetailJadwal {
   private $waktuSelesai;
   private $rangkuman;
   private $fotoPresensi;
+  private $kelas;
 
   /**
      * @return mixed
@@ -30,19 +31,19 @@ class DetailJadwal {
     }
 
   /**
-     * @return mixed $idJadwal
+     * @return mixed
      */
-    public function getIdJadwal()
+    public function getIdMatkul()
     {
-        return $this->idJadwal;
+        return $this->idMatkul;
     }
 
     /**
-     * @param mixed $idKelas
+     * @param mixed $idMatkul
      */
-    public function setidJadwal($idJadwal)
+    public function setIdMatkul($idMatkul)
     {
-        $this->idJadwal = $idJadwal;
+        $this->idMatkul = $idMatkul;
     }
 
     /**
@@ -189,6 +190,22 @@ class DetailJadwal {
         $this->fotoPresensi = $fotoPresensi;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getKelas()
+    {
+        return $this->kelas;
+    }
+
+    /**
+     * @param mixed $kelas
+     */
+    public function setKelas($kelas)
+    {
+        $this->kelas = $kelas;
+    }
+
     public function __set($name,$value)
     {
       if (!isset($this->idSemester)) {
@@ -203,13 +220,16 @@ class DetailJadwal {
 
         switch ($name) {
           case "jadwal_Dosen_NIP":
-            $this->idJadwal = $value;
+            $this->nipDosen = $value;
             break;
           case "jadwal_kode_kelas":
             $this->kodeKelas = $value;
             break;
           case "jadwal_type":
             $this->type = $value;
+            break;
+          case "jadwal_kelas":
+            $this->kelas = $value;
             break;
           case "tanggal_pertemuan":
             $this->tanggalPertemuan = $value;
@@ -219,6 +239,9 @@ class DetailJadwal {
             break;
           case "Dosen_NIP":
             $this->nipDosen->setNIP($value);
+            break;
+          case "namadosen":
+            $this->nipDosen->setNamaDosen($value);
             break;
           case "jadwal_MataKuliah_idMataKuliah":
             $this->idMatkul->setIdMataKuliah($value);

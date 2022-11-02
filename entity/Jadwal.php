@@ -10,6 +10,23 @@ class Jadwal {
   private $nipDosen;
   private $idMatkul;
   private $type;
+  private $kelas;
+
+    /**
+     * @return mixed
+     */
+    public function getKelas()
+    {
+        return $this->kelas;
+    }
+
+    /**
+     * @param mixed $kelas
+     */
+    public function setKelas($kelas)
+    {
+        $this->kelas = $kelas;
+    }
 
   /**
      * @return mixed $idJadwal
@@ -186,12 +203,16 @@ class Jadwal {
           case "Dosen_NIP":
             $this->nipDosen->setNIP($value);
             break;
+          case "namadosen":
+            $this->nipDosen->setNamaDosen($value);
+            break;
           case "MataKuliah_idMataKuliah":
             $this->idMatkul->setIdMataKuliah($value);
             break;
           case "matakuliah":
             $this->idMatkul->setNamaMataKuliah($value);
             break;
+
         }
     }
 

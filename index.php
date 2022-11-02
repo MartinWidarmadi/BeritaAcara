@@ -8,6 +8,10 @@ include_once 'controller/SecondController.php';
 include_once 'controller/OTPController.php';
 include_once 'controller/DosenController.php';
 include_once 'controller/JadwalController.php';
+include_once 'controller/AcaraController.php';
+include_once 'controller/AddDosenController.php';
+include_once 'controller/AddNamaDosenController.php';
+include_once 'controller/MataKuliahController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
@@ -79,6 +83,10 @@ if ($_SESSION['is_logged']):
                             <i class="fa-solid fa-user nav-img"></i>
                             <a class="nav-link" href="?menu=dosen">Dosen</a>
                         </li>
+                        <li class="nav-item">
+                            <i class="fa-solid fa-bag-shopping nav-img"></i>
+                            <a class="nav-link" href="?menu=matkul">Mata Kuliah</a>
+                        </li>
                     <?php
                     endif; ?>
                     <li class="nav-item">
@@ -116,13 +124,29 @@ if ($_SESSION['is_logged']):
             $dosenController = new DosenController();
             $dosenController->index();
             break;
+        case 'matkul' :
+            $mataKuliahController = new MataKuliahController();
+            $mataKuliahController->index();
+            break;
         case 'jadwal' :
             $jadwalController = new JadwalController();
             $jadwalController->index();
             break;
+        case 'acara' :
+            $acaraController = new AcaraController();
+            $acaraController->index();
+            break;
         case 'logout':
             $userController = new UserController();
             $userController->logout();
+            break;
+        case 'addDosen':
+            $addDosenController = new  addDosenController();
+            $addDosenController->index();
+            break;
+        case 'addNamaDosen':
+            $addNamaDosenController = new  addNamaDosenController();
+            $addNamaDosenController->index();
             break;
         default:
             $homeController = new HomeController();
@@ -143,6 +167,12 @@ else:
         $OTPController = new  OTPController();
         $OTPController->index();
         $OTPController->updateindex();
+    } else if ($menu == "addDosen") {
+        $addDosenController = new  addDosenController();
+        $addDosenController->index();
+    } else if ($menu == "addNamaDosen") {
+        $addDosenController = new  addDosenController();
+        $addDosenController->index();
     } else{
         $userController = new UserController();
         $userController->index();
