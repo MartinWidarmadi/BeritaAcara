@@ -107,7 +107,14 @@ class MataKuliah
 
     public function __set($name,$value)
     {
+        if (!isset($this->idProdi)) {
+            $this->idProdi = new Prodi();
+        }
+
         switch ($name) {
+            case "prodi":
+                $this->idProdi->setNamaProdi($value);
+                break;
             case "Kelas_idKelas":
                 $this->idKelas = $value;
                 break;

@@ -43,16 +43,16 @@ else :
             <label for="Dosen" class="form-label">Nama Dosen</label>
             <select class="form-select" id="dosen" name="dosen" aria-label="Default select example">
                 <option selected value="0">Pilih</option>
-                <?php foreach($jadwals as $item):?>
-                    <option><?=  $item->getNipDosen()->getNamaDosen(); ?></option>
+                <?php foreach($dosen as $item):?>
+                    <option><?=  $item->getNamaDosen(); ?></option>
                 <?php endforeach; ?>
 
             </select>
             <label for="Matkul" class="form-label">Mata Kuliah</label>
             <select class="form-select" id="matkul" name="matkul" aria-label="Default select example">
                 <option selected value="0">Pilih</option>
-                <?php foreach($jadwals as $item):?>
-                    <option><?=  $item->getIdMatkul()->getNamaMataKuliah(); ?></option>
+                <?php foreach($matkul as $item):?>
+                    <option><?=  $item->getNamaMataKuliah(); ?></option>
                 <?php endforeach; ?>
             </select>
             <label for="Tipe" class="form-label">Type</label>

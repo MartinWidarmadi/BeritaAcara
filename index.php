@@ -11,6 +11,7 @@ include_once 'controller/JadwalController.php';
 include_once 'controller/AcaraController.php';
 include_once 'controller/AddDosenController.php';
 include_once 'controller/AddNamaDosenController.php';
+include_once 'controller/MataKuliahController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
@@ -84,6 +85,10 @@ if ($_SESSION['is_logged']):
                             <i class="fa-solid fa-user nav-img"></i>
                             <a class="nav-link" href="?menu=dosen">Dosen</a>
                         </li>
+                        <li class="nav-item">
+                            <i class="fa-solid fa-bag-shopping nav-img"></i>
+                            <a class="nav-link" href="?menu=matkul">Mata Kuliah</a>
+                        </li>
                     <?php
                     endif; ?>
                     <li class="nav-item">
@@ -120,6 +125,10 @@ if ($_SESSION['is_logged']):
         case 'dosen':
             $dosenController = new DosenController();
             $dosenController->index();
+            break;
+        case 'matkul' :
+            $mataKuliahController = new MataKuliahController();
+            $mataKuliahController->index();
             break;
         case 'jadwal' :
             $jadwalController = new JadwalController();

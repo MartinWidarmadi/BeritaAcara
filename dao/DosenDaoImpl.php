@@ -23,6 +23,16 @@ class DosenDaoImpl
         return $stmt->fetchAll();
     }
 
+    public function fetchDosenName() {
+        $link = PDOUtil::connectDb();
+        $query = 'SELECT NamaDosen FROM Dosen WHERE NIP != 1 ORDER BY NIP ASC ';
+        $stmt = $link->prepare($query);
+        $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Dosen');
+        $stmt->execute();
+        $link = null;
+        return $stmt->fetchAll();
+    }
+
     public function checkNIP($dosenNIP) {
         $link = PDOUtil::connectDb();
         $query = 'SELECT * FROM Dosen WHERE NIP = ?';
