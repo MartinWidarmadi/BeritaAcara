@@ -23,6 +23,16 @@ class DosenDaoImpl
         return $stmt->fetchAll();
     }
 
+    public function checkNIP($dosenNIP) {
+        $link = PDOUtil::connectDb();
+        $query = 'SELECT * FROM Dosen WHERE NIP = ?';
+        $stmt = $link->prepare($query);
+        $stmt->bindParam(1,$dosenNIP);
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        $stmt->execute();
+        return $stmt->fetchObject('Dosen');
+    }
+
     public function insertNewDosen(Dosen $dosen) {
         $result = 0;
         $link = PDOUtil::connectDb();

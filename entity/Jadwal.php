@@ -203,12 +203,16 @@ class Jadwal {
           case "Dosen_NIP":
             $this->nipDosen->setNIP($value);
             break;
+          case "namadosen":
+            $this->nipDosen->setNamaDosen($value);
+            break;
           case "MataKuliah_idMataKuliah":
             $this->idMatkul->setIdMataKuliah($value);
             break;
           case "matakuliah":
             $this->idMatkul->setNamaMataKuliah($value);
             break;
+
         }
     }
 

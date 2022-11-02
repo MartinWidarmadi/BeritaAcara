@@ -240,6 +240,9 @@ class DetailJadwal {
           case "Dosen_NIP":
             $this->nipDosen->setNIP($value);
             break;
+          case "namadosen":
+            $this->nipDosen->setNamaDosen($value);
+            break;
           case "jadwal_MataKuliah_idMataKuliah":
             $this->idMatkul->setIdMataKuliah($value);
             break;

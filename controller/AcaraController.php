@@ -13,6 +13,7 @@ class AcaraController
     public function index() {
         $dosenId = $this->dosenDao->fetchDosen($_SESSION['user_id'])->getNIP();
         $jadwal = $this->detailDao->fetchAllJadwal($dosenId);
+        $jadwals = $this->detailDao->fetchAllJadwals();
         include_once 'view/acara-view.php';
     }
 }

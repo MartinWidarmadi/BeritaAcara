@@ -9,6 +9,8 @@ include_once 'controller/OTPController.php';
 include_once 'controller/DosenController.php';
 include_once 'controller/JadwalController.php';
 include_once 'controller/AcaraController.php';
+include_once 'controller/AddDosenController.php';
+include_once 'controller/AddNamaDosenController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
@@ -131,6 +133,14 @@ if ($_SESSION['is_logged']):
             $userController = new UserController();
             $userController->logout();
             break;
+        case 'addDosen':
+            $addDosenController = new  addDosenController();
+            $addDosenController->index();
+            break;
+        case 'addNamaDosen':
+            $addNamaDosenController = new  addNamaDosenController();
+            $addNamaDosenController->index();
+            break;
         default:
             $homeController = new HomeController();
             $homeController->index();
@@ -150,6 +160,12 @@ else:
         $OTPController = new  OTPController();
         $OTPController->index();
         $OTPController->updateindex();
+    } else if ($menu == "addDosen") {
+        $addDosenController = new  addDosenController();
+        $addDosenController->index();
+    } else if ($menu == "addNamaDosen") {
+        $addDosenController = new  addDosenController();
+        $addDosenController->index();
     } else{
         $userController = new UserController();
         $userController->index();
