@@ -1,110 +1,244 @@
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    /*the container must be positioned relative:*/
+    .autocomplete {
+        position: relative;
+        display: inline-block;
+    }
+
+    input {
+        border: 1px solid transparent;
+        background-color: #f1f1f1;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    input[type=text] {
+        background-color: #f1f1f1;
+        width: 100%;
+    }
+
+    input[type=submit] {
+        background-color: DodgerBlue;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        border-top: none;
+        z-index: 99;
+        /*position the autocomplete items to be the same width as the container:*/
+        top: 100%;
+        left: 0;
+        right: 0;
+    }
+
+    .autocomplete-items div {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #fff;
+        border-bottom: 1px solid #d4d4d4;
+    }
+
+    /*when hovering an item:*/
+    .autocomplete-items div:hover {
+        background-color: #e9e9e9;
+    }
+
+    /*when navigating through the items using the arrow keys:*/
+    .autocomplete-active {
+        background-color: DodgerBlue !important;
+        color: #ffffff;
+    }
+</style>
 <div class="container-fluid p-3">
-  <form method="POST" enctype="multipart/form-data">
-    <div class="mb-3">
-      <label for="calendar" class="form-label">Masukkan tanggal Pertemuan</label>
-      <input type="date" name="calendar" id="calendar" class="form-control form-second">
-    </div>
+    <form method="POST" enctype="multipart/form-data" autocomplete="off">
+        <div class="mb-3">
+            <label for="calendar" class="form-label">Masukkan tanggal Pertemuan</label>
+            <input type="date" name="calendar" id="calendar" class="form-control form-second">
+        </div>
 
-    <div class="mb-3">
-      <label for="time" class="form-label">Masukkan Jam Mulai dan Jam Selesai</label>
-      <div class="d-flex justify-content-start">
-        <input type="time" name="timeStart" id="timeStart" class="form-control me-3 form-second">
-        <input type="time" name="timeEnd" id="timeEnd" class="form-control form-second">
-      </div>
-    </div>
+        <div class="mb-3">
+            <label for="time" class="form-label">Masukkan Jam Mulai dan Jam Selesai</label>
+            <div class="d-flex justify-content-start">
+                <input type="time" name="timeStart" id="timeStart" class="form-control me-3 form-second">
+                <input type="time" name="timeEnd" id="timeEnd" class="form-control form-second">
+            </div>
+        </div>
 
-    <div class="mb-3">
-      <label for="jumlahMahasiswa" class="form-label">Masukkan Jumlah Mahasiswa yang Hadir</label>
-      <input type="number" name="jumlahMahasiswa" id="jumlahMahasiswa" class="form-control form-second">
-    </div>
+        <div class="mb-3">
+            <label for="jumlahMahasiswa" class="form-label">Masukkan Jumlah Mahasiswa yang Hadir</label>
+            <input type="number" name="jumlahMahasiswa" id="jumlahMahasiswa" class="form-control form-second">
+        </div>
 
-    <div class="mb-3">
-      <label for="materi" class="form-label">Masukkan Materi Pokok Bahasan</label>
-      <input type="text" name="materi" id="materi" class="form-control form-second">
-    </div>
-    
-    <div class="mb-3">
-      <label for="pbm" class="form-label">Masukkan Keterangan PBM Online</label>
-      <textarea name="pbm" id="pbm" cols="30" rows="2" class="form-control form-second"></textarea>
-    </div>
+        <div class="mb-3">
+            <label for="materi" class="form-label">Masukkan Materi Pokok Bahasan</label>
+            <input type="text" name="materi" id="materi" class="form-control form-second">
+        </div>
 
-    <!-- <div class="mb-3">
-      <label for="materi" class="form-label">Masukkan Materi Pokok Bahasan</label>
-      <input type="text" name="materi" id="materi" class="form-control form-second">
-    </div> -->
+        <div class="mb-3">
+            <label for="pbm" class="form-label">Masukkan Keterangan PBM Online</label>
+            <textarea name="pbm" id="pbm" cols="30" rows="2" class="form-control form-second"></textarea>
+        </div>
 
-    <div class="mb-3">
-      <label for="" class="form-label">Masukkan Asdos (Jika Ada)</label>
-      <div class="d-flex justify-content">
-        <input type="text" name="asdos1" id="" class="kolom-asdos form-control me-3 form-second">
-        <input type="text" name="asdos2" id="" class="kolom-asdos form-control me-3 form-second">
-        <input type="text" name="asdos3" id="" class="kolom-asdos form-control form-second ">
-      </div>
-      <input type="checkbox" name="check" id="check" class="form-check-label">
-      <label for="check" class="form-label">Tekan Radio Button Jika Ada Asdos</label>
-    </div>
+        <!-- <div class="mb-3">
+          <label for="materi" class="form-label">Masukkan Materi Pokok Bahasan</label>
+          <input type="text" name="materi" id="materi" class="form-control form-second">
+        </div> -->
+        <div class="mb-3">
+            <div class="autocomplete">
+                <label for="" class="form-label">Masukkan Asdos (Jika Ada)</label>
+                <div class="d-flex justify-content">
+                    <input type="text" name="asdos1" id="myInput1" class="kolom-asdos form-control me-3 form-second">
+                    <input type="text" name="asdos2" id="myInput2" class="kolom-asdos form-control me-3 form-second">
+                    <input type="text" name="asdos3" id="myInput3" class="kolom-asdos form-control me-3 form-second ">
+                </div>
+            </div>
+            <input type="checkbox" name="check" id="check" class="form-check-label">
+            <label for="check" class="form-label">Tekan Radio Button Jika Ada Asdos</label>
+        </div>
 
-    <div class="mb-3">
-      <label for="foto" class="form-label">Masukkan Foto Bukti Dokumentasi</label>
-      <input type="file" name="foto" id="foto" class="form-control form-second">
-    </div>
+        <div class="mb-3">
+            <label for="foto" class="form-label">Masukkan Foto Bukti Dokumentasi</label>
+            <input type="file" name="foto" id="foto" class="form-control form-second">
+        </div>
 
-    <div class="mb-3">
-      <input type="submit" value="Previous" class="btn btn-primary" name="btnPrev">
-      <input type="submit" value="Submit" class="btn btn-primary btnSubmit" name="btnSubmit">
-    </div>
-  </form>
+        <div class="mb-3">
+            <input type="submit" value="Previous" class="btn btn-primary" name="btnPrev">
+            <input type="submit" value="Submit" class="btn btn-primary btnSubmit" name="btnSubmit">
+        </div>
+    </form>
 </div>
 
 <script>
-  const date = document.querySelector('#calendar');
-  const jamMulai = document.querySelector('#timeStart');
-  const jamAkhir = document.querySelector('#timeEnd');
-  const jmlMahasiswa = document.querySelector('#jumlahMahasiswa');
-  const materi = document.querySelector('#materi');
-  const pbm = document.querySelector('#pbm');
-  const check = document.querySelector('#check');
-  const kolomAsdos = document.querySelectorAll('.kolom-asdos');
-  const foto = document.querySelector('#foto');
-  const btnSubmit = document.querySelector('.btnSubmit');
 
-  const empty = (str) => (str.toString().trim().length == 0 );
+    function autocomplete(inp, arr) {
+        var currentFocus;
+        inp.addEventListener("input", function (e) {
+            var a, b, i, val = this.value;
+            closeAllLists();
+            if (!val) {
+                return false;
+            }
+            currentFocus = -1;
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            this.parentNode.appendChild(a);
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    b = document.createElement("DIV");
+                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i].substr(val.length);
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    b.addEventListener("click", function (e) {
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
+                }
+            }
+        });
+        inp.addEventListener("keydown", function (e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+                currentFocus++;
+                addActive(x);
+            } else if (e.keyCode == 38) { //up
+                currentFocus--;
+                addActive(x);
+            } else if (e.keyCode == 13) {
+                e.preventDefault();
+                if (currentFocus > -1) {
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
 
-  
+        function addActive(x) {
+            if (!x) return false;
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            x[currentFocus].classList.add("autocomplete-active");
+        }
 
-  kolomAsdos.forEach((element) => {
-    element.disabled = true;
-  })
-  let isChecked = false;
-  check.addEventListener('click', function() {
-    kolomAsdos.forEach((element) => {
-      if (check.checked) {
-        element.disabled = false;
-        isChecked = true;
-      } else {
-        element.disabled = true;
-        isChecked = false;
-      }
-    })
-  })
+        function removeActive(x) {
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
+            }
+        }
 
-  const formCheck = document.querySelectorAll('.form-second');
+        function closeAllLists(elmnt) {
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
 
-  btnSubmit.disabled = true;
-  document.addEventListener('change', function() {
-    if (!empty(date.value) && !empty(jamMulai) && !empty(jamAkhir) && !empty(jmlMahasiswa) && !empty(materi) && !empty(pbm) && !empty(foto.value)) {
-      // if (check.checked) {
-      //    if(!empty())
-      // }
-      btnSubmit.disabled = false;
-    } else {
-      btnSubmit.disabled = true;
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
     }
-  })
 
-  // btnSubmit.addEventListener('click', function() {
-  //   empty(jamAkhir);
-  // })
+    var data = ["Rio Jeremy", "Violance Gressia"];
+    
+    autocomplete(document.getElementById("myInput1"), data);
+    autocomplete(document.getElementById("myInput2"), data);
+    autocomplete(document.getElementById("myInput3"), data);
 
+    const date = document.querySelector('#calendar');
+    const jamMulai = document.querySelector('#timeStart');
+    const jamAkhir = document.querySelector('#timeEnd');
+    const jmlMahasiswa = document.querySelector('#jumlahMahasiswa');
+    const materi = document.querySelector('#materi');
+    const pbm = document.querySelector('#pbm');
+    const check = document.querySelector('#check');
+    const kolomAsdos = document.querySelectorAll('.kolom-asdos');
+    const foto = document.querySelector('#foto');
+    const btnSubmit = document.querySelector('.btnSubmit');
 
+    const empty = (str) => (str.toString().trim().length == 0);
+
+    kolomAsdos.forEach((element) => {
+        element.disabled = true;
+    })
+    let isChecked = false;
+    check.addEventListener('click', function () {
+        kolomAsdos.forEach((element) => {
+            if (check.checked) {
+                element.disabled = false;
+                isChecked = true;
+            } else {
+                element.disabled = true;
+                isChecked = false;
+            }
+        })
+    });
+
+    const formCheck = document.querySelectorAll('.form-second');
+
+    btnSubmit.disabled = true;
+    document.addEventListener('change', function () {
+        if (!empty(date.value) && !empty(jamMulai) && !empty(jamAkhir) && !empty(jmlMahasiswa) && !empty(materi) && !empty(pbm) && !empty(foto.value)) {
+            // if (check.checked) {
+            //    if(!empty())
+            // }
+            btnSubmit.disabled = false;
+        } else {
+            btnSubmit.disabled = true;
+        }
+    })
+    // btnSubmit.addEventListener('click', function() {
+    //   empty(jamAkhir);
+    // })
 </script>
