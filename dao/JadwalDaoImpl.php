@@ -3,7 +3,7 @@
 class JadwalDaoImpl {
   public function fetchAllJadwal($nipDosen) {
     $link = PDOUtil::connectDb();
-    $query = 'SELECT jadwal.*, matakuliah.NamaMataKuliah AS "matakuliah" FROM jadwal JOIN dosen ON dosen.NIP = jadwal.Dosen_NIP JOIN matakuliah ON matakuliah.idMataKuliah = jadwal.MataKuliah_idMataKuliah WHERE dosen.NIP = ?';
+    $query = 'SELECT jadwal.*, matakuliah.NamaMataKuliah AS "matakuliah" , Semester.nama_semester AS "semester" FROM jadwal JOIN dosen ON dosen.NIP = jadwal.Dosen_NIP JOIN matakuliah ON matakuliah.idMataKuliah = jadwal.MataKuliah_idMataKuliah JOIN Semester ON Semester.id_semester = jadwal.Semester_id_Semester WHERE dosen.NIP = ?';
     $stmt = $link->prepare($query);
     $stmt->bindParam(1, $nipDosen);
     $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Jadwal');
@@ -14,7 +14,7 @@ class JadwalDaoImpl {
 
   public function fetchAllJadwals() {
     $link = PDOUtil::connectDb();
-    $query = 'SELECT jadwal.*,Dosen.NamaDosen AS "namadosen", matakuliah.NamaMataKuliah AS "matakuliah" FROM jadwal JOIN dosen ON dosen.NIP = jadwal.Dosen_NIP JOIN matakuliah ON matakuliah.idMataKuliah = jadwal.MataKuliah_idMataKuliah';
+    $query = 'SELECT jadwal.*,Dosen.NamaDosen AS "namadosen", matakuliah.NamaMataKuliah AS "matakuliah", Semester.nama_semester AS "semester" FROM jadwal JOIN dosen ON dosen.NIP = jadwal.Dosen_NIP JOIN matakuliah ON matakuliah.idMataKuliah = jadwal.MataKuliah_idMataKuliah JOIN Semester ON Semester.id_semester = jadwal.Semester_id_Semester';
     $stmt = $link->prepare($query);
     $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Jadwal');
     $stmt->execute();

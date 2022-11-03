@@ -11,6 +11,7 @@ if ($_SESSION['roles'] == "dosen") :
         <th scope="col">Jam Selesai</th>
         <th scope="col">Tipe</th>
         <th scope="col">Kelas</th>
+        <th scope="col">Semester</th>
     </tr>
     </thead>
     <tbody>
@@ -24,6 +25,7 @@ if ($_SESSION['roles'] == "dosen") :
         echo '<td>' . $item->getJamAkhir() . '</td>';
         echo '<td>' . $item->getType() . '</td>';
         echo '<td>' . $item->getKelas() . '</td>';
+        echo '<td>' . $item->getIdSemester()->getNamaSemester() . '</td>';
         echo '</tr>';
     }
     ?>
@@ -85,6 +87,7 @@ else :
             <th scope="col">Jam Selesai</th>
             <th scope="col">Tipe</th>
             <th scope="col">Kelas</th>
+            <th scope="col">Semester</th>
         </tr>
         </thead>
         <tbody>
@@ -99,6 +102,7 @@ else :
             echo '<td>' . $item->getJamAkhir() . '</td>';
             echo '<td>' . $item->getType() . '</td>';
             echo '<td>' . $item->getKelas() . '</td>';
+            echo '<td>' . $item->getIdSemester()->getNamaSemester() . '</td>';
             echo '</tr>';
         }
         ?>

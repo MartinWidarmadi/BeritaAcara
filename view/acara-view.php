@@ -18,7 +18,6 @@ if ($_SESSION['roles'] == "dosen") :
     <tbody>
     <?php
     foreach($jadwal as $item) {
-        var_dump($item->getKelas());
         echo '<tr>';
         echo '<td>' . $item->getPertemuan() . '</td>';
         echo '<td>' . $item->getKodeKelas() . '</td>';

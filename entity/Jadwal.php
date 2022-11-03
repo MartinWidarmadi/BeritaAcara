@@ -200,6 +200,9 @@ class Jadwal {
           case "Semester_id_Semester":
             $this->idSemester->setIdSemester($value);
             break;
+          case "semester":
+            $this->idSemester->setNamaSemester($value);
+            break;
           case "Dosen_NIP":
             $this->nipDosen->setNIP($value);
             break;
