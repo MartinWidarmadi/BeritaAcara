@@ -128,6 +128,10 @@ if ($_SESSION['is_logged']):
             $mataKuliahController = new MataKuliahController();
             $mataKuliahController->index();
             break;
+        case 'addmatkul' :
+            $mataKuliahController = new MataKuliahController();
+            $mataKuliahController->addIndex();
+            break;
         case 'jadwal' :
             $jadwalController = new JadwalController();
             $jadwalController->index();
