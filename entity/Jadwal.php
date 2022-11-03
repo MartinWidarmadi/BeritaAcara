@@ -215,7 +215,6 @@ class Jadwal {
           case "matakuliah":
             $this->idMatkul->setNamaMataKuliah($value);
             break;
-
         }
     }
 

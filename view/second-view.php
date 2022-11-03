@@ -106,7 +106,7 @@
 
         <div class="mb-3">
             <label for="foto" class="form-label">Masukkan Foto Bukti Dokumentasi</label>
-            <input type="file" name="foto" id="foto" class="form-control form-second">
+            <input type="file" name="photoFile" id="foto" class="form-control form-second" accept="image/jpeg, image/png">
         </div>
 
         <div class="mb-3">

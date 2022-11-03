@@ -35,6 +35,8 @@ class SecondController
             // ambil value dari semua kolom input form
             $nipDosen = $dosenDao->fetchDosen($_SESSION['user_id'])->getNIP();
             $idMatKul = filter_input(INPUT_GET, 'idJadwal');
+            $namaMatKul = $jadwalDao->fetchJadwal($nipDosen,$idMatKul)->getIdMatkul()->getNamaMataKuliah();
+            var_dump("{$namaMatKul}");
             $tipe = strval($jadwalDao->fetchJadwal($nipDosen, $idMatKul)->getType());
             $semester = $jadwalDao->fetchJadwal($nipDosen, $idMatKul)->getIdSemester()->getIdSemester();
             $kodeKelas = $jadwalDao->fetchJadwal($nipDosen, $idMatKul)->getKodeKelas();
@@ -46,6 +48,7 @@ class SecondController
             $materi = filter_input(INPUT_POST, 'materi');
             $pbm = filter_input(INPUT_POST, 'pbm');
             $rangkuman = "Jumlah Mahasiswanya adalah {$jmlMahasiswa} orang, materinya adalah {$materi}, dan keterangan pbmnya adalah {$pbm}";
+            $kelas = $jadwalDao->fetchJadwal($nipDosen, $idMatKul)->getKelas();
 
             var_dump("{$pertemuan}");
 
@@ -60,11 +63,12 @@ class SecondController
             $detailJadwal->setWaktuMulai($waktuMulai);
             $detailJadwal->setWaktuSelesai($waktuSelesai);
             $detailJadwal->setRangkuman($rangkuman);
+            $detailJadwal->setKelas($kelas);
 
-            if (isset($_FILES['photoFile']['name']) && ($_FILES['photoFile']['name'] != '')) {
+            if (isset($_FILES['photoFile']['name'])) {
                 $directory = 'uploads/';
                 $fileExtension = pathinfo($_FILES['photoFile']['name'], PATHINFO_EXTENSION);
-                $newFileName = "{$detailJadwal->getIdMatkul()}_pertemuan{$detailJadwal->getPertemuan()}_{$detailJadwal->getType()}";
+                $newFileName = $kodeKelas . '_pertemuan'. $pertemuan . '_' . $tipe . '_kelas' . $kelas . '.' . $fileExtension;
                 $targetFile = $directory . $newFileName;
 
                 if ($_FILES['photoFile']['size'] > 1024 * 2048) {

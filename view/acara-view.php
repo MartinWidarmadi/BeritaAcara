@@ -5,6 +5,7 @@ if ($_SESSION['roles'] == "dosen") :
     <thead>
     <tr>
         <th scope="col">Pertemuan</th>
+        <th scope="col">Tanggal Pertemuan</th>
         <th scope="col">Code Kelas</th>
         <th scope="col">Mata Kuliah</th>
         <th scope="col">Waktu Mulai</th>
@@ -20,6 +21,7 @@ if ($_SESSION['roles'] == "dosen") :
     foreach($jadwal as $item) {
         echo '<tr>';
         echo '<td>' . $item->getPertemuan() . '</td>';
+        echo '<td>' . $item->getTanggalPertemuan() . '</td>';
         echo '<td>' . $item->getKodeKelas() . '</td>';
         echo '<td>' . $item->getIdMatkul()->getNamaMataKuliah() . '</td>';
         echo '<td>' . $item->getWaktuMulai() . '</td>';
@@ -27,6 +29,11 @@ if ($_SESSION['roles'] == "dosen") :
         echo '<td>' . $item->getType() . '</td>';
         echo '<td>' . $item->getKelas() . '</td>';
         echo '<td>' . $item->getRangkuman() . '</td>';
+        if ($item->getFotoPresensi() == null || $item->getFotoPresensi() == '') {
+            echo '<td><img src="image/default_cover.svg" alt="Photo" style="max-width: 100px"></td>';
+        }   else {
+            echo '<td><img src="uploads/' . $item->getFotoPresensi() . '" alt="photo" style="max-width: 100px"></td>';
+        }
         echo '<td>'. '</td>';
         echo '</tr>';
     }
@@ -45,6 +52,7 @@ else:
         <thead>
         <tr>
             <th scope="col">Pertemuan</th>
+            <th scope="col">Tanggal Pertemuan</th>
             <th scope="col">NIP Dosen</th>
             <th scope="col">Code Kelas</th>
             <th scope="col">Mata Kuliah</th>
@@ -61,6 +69,7 @@ else:
         foreach($jadwals as $item) {
             echo '<tr>';
             echo '<td>' . $item->getPertemuan() . '</td>';
+            echo '<td>' . $item->getTanggalPertemuan() . '</td>';
             echo '<td>' . $item->getNipDosen()->getNamaDosen() . '</td>';
             echo '<td>' . $item->getKodeKelas() . '</td>';
             echo '<td>' . $item->getIdMatkul()->getNamaMataKuliah() . '</td>';
@@ -69,6 +78,11 @@ else:
             echo '<td>' . $item->getType() . '</td>';
             echo '<td>' . $item->getKelas() . '</td>';
             echo '<td>' . $item->getRangkuman() . '</td>';
+            if ($item->getFotoPresensi() == null || $item->getFotoPresensi() == '') {
+                echo '<td><img src="image/default_cover.svg" alt="Photo" style="max-width: 100px"></td>';
+            }   else {
+                echo '<td><img src="uploads/' . $item->getFotoPresensi() . '" alt="photo" style="max-width: 100px"></td>';
+            }
             echo '<td>'. '</td>';
             echo '</tr>';
         }
