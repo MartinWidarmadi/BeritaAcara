@@ -73,7 +73,7 @@ class Jadwal {
      */
     public function setHari($hari)
     {
-        $this->Hari = $hari;
+        $this->hari = $hari;
     }
 
     /**

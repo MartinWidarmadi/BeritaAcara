@@ -46,7 +46,7 @@ else :
             <select class="form-select" id="dosen" name="dosen" aria-label="Default select example">
                 <option selected value="0">Pilih</option>
                 <?php foreach($dosen as $item):?>
-                    <option><?=  $item->getNamaDosen(); ?></option>
+                    <option value="<?= $item->getNIP();?>"><?=  $item->getNamaDosen(); ?></option>
                 <?php endforeach; ?>
 
             </select>
@@ -54,20 +54,47 @@ else :
             <select class="form-select" id="matkul" name="matkul" aria-label="Default select example">
                 <option selected value="0">Pilih</option>
                 <?php foreach($matkul as $item):?>
-                    <option><?=  $item->getNamaMataKuliah(); ?></option>
+                    <option value="<?= $item->getIdMataKuliah();?>"><?=  $item->getNamaMataKuliah(); ?></option>
                 <?php endforeach; ?>
             </select>
-            <label for="Tipe" class="form-label">Type</label>
+            <label for="type" class="form-label">Type</label>
             <select class="form-select" id="type" name="type" aria-label="Default select example">
                 <option selected value="0">Pilih</option>
-                <option value="teori">Teori</option>
-                <option value="praktikum">Praktikum</option>
+                <option value="Teori">Teori</option>
+                <option value="Praktikum">Praktikum</option>
             </select>
-            <label for="Kelas" class="form-label">Kelas</label>
+            <label for="kelas" class="form-label">Kelas</label>
             <select class="form-select" id="kelas" name="kelas" aria-label="Default select example">
                 <option selected value="0">Pilih</option>
-                <option value="a">A</option>
-                <option value="b">B</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+            </select>
+
+            <label for="hari" class="form-label">Hari</label>
+            <select name="hari" id="hari" class="form-select">
+                <option value="0" selected>Pilih</option>
+                <option value="Senin" >Senin</option>
+                <option value="Selasa" >Selasa</option>
+                <option value="Rabu" >Rabu</option>
+                <option value="Kamis" >Kamis</option>
+                <option value="Jumat" >Jumat</option>
+            </select>
+
+            <label for="jamMulai" class="form-label">Jam Mulai dan Jam Selesai</label>
+            <div class="d-flex ">
+                    <input type="time" name="jamMulai" id="jamMulai" class="form-control w-100">
+
+                    <input type="time" name="jamSelesai" id="jamSelesai" class="form-control">
+            </div>
+
+            <label for="semester" class="form-label">Semester</label>
+            <select name="semester" id="semester" class="form-select">
+                <option value="0" selected>Pilih</option>
+                <?php 
+                foreach ($semester as $item):
+                ?>
+                <option value="<?= $item->getIdSemester();?>"><?= $item->getNamaSemester(); ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
         <br>

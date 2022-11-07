@@ -47,11 +47,11 @@
     .autocomplete-items div:hover {
         background-color: #e9e9e9;
     }
-
+/* 
  {
         background-color: DodgerBlue !important;
         color: #ffffff;
-    }
+    } */
 </style>
 <div class="container-fluid p-3">
     <form method="POST" enctype="multipart/form-data" autocomplete="off">
