@@ -152,6 +152,10 @@ if ($_SESSION['is_logged']):
             $jadwalController = new JadwalController();
             $jadwalController->index();
             break;
+        case 'addjadwal' :
+            $jadwalController = new JadwalController();
+            $jadwalController->addIndex();
+            break;
         case 'acara' :
             $acaraController = new AcaraController();
             $acaraController->index();
