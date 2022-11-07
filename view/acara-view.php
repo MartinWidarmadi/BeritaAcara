@@ -13,6 +13,7 @@ if ($_SESSION['roles'] == "dosen") :
         <th scope="col">Tipe</th>
         <th scope="col">Kelas</th>
         <th scope="col">Rangkuman</th>
+        <th scope="col">Jumlah Mahasiswa</th>
         <th scope="col">Foto Presensi</th>
     </tr>
     </thead>
@@ -29,6 +30,7 @@ if ($_SESSION['roles'] == "dosen") :
         echo '<td>' . $item->getType() . '</td>';
         echo '<td>' . $item->getKelas() . '</td>';
         echo '<td>' . $item->getRangkuman() . '</td>';
+        echo '<td>' . $item->getJumlahMahasiswa() . '</td>';
         if ($item->getFotoPresensi() == null || $item->getFotoPresensi() == '') {
             echo '<td><img src="image/default_cover.svg" alt="Photo" style="max-width: 100px"></td>';
         }   else {
@@ -61,6 +63,7 @@ else:
             <th scope="col">Tipe</th>
             <th scope="col">Kelas</th>
             <th scope="col">Rangkuman</th>
+            <th scope="col">Jumlah Mahasiswa</th>
             <th scope="col">Foto Presensi</th>
         </tr>
         </thead>
@@ -78,6 +81,7 @@ else:
             echo '<td>' . $item->getType() . '</td>';
             echo '<td>' . $item->getKelas() . '</td>';
             echo '<td>' . $item->getRangkuman() . '</td>';
+            echo '<td>' . $item->getJumlahMahasiswa() . '</td>';
             if ($item->getFotoPresensi() == null || $item->getFotoPresensi() == '') {
                 echo '<td><img src="image/default_cover.svg" alt="Photo" style="max-width: 100px"></td>';
             }   else {

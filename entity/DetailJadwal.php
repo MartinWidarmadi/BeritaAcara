@@ -13,6 +13,23 @@ class DetailJadwal {
   private $rangkuman;
   private $fotoPresensi;
   private $kelas;
+  private $jumlah_mahasiswa;
+
+    /**
+     * @return mixed
+     */
+    public function getJumlahMahasiswa()
+    {
+        return $this->jumlah_mahasiswa;
+    }
+
+    /**
+     * @param mixed $jumlah_mahasiswa
+     */
+    public function setJumlahMahasiswa($jumlah_mahasiswa)
+    {
+        $this->jumlah_mahasiswa = $jumlah_mahasiswa;
+    }
 
   /**
      * @return mixed

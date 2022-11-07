@@ -28,18 +28,14 @@ class SecondController
         $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
         // kalo btnSubmit ditekan.
         if (isset($btnSubmit)) {
-            $mahasiswa = $this->mahasiswaDao;
-
             $jadwalDao = $this->jadwalDao;
             $dosenDao = $this->dosenDao;
             // ambil value dari semua kolom input form
             $nipDosen = $dosenDao->fetchDosen($_SESSION['user_id'])->getNIP();
             $idMatKul = filter_input(INPUT_GET, 'idJadwal');
-            $namaMatKul = $jadwalDao->fetchJadwal($nipDosen,$idMatKul)->getIdMatkul()->getNamaMataKuliah();
-            var_dump("{$namaMatKul}");
+            $namaMatKul = $jadwalDao->fetchJadwal($nipDosen, $idMatKul)->getIdMatkul()->getNamaMataKuliah();
             $tipe = strval($jadwalDao->fetchJadwal($nipDosen, $idMatKul)->getType());
             $semester = $jadwalDao->fetchJadwal($nipDosen, $idMatKul)->getIdSemester()->getIdSemester();
-            $kodeKelas = $jadwalDao->fetchJadwal($nipDosen, $idMatKul)->getKodeKelas();
             $pertemuan = filter_input(INPUT_GET, 'idPertemuan');
             $tanggalPertemuan = filter_input(INPUT_POST, 'calendar');
             $waktuMulai = filter_input(INPUT_POST, 'timeStart');
@@ -47,45 +43,49 @@ class SecondController
             $jmlMahasiswa = filter_input(INPUT_POST, 'jumlahMahasiswa');
             $materi = filter_input(INPUT_POST, 'materi');
             $pbm = filter_input(INPUT_POST, 'pbm');
-            $rangkuman = "Jumlah Mahasiswanya adalah {$jmlMahasiswa} orang, materinya adalah {$materi}, dan keterangan pbmnya adalah {$pbm}";
+            $rangkuman = "Rangkuman Materi hari ini adalah{$materi}, dan keterangan pbmnya adalah {$pbm}";
             $kelas = $jadwalDao->fetchJadwal($nipDosen, $idMatKul)->getKelas();
 
-            var_dump("{$pertemuan}");
+            if ($jmlMahasiswa < 0) {
+                $message = "Jumlah Mahasiswa minimal 0 orang";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+            } else {
 
-            $detailJadwal = new DetailJadwal();
-            $detailJadwal->setNipDosen($nipDosen);
-            $detailJadwal->setidMatkul($idMatKul);
-            $detailJadwal->setKodeKelas($kodeKelas);
-            $detailJadwal->setIdSemester($semester);
-            $detailJadwal->setType($tipe);
-            $detailJadwal->setPertemuan($pertemuan);
-            $detailJadwal->setTanggalPertemuan($tanggalPertemuan);
-            $detailJadwal->setWaktuMulai($waktuMulai);
-            $detailJadwal->setWaktuSelesai($waktuSelesai);
-            $detailJadwal->setRangkuman($rangkuman);
-            $detailJadwal->setKelas($kelas);
+                $detailJadwal = new DetailJadwal();
+                $detailJadwal->setJumlahMahasiswa($jmlMahasiswa);
+                $detailJadwal->setNipDosen($nipDosen);
+                $detailJadwal->setidMatkul($idMatKul);
+                $detailJadwal->setIdSemester($semester);
+                $detailJadwal->setType($tipe);
+                $detailJadwal->setPertemuan($pertemuan);
+                $detailJadwal->setTanggalPertemuan($tanggalPertemuan);
+                $detailJadwal->setWaktuMulai($waktuMulai);
+                $detailJadwal->setWaktuSelesai($waktuSelesai);
+                $detailJadwal->setRangkuman($rangkuman);
+                $detailJadwal->setKelas($kelas);
 
-            if (isset($_FILES['photoFile']['name'])) {
-                $directory = 'uploads/';
-                $fileExtension = pathinfo($_FILES['photoFile']['name'], PATHINFO_EXTENSION);
-                $newFileName = $kodeKelas . '_pertemuan'. $pertemuan . '_' . $tipe . '_kelas' . $kelas . '.' . $fileExtension;
-                $targetFile = $directory . $newFileName;
+                if (isset($_FILES['photoFile']['name'])) {
+                    $directory = 'uploads/';
+                    $fileExtension = pathinfo($_FILES['photoFile']['name'], PATHINFO_EXTENSION);
+                    $newFileName = $idMatKul . '_pertemuan' . $pertemuan . '_' . $tipe . '_kelas' . $kelas . '.' . $fileExtension;
+                    $targetFile = $directory . $newFileName;
 
-                if ($_FILES['photoFile']['size'] > 1024 * 2048) {
-                    echo '<div class="bg-error">Upload error. file size exceed 2MB</div>';
-                    $result = $this->detailJadwalDao->insertNewDetailJadwal($detailJadwal);
+                    if ($_FILES['photoFile']['size'] > 1024 * 2048) {
+                        echo '<div class="bg-error">Upload error. file size exceed 2MB</div>';
+                        $result = $this->detailJadwalDao->insertNewDetailJadwal($detailJadwal);
+                    } else {
+                        move_uploaded_file($_FILES['photoFile']['tmp_name'], $targetFile);
+                        $detailJadwal->setFotoPresensi($newFileName);
+                        $result = $this->detailJadwalDao->insertNewDetailJadwal($detailJadwal);
+                    }
                 } else {
-                    move_uploaded_file($_FILES['photoFile']['tmp_name'], $targetFile);
-                    $detailJadwal->setFotoPresensi($newFileName);
                     $result = $this->detailJadwalDao->insertNewDetailJadwal($detailJadwal);
                 }
-            } else {
-                $result = $this->detailJadwalDao->insertNewDetailJadwal($detailJadwal);
-            }
-            if ($result) {
-                header('location: index.php?menu=home');
-            } else {
-                echo '<div class="bg-error">Error on input data</div>';
+                if ($result) {
+                    header('location: index.php?menu=home');
+                } else {
+                    echo '<div class="bg-error">Error on input data</div>';
+                }
             }
         }
 
