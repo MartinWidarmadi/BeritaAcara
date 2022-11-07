@@ -31,7 +31,6 @@ class MataKuliahController
             $sks = filter_input(INPUT_POST, 'sks');
             $namaprodi = filter_input(INPUT_POST, 'prodi');
             $prodi = $this->prodiDao->fetchProdi($namaprodi);
-            var_dump($namaprodi);
             $result = $this->mkDao->checkIdMatkul($idmatkul);
             if ($result) {
                 $message = "ID Mata Kuliah Telah Ada";
