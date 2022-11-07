@@ -13,17 +13,6 @@ class MataKuliahController
         $this->prodiDao = new ProdiDaoImpl();
     }
     public function index() {
-        $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
-
-        if (isset($btnSubmit)) {
-            header('location: index.php?menu=addmatkul');
-        }
-
-        $mk = $this->mkDao->fetchAllMK();
-        include_once 'view/mataKuliah-view.php';
-    }
-
-    public function addIndex() {
         $btnSubmit = filter_input(INPUT_POST, 'addMatkul');
         if (isset($btnSubmit)) {
             $matkul = filter_input(INPUT_POST, 'matkul');
@@ -54,6 +43,7 @@ class MataKuliahController
             }
         }
         $prodis = $this->prodiDao->fetchNamaProdi();
-        include_once 'view/addMataKuliah-view.php';
+        $mk = $this->mkDao->fetchAllMK();
+        include_once 'view/mataKuliah-view.php';
     }
 }

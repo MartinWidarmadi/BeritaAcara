@@ -13,7 +13,62 @@ class DosenController
     public function index() {
         $submitPressed = filter_input(INPUT_POST, 'btnSubmit');
         if (isset($submitPressed)) {
-            header('location:?menu=addDosen');
+            $email = filter_input(INPUT_POST, 'email');
+            $password = filter_input(INPUT_POST, 'password');
+            $confirmpassword = filter_input(INPUT_POST,'confirmpassword');
+            $result = $this->userDao->checkEmail($email);
+            if (!$result) {
+                if (empty($email) || empty($password) || empty($confirmpassword)) {
+                    $message = "Please Fill all the blank field";
+                    echo "<script type='text/javascript'>alert('$message');</script>";
+                }
+                if ($password != $confirmpassword){
+                    $message = "Password dan Confirm Password tidak sama";
+                    echo "<script type='text/javascript'>alert('$message');</script>";
+                }
+                $user = new User();
+                $user->setEmail($email);
+                $user->setPassword(md5($password));
+                $user->setRole("dosen");
+                $result = $this->userDao->insertNewUser($user);
+                if ($result) {
+                    echo '<div class="bg-success">Data succesfully added</div>';
+                    $nip = filter_input(INPUT_POST, 'NIP');
+                    $name = filter_input(INPUT_POST, 'Name');
+                    $result = $this->dosenDao->checkNIP($nip);
+                    if ($result) {
+                        $message = "NIP Sudah digunakan";
+                        echo "<script type='text/javascript'>alert('$message');</script>";
+                    } elseif (empty($nip) || empty($name)) {
+                        $message = "Please Fill all the blank field";
+                        echo "<script type='text/javascript'>alert('$message');</script>";
+                    } else{
+                        $result2 = $this->userDao->checkEmail($email);
+                        $dosen = new Dosen();
+                        $dosen->setNIP($nip);
+                        $dosen->setNamaDosen($name);
+                        $dosen->setUserIdUser($result2->getIdUser());
+                        $result3 = $this->dosenDao->insertNewDosen($dosen);
+                        if ($result3) {
+                            echo '<div class="bg-success">Data succesfully added</div>';
+                            header('location:?menu=dosen');
+                        } else {
+                            echo '<div class="bg-danger">Error on add data</div>';
+                        }
+                    }
+                } else {
+                    echo '<div class="bg-danger">Error on add data</div>';
+                }
+            } elseif (empty($email) || empty($password) || empty($confirmpassword)) {
+                $message = "Please Fill all the blank field";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+            } elseif($password != $confirmpassword){
+                $message = "Password dan Confirm Password tidak sama";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+            } else {
+                $message = "Email Sudah digunakan";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+            }
         }
         $dosen = $this->dosenDao->fetchAllDosen();
         include_once 'view/dosen-view.php';

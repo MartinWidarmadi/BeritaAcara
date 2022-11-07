@@ -7,6 +7,7 @@ class HomeController
     private $dosenDao;
     private $prodiDao;
     private $jadwalDao;
+    private $detailDao;
     public function __construct()
     {
         $this->mataKuliahDao = new MataKuliahDaoImpl();
@@ -14,17 +15,16 @@ class HomeController
         $this->userDao = new UserDaoImpl();
         $this->prodiDao = new ProdiDaoImpl();
         $this->jadwalDao = new JadwalDaoImpl();
+        $this->detailDao = new DetailJadwalDaoImpl();
     }
 
     public function index() {
         $btnSubmit = filter_input(INPUT_POST, 'btnNext');
         $pertemuan = filter_input(INPUT_POST, 'pertemuan');
         $jadwal = filter_input(INPUT_POST, 'jadwal');
-        
         if (isset($btnSubmit)) {
             header('location: index.php?menu=second&idJadwal=' . $jadwal . '&idPertemuan=' . $pertemuan);
         }
-
         $dosenId = $this->dosenDao->fetchDosen($_SESSION['user_id'])->getNIP();
         $jadwal = $this->jadwalDao->fetchAllJadwal($dosenId);
         // echo '<pre>' . var_dump($jadwal) . '</pre>'; 

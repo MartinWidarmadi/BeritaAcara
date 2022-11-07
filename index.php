@@ -9,11 +9,8 @@ include_once 'controller/OTPController.php';
 include_once 'controller/DosenController.php';
 include_once 'controller/JadwalController.php';
 include_once 'controller/AcaraController.php';
-include_once 'controller/AddDosenController.php';
-include_once 'controller/AddNamaDosenController.php';
 include_once 'controller/MataKuliahController.php';
 include_once 'controller/MahasiswaController.php';
-include_once 'controller/AddMahasiswaController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
@@ -137,25 +134,13 @@ if ($_SESSION['is_logged']):
             $mataKuliahController = new MataKuliahController();
             $mataKuliahController->index();
             break;
-        case 'addmatkul' :
-            $mataKuliahController = new MataKuliahController();
-            $mataKuliahController->addIndex();
-            break;
         case 'mahasiswa' :
             $mahasiswaController = new MahasiswaController();
             $mahasiswaController->index();
             break;
-        case 'addMahasiswa' :
-            $addMahasiswaController = new AddMahasiswaController();
-            $addMahasiswaController->index();
-            break;
         case 'jadwal' :
             $jadwalController = new JadwalController();
             $jadwalController->index();
-            break;
-        case 'addjadwal' :
-            $jadwalController = new JadwalController();
-            $jadwalController->addIndex();
             break;
         case 'acara' :
             $acaraController = new AcaraController();
