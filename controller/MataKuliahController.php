@@ -28,9 +28,10 @@ class MataKuliahController
         if (isset($btnSubmit)) {
             $matkul = filter_input(INPUT_POST, 'matkul');
             $idmatkul = filter_input(INPUT_POST, 'IDmatkul');
+            $sks = filter_input(INPUT_POST, 'sks');
             $namaprodi = filter_input(INPUT_POST, 'prodi');
             $prodi = $this->prodiDao->fetchProdi($namaprodi);
-            var_dump($idmatkul);
+            var_dump($namaprodi);
             $result = $this->mkDao->checkIdMatkul($idmatkul);
             if ($result) {
                 $message = "ID Mata Kuliah Telah Ada";
@@ -42,11 +43,12 @@ class MataKuliahController
                 $matakuliah = new MataKuliah();
                 $matakuliah->setIdMataKuliah($idmatkul);
                 $matakuliah->setNamaMataKuliah($matkul);
+                $matakuliah->setSKS($sks);
                 $matakuliah->setIdProdi($prodi->getIdProdi());
                 $result2 = $this->mkDao->insertNewMataKuliah($matakuliah);
                 if ($result2) {
                     echo '<div class="bg-success">Data succesfully added</div>';
-                    header('location:?menu=matakuliah');
+                    header('location:?menu=matkul');
                 } else {
                     echo '<div class="bg-danger">Error on add data</div>';
                 }

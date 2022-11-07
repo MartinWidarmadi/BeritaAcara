@@ -4,7 +4,7 @@ class MataKuliahDaoImpl {
 
     public function fetchAllMK() {
         $link = PDOUtil::connectDb();
-        $query = 'SELECT idMataKuliah, NamaMataKuliah , Prodi.NamaProdi AS "prodi" FROM MataKuliah JOIN Prodi ON Prodi.idProdi = MataKuliah.Prodi_idProdi ORDER BY idMataKuliah ASC ';
+        $query = 'SELECT idMataKuliah, NamaMataKuliah ,SKS, Prodi.NamaProdi AS "prodi" FROM MataKuliah JOIN Prodi ON Prodi.idProdi = MataKuliah.Prodi_idProdi ORDER BY idMataKuliah ASC ';
         $stmt = $link->prepare($query);
         $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'MataKuliah');
         $stmt->execute();
@@ -25,11 +25,12 @@ class MataKuliahDaoImpl {
     public function insertNewMataKuliah(MataKuliah $matkul) {
         $result = 0;
         $link = PDOUtil::connectDb();
-        $query = 'INSERT INTO MataKuliah(idMataKuliah,NamaMataKuliah,Prodi_idProdi) VALUES(?,?,?)';
+        $query = 'INSERT INTO MataKuliah(idMataKuliah,NamaMataKuliah,SKS,Prodi_idProdi) VALUES(?,?,?,?)';
         $stmt = $link->prepare($query);
         $stmt->bindValue(1,$matkul->getIdMataKuliah());
         $stmt->bindValue(2,$matkul->getNamaMataKuliah());
-        $stmt->bindValue(3,$matkul->getIdProdi());
+        $stmt->bindValue(3,$matkul->getSKS());
+        $stmt->bindValue(4,$matkul->getIdProdi());
         $link->beginTransaction();
         if ($stmt->execute()) {
             $link->commit();

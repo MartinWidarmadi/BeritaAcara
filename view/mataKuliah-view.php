@@ -3,6 +3,7 @@
     <tr>
         <th scope="col">ID MK</th>
         <th scope="col">Mata Kuliah</th>
+        <th scope="col">SKS</th>
         <th scope="col">Prodi</th>
     </tr>
     </thead>
@@ -12,6 +13,7 @@
         echo '<tr>';
         echo '<td>' . $item->getIdMataKuliah() . '</td>';
         echo '<td>' . $item->getNamaMataKuliah() . '</td>';
+        echo '<td>' . $item->getSKS() . '</td>';
         echo '<td>' . $item->getIdProdi()->getNamaProdi() . '</td>';
     }
     ?>
