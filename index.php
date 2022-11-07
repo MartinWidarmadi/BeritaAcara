@@ -12,12 +12,15 @@ include_once 'controller/AcaraController.php';
 include_once 'controller/AddDosenController.php';
 include_once 'controller/AddNamaDosenController.php';
 include_once 'controller/MataKuliahController.php';
+include_once 'controller/MahasiswaController.php';
+include_once 'controller/AddMahasiswaController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
 include_once 'dao/ProdiDaoImpl.php';
 include_once 'dao/JadwalDaoImpl.php';
 include_once 'dao/DetailJadwalDaoImpl.php';
+include_once 'dao/MahasiswaDaoImpl.php';
 include_once 'db-util/PDOUtil.php';
 include_once 'entity/Dosen.php';
 include_once 'entity/Kelas.php';
@@ -27,6 +30,7 @@ include_once 'entity/User.php';
 include_once 'entity/Jadwal.php';
 include_once 'entity/Semester.php';
 include_once 'entity/DetailJadwal.php';
+include_once 'entity/Mahasiswa.php';
 
 if (!isset($_SESSION['is_logged'])) {
     $_SESSION['is_logged'] = false;
@@ -87,6 +91,10 @@ if ($_SESSION['is_logged']):
                             <i class="fa-solid fa-bag-shopping nav-img"></i>
                             <a class="nav-link" href="?menu=matkul">Mata Kuliah</a>
                         </li>
+                        <li class="nav-item">
+                            <i class="fa-solid fa-bag-shopping nav-img"></i>
+                            <a class="nav-link" href="?menu=mahasiswa">Mahasiswa</a>
+                        </li>
                     <?php
                     endif; ?>
                     <li class="nav-item">
@@ -131,6 +139,14 @@ if ($_SESSION['is_logged']):
         case 'addmatkul' :
             $mataKuliahController = new MataKuliahController();
             $mataKuliahController->addIndex();
+            break;
+        case 'mahasiswa' :
+            $mahasiswaController = new MahasiswaController();
+            $mahasiswaController->index();
+            break;
+        case 'addMahasiswa' :
+            $addMahasiswaController = new AddMahasiswaController();
+            $addMahasiswaController->index();
             break;
         case 'jadwal' :
             $jadwalController = new JadwalController();

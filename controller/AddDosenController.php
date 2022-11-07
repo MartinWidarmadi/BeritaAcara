@@ -2,6 +2,7 @@
 
 class AddDosenController
 {
+    private $dosenDao;
     private $userDao;
     public function __construct()
     {
@@ -17,12 +18,15 @@ class AddDosenController
             $confirmpassword = filter_input(INPUT_POST,'confirmpassword');
             $result = $this->userDao->checkEmail($email);
             if (!$result) {
+                if (empty($email) || empty($password) || empty($confirmpassword)) {
+                    $message = "Please Fill all the blank field";
+                    echo "<script type='text/javascript'>alert('$message');</script>";
+                }
                 if ($password != $confirmpassword){
                     $message = "Password dan Confirm Password tidak sama";
                     echo "<script type='text/javascript'>alert('$message');</script>";
                 }
                 $user = new User();
-                $user->setIdUser(5);
                 $user->setEmail($email);
                 $user->setPassword(md5($password));
                 $user->setRole("dosen");
@@ -33,7 +37,7 @@ class AddDosenController
                 } else {
                     echo '<div class="bg-danger">Error on add data</div>';
                 }
-            } elseif (empty($password) || empty($email) || empty($confirmpassword)) {
+            } elseif (empty($email) || empty($password) || empty($confirmpassword)) {
                 $message = "Please Fill all the blank field";
                 echo "<script type='text/javascript'>alert('$message');</script>";
             } elseif($password != $confirmpassword){

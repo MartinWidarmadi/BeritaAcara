@@ -53,7 +53,7 @@ else:
         <tr>
             <th scope="col">Pertemuan</th>
             <th scope="col">Tanggal Pertemuan</th>
-            <th scope="col">NIP Dosen</th>
+            <th scope="col">Nama Dosen</th>
             <th scope="col">Code Kelas</th>
             <th scope="col">Mata Kuliah</th>
             <th scope="col">Waktu Mulai</th>

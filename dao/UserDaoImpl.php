@@ -44,12 +44,11 @@ class UserDaoImpl
     public function insertNewUser(User $user) {
         $result = 0;
         $link = PDOUtil::connectDb();
-        $query = 'INSERT INTO user(idUser,Email,Password,Role) VALUES(?,?,?,?)';
+        $query = 'INSERT INTO user(Email,Password,Role) VALUES(?,?,?)';
         $stmt = $link->prepare($query);
-        $stmt->bindValue(1,$user->getIdUser());
-        $stmt->bindValue(2,$user->getEmail());
-        $stmt->bindValue(3,$user->getPassword());
-        $stmt->bindValue(4,$user->getRole());
+        $stmt->bindValue(1,$user->getEmail());
+        $stmt->bindValue(2,$user->getPassword());
+        $stmt->bindValue(3,$user->getRole());
         $link->beginTransaction();
         if ($stmt->execute()) {
             $link->commit();
