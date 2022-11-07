@@ -1,24 +1,30 @@
 <div class="container">
-  <form method="POST">
-    <div class="mb-3">
-      <label for="namaMatkul" class="form-label">Masukkan Nama Matakuliah</label>
-      <input type="text" name="namaMatkul" id="namaMatkul" class="form-control">
-    </div>
-
-    <div class="mb-3">
-    <label for="prodi" class="form-label">Pilih prodi</label>
-    <select name="prodi" id="prodi" class="form-select">
-      <option selected>Pilih prodi</option>
-      <?php 
-      foreach ($prodi as $item):
-        ?>
-      <option value="<? $item->getIdProdi();?>"><?= $item->getNamaProdi(); ?></option>
-      <?php endforeach; ?>
-    </select>
-    </div>
-    
-    <div class="mb-3">
-    <input type="submit" name="btnSubmit" class="btn btn-primary">
-    </div>
-  </form>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 form">
+                <h2 class="text-center">Add Mata Kuliah</h2>
+                <p class="text-center">Mata Kuliah</p>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="IDmatkul" placeholder="ID Mata Kuliah">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="matkul" placeholder="Nama Mata Kuliah">
+                </div>
+                <div class="form-group">
+                    <select name="prodi" id="prodi" class="form-select">
+                        <option selected>Pilih prodi</option>
+                        <?php
+                        foreach ($prodis as $item):
+                            ?>
+                            <option><?= $item->getNamaProdi(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input class="form-control button" type="submit" name="addMatkul" value="Add">
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
+</body>

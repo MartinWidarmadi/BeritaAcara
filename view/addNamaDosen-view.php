@@ -11,7 +11,7 @@
                     <input class="form-control" type="text" name="Name" placeholder="Name">
                 </div>
                 <div class="form-group">
-                    <input class="form-control button" type="submit" name="addNameDosen" value="Continue">
+                    <input class="form-control button" type="submit" name="addNameDosen" value="Add">
                 </div>
             </div>
         </div>

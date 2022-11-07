@@ -4,7 +4,7 @@ if ($_SESSION['roles'] == "dosen") :
 <table class="table" id="example">
     <thead>
     <tr>
-        <th scope="col">Code Kelas</th>
+        <th scope="col">ID MK</th>
         <th scope="col">Mata Kuliah</th>
         <th scope="col">Hari</th>
         <th scope="col">Jam Mulai</th>
@@ -18,7 +18,7 @@ if ($_SESSION['roles'] == "dosen") :
     <?php
     foreach($jadwal as $item) {
         echo '<tr>';
-        echo '<td>' . $item->getKodeKelas() . '</td>';
+        echo '<td>' . $item->getIdMatkul()->getIdMataKuliah() . '</td>';
         echo '<td>' . $item->getIdMatkul()->getNamaMataKuliah() . '</td>';
         echo '<td>' . $item->getHari() . '</td>';
         echo '<td>' . $item->getJamAwal() . '</td>';
@@ -80,7 +80,7 @@ else :
         <thead>
         <tr>
             <th scope="col">Nama Dosen</th>
-            <th scope="col">Code Kelas</th>
+            <th scope="col">Id MK</th>
             <th scope="col">Mata Kuliah</th>
             <th scope="col">Hari</th>
             <th scope="col">Jam Mulai</th>
@@ -95,7 +95,7 @@ else :
         foreach($jadwals as $item) {
             echo '<tr>';
             echo '<td>' . $item->getNipDosen()->getNamaDosen() . '</td>';
-            echo '<td>' . $item->getKodeKelas() . '</td>';
+            echo '<td>' . $item->getIdMatkul()->getIdMataKuliah() . '</td>';
             echo '<td>' . $item->getIdMatkul()->getNamaMataKuliah() . '</td>';
             echo '<td>' . $item->getHari() . '</td>';
             echo '<td>' . $item->getJamAwal() . '</td>';

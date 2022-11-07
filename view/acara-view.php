@@ -6,7 +6,7 @@ if ($_SESSION['roles'] == "dosen") :
     <tr>
         <th scope="col">Pertemuan</th>
         <th scope="col">Tanggal Pertemuan</th>
-        <th scope="col">Code Kelas</th>
+        <th scope="col">Id MK</th>
         <th scope="col">Mata Kuliah</th>
         <th scope="col">Waktu Mulai</th>
         <th scope="col">Waktu Selesai</th>
@@ -22,7 +22,7 @@ if ($_SESSION['roles'] == "dosen") :
         echo '<tr>';
         echo '<td>' . $item->getPertemuan() . '</td>';
         echo '<td>' . $item->getTanggalPertemuan() . '</td>';
-        echo '<td>' . $item->getKodeKelas() . '</td>';
+        echo '<td>' . $item->getIdMatkul()->getIdMataKuliah() . '</td>';
         echo '<td>' . $item->getIdMatkul()->getNamaMataKuliah() . '</td>';
         echo '<td>' . $item->getWaktuMulai() . '</td>';
         echo '<td>' . $item->getWaktuSelesai() . '</td>';
@@ -54,7 +54,7 @@ else:
             <th scope="col">Pertemuan</th>
             <th scope="col">Tanggal Pertemuan</th>
             <th scope="col">Nama Dosen</th>
-            <th scope="col">Code Kelas</th>
+            <th scope="col">Id MK</th>
             <th scope="col">Mata Kuliah</th>
             <th scope="col">Waktu Mulai</th>
             <th scope="col">Waktu Selesai</th>
@@ -71,7 +71,7 @@ else:
             echo '<td>' . $item->getPertemuan() . '</td>';
             echo '<td>' . $item->getTanggalPertemuan() . '</td>';
             echo '<td>' . $item->getNipDosen()->getNamaDosen() . '</td>';
-            echo '<td>' . $item->getKodeKelas() . '</td>';
+            echo '<td>' . $item->getIdMatkul()->getIdMataKuliah() . '</td>';
             echo '<td>' . $item->getIdMatkul()->getNamaMataKuliah() . '</td>';
             echo '<td>' . $item->getWaktuMulai() . '</td>';
             echo '<td>' . $item->getWaktuSelesai() . '</td>';

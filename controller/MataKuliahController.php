@@ -24,13 +24,35 @@ class MataKuliahController
     }
 
     public function addIndex() {
-        $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
-
+        $btnSubmit = filter_input(INPUT_POST, 'addMatkul');
         if (isset($btnSubmit)) {
-            header('location: index.php?menu=matkul');
+            $matkul = filter_input(INPUT_POST, 'matkul');
+            $idmatkul = filter_input(INPUT_POST, 'IDmatkul');
+            $namaprodi = filter_input(INPUT_POST, 'prodi');
+            $prodi = $this->prodiDao->fetchProdi($namaprodi);
+            var_dump($idmatkul);
+            $result = $this->mkDao->checkIdMatkul($idmatkul);
+            if ($result) {
+                $message = "ID Mata Kuliah Telah Ada";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+            } else if (empty($idmatkul) || empty($matkul) || empty($namaprodi)) {
+                $message = "Please Fill all the blank field";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+            } else {
+                $matakuliah = new MataKuliah();
+                $matakuliah->setIdMataKuliah($idmatkul);
+                $matakuliah->setNamaMataKuliah($matkul);
+                $matakuliah->setIdProdi($prodi->getIdProdi());
+                $result2 = $this->mkDao->insertNewMataKuliah($matakuliah);
+                if ($result2) {
+                    echo '<div class="bg-success">Data succesfully added</div>';
+                    header('location:?menu=matakuliah');
+                } else {
+                    echo '<div class="bg-danger">Error on add data</div>';
+                }
+            }
         }
-
-        $prodi = $this->prodiDao->fetchAllProdi();
+        $prodis = $this->prodiDao->fetchNamaProdi();
         include_once 'view/addMataKuliah-view.php';
     }
 }

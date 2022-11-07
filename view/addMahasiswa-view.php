@@ -17,7 +17,7 @@
                     <input class="form-control" type="text" name="notelp" placeholder="No HP">
                 </div>
                 <div class="form-group">
-                    <input class="form-control button" type="submit" name="addMahasiswa" value="Continue">
+                    <input class="form-control button" type="submit" name="addMahasiswa" value="Add">
                 </div>
             </div>
         </div>
