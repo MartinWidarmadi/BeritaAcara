@@ -59,4 +59,11 @@ class JadwalController
         $semester = $this->semesterDao->fetchAllSemester();
         include_once 'view/jadwal-view.php';
     }
+
+    public function addIndex() {
+
+        $dosen = $this->dosenDao->fetchDosenName();
+        $matkul = $this->mkDao->fetchAllMKName();
+        include_once 'view/addJadwal-view.php';
+    }
 }

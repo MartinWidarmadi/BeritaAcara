@@ -8,6 +8,23 @@ class MataKuliah
     private $Jam;
     private $idKelas;
     private $idProdi;
+    private $SKS;
+
+    /**
+     * @return mixed
+     */
+    public function getSKS()
+    {
+        return $this->SKS;
+    }
+
+    /**
+     * @param mixed $SKS
+     */
+    public function setSKS($SKS)
+    {
+        $this->SKS = $SKS;
+    }
 
     /**
      * @return mixed

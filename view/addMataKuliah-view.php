@@ -11,6 +11,9 @@
                     <input class="form-control" type="text" name="matkul" placeholder="Nama Mata Kuliah">
                 </div>
                 <div class="form-group">
+                    <input class="form-control" type="text" name="sks" placeholder="Jumlah SKS">
+                </div>
+                <div class="form-group">
                     <select name="prodi" id="prodi" class="form-select">
                         <option selected>Pilih prodi</option>
                         <?php
