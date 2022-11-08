@@ -30,26 +30,25 @@ class DosenController
                 $user->setEmail($email);
                 $user->setPassword(md5($password));
                 $user->setRole("dosen");
-                $result = $this->userDao->insertNewUser($user);
-                if ($result) {
-                    echo '<div class="bg-success">Data succesfully added</div>';
+                $result2 = $this->userDao->insertNewUser($user);
+                if ($result2) {
                     $nip = filter_input(INPUT_POST, 'NIP');
                     $name = filter_input(INPUT_POST, 'Name');
-                    $result = $this->dosenDao->checkNIP($nip);
-                    if ($result) {
+                    $result3 = $this->dosenDao->checkNIP($nip);
+                    if ($result3) {
                         $message = "NIP Sudah digunakan";
                         echo "<script type='text/javascript'>alert('$message');</script>";
                     } elseif (empty($nip) || empty($name)) {
                         $message = "Please Fill all the blank field";
                         echo "<script type='text/javascript'>alert('$message');</script>";
                     } else{
-                        $result2 = $this->userDao->checkEmail($email);
+                        $result4 = $this->userDao->checkEmail($email);
                         $dosen = new Dosen();
                         $dosen->setNIP($nip);
                         $dosen->setNamaDosen($name);
-                        $dosen->setUserIdUser($result2->getIdUser());
+                        $dosen->setUserIdUser($result4->getIdUser());
                         $result3 = $this->dosenDao->insertNewDosen($dosen);
-                        if ($result3) {
+                        if ($result4) {
                             echo '<div class="bg-success">Data succesfully added</div>';
                             header('location:?menu=dosen');
                         } else {
@@ -59,7 +58,7 @@ class DosenController
                 } else {
                     echo '<div class="bg-danger">Error on add data</div>';
                 }
-            } elseif (empty($email) || empty($password) || empty($confirmpassword)) {
+            } if (empty($email) || empty($password) || empty($confirmpassword)) {
                 $message = "Please Fill all the blank field";
                 echo "<script type='text/javascript'>alert('$message');</script>";
             } elseif($password != $confirmpassword){
