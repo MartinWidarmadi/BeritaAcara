@@ -13,6 +13,23 @@ class DetailJadwal {
   private $rangkuman;
   private $fotoPresensi;
   private $kelas;
+  private $hari;
+
+    /**
+     * @return mixed
+     */
+    public function getHari()
+    {
+        return $this->hari;
+    }
+
+    /**
+     * @param mixed $hari
+     */
+    public function setHari($hari)
+    {
+        $this->hari = $hari;
+    }
   private $jumlah_mahasiswa;
 
     /**
@@ -248,11 +265,17 @@ class DetailJadwal {
           case "jadwal_kelas":
             $this->kelas = $value;
             break;
+          case "jadwal_hari":
+            $this->hari = $value;
+            break;
           case "tanggal_pertemuan":
             $this->tanggalPertemuan = $value;
             break;
           case "jadwal_Semester_id_Semester":
             $this->idSemester->setIdSemester($value);
+            break;
+          case "semester":
+            $this->idSemester->setNamaSemester($value);
             break;
           case "Dosen_NIP":
             $this->nipDosen->setNIP($value);
