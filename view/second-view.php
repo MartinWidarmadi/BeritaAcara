@@ -70,7 +70,7 @@
 
         <div class="mb-3">
             <label for="jumlahMahasiswa" class="form-label">Masukkan Jumlah Mahasiswa yang Hadir</label>
-            <input type="number" name="jumlahMahasiswa" id="jumlahMahasiswa" class="form-control form-second">
+            <input type="number" min="1" name="jumlahMahasiswa" id="jumlahMahasiswa" class="form-control form-second">
         </div>
 
         <div class="mb-3">

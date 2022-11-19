@@ -43,7 +43,7 @@ class SecondController
             $jmlMahasiswa = filter_input(INPUT_POST, 'jumlahMahasiswa');
             $materi = filter_input(INPUT_POST, 'materi');
             $pbm = filter_input(INPUT_POST, 'pbm');
-            $rangkuman = "Rangkuman Materi hari ini adalah{$materi}, dan keterangan pbmnya adalah {$pbm}";
+            $rangkuman = "Rangkuman Materi hari ini adalah {$materi}, dan keterangan pbmnya adalah {$pbm}";
             $kelas = $jadwalDao->fetchJadwal($nipDosen, $idMatKul)->getKelas();
 
             if ($jmlMahasiswa < 0) {
@@ -58,7 +58,7 @@ class SecondController
                 $detailJadwal->setIdSemester($semester);
                 $detailJadwal->setType($tipe);
                 $detailJadwal->setPertemuan($pertemuan);
-                $detailJadwal->setTanggalPertemuan($tanggalPertemuan);
+                $detailJadwal->setTanggalPertemuan(date($tanggalPertemuan));
                 $detailJadwal->setWaktuMulai($waktuMulai);
                 $detailJadwal->setWaktuSelesai($waktuSelesai);
                 $detailJadwal->setRangkuman($rangkuman);
@@ -82,7 +82,7 @@ class SecondController
                     $result = $this->detailJadwalDao->insertNewDetailJadwal($detailJadwal);
                 }
                 if ($result) {
-                    header('location: index.php?menu=home');
+                    header('location: index.php?menu=acara');
                 } else {
                     echo '<div class="bg-error">Error on input data</div>';
                 }

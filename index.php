@@ -79,16 +79,16 @@ if ($_SESSION['is_logged']):
                         <a class="nav-link" href="?menu=home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <i class="fa-solid fa-user nav-img"></i>
-                        <a class="nav-link" href="?menu=dosen">Dosen</a>
-                    </li>
-                    <li class="nav-item">
                         <i class="fa-solid fa-bag-shopping nav-img"></i>
                         <a class="nav-link" href="?menu=mahasiswa">Mahasiswa</a>
                     </li>
                     <?php
                     if ($_SESSION['roles'] == "admin") :
                     ?>
+                        <li class="nav-item">
+                            <i class="fa-solid fa-user nav-img"></i>
+                            <a class="nav-link" href="?menu=dosen">Dosen</a>
+                        </li>
                         <li class="nav-item">
                             <i class="fa-solid fa-bag-shopping nav-img"></i>
                             <a class="nav-link" href="?menu=matkul">Mata Kuliah</a>
