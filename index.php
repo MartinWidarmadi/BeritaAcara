@@ -150,14 +150,18 @@ if ($_SESSION['is_logged']):
             $userController = new UserController();
             $userController->logout();
             break;
-        case 'addDosen':
-            $addDosenController = new  addDosenController();
-            $addDosenController->index();
+        case 'editmatkul':
+            $editMatkul = new MataKuliahController();
+            $editMatkul->updateIndex();
             break;
-        case 'addNamaDosen':
-            $addNamaDosenController = new  addNamaDosenController();
-            $addNamaDosenController->index();
-            break;
+        // case 'addDosen':
+        //     $addDosenController = new addDosenController();
+        //     $addDosenController->index();
+        //     break;
+        // case 'addNamaDosen':
+        //     $addNamaDosenController = new  addNamaDosenController();
+        //     $addNamaDosenController->index();
+        //     break;
         default:
             $homeController = new HomeController();
             $homeController->index();
@@ -177,13 +181,15 @@ else:
         $OTPController = new  OTPController();
         $OTPController->index();
         $OTPController->updateindex();
-    } else if ($menu == "addDosen") {
-        $addDosenController = new  addDosenController();
-        $addDosenController->index();
-    } else if ($menu == "addNamaDosen") {
-        $addDosenController = new  addDosenController();
-        $addDosenController->index();
-    } else{
+    } 
+    // else if ($menu == "addDosen") {
+    //     $addDosenController = new  addDosenController();
+    //     $addDosenController->index();
+    // } else if ($menu == "addNamaDosen") {
+    //     $addDosenController = new  addDosenController();
+    //     $addDosenController->index();
+    // } 
+    else {
         $userController = new UserController();
         $userController->index();
     }

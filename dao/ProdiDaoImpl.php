@@ -13,7 +13,7 @@ class ProdiDaoImpl {
 
     public function fetchProdi($prodi) {
         $link = PDOUtil::connectDb();
-        $query = 'SELECT * FROM Prodi WHERE NamaProdi = ?';
+        $query = 'SELECT * FROM Prodi WHERE idProdi = ?';
         $stmt = $link->prepare($query);
         $stmt->bindParam(1,$prodi);
         $stmt->setFetchMode(PDO::FETCH_OBJ);

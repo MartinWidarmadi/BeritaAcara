@@ -5,18 +5,24 @@
         <th scope="col">Mata Kuliah</th>
         <th scope="col">SKS</th>
         <th scope="col">Prodi</th>
+        <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
     <?php
-    foreach ($mk as $item) {
-        echo '<tr>';
-        echo '<td>' . $item->getIdMataKuliah() . '</td>';
-        echo '<td>' . $item->getNamaMataKuliah() . '</td>';
-        echo '<td>' . $item->getSKS() . '</td>';
-        echo '<td>' . $item->getIdProdi()->getNamaProdi() . '</td>';
-    }
+    foreach ($mk as $item):
     ?>
+        <tr>
+            <td><?= $item->getIdMataKuliah(); ?></td>
+            <td><?= $item->getNamaMataKuliah(); ?></td>
+            <td><?= $item->getSKS(); ?></td>
+            <td><?= $item->getIdProdi()->getNamaProdi(); ?></td>
+            <td>
+                <button class="btn btn-success" onclick="editMatkul('<?=$item->getIdMataKuliah();?>')">Edit</button>
+                <button class="btn btn-danger" onclick="delMatkul('<?=$item->getIdMataKuliah();?>')">Delete</button>
+            </td>
+        </tr>
+    <?php endforeach; ?>
     </tbody>
     <thead>
     <tr></tr>
@@ -55,7 +61,7 @@
                                 <?php
                                 foreach ($prodis as $item):
                                     ?>
-                                    <option><?= $item->getNamaProdi(); ?></option>
+                                    <option value="<?= $item->getIdProdi();?>"><?= $item->getNamaProdi(); ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -70,4 +76,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    const editMatkul = (id) => {
+        window.location = `index.php?menu=editmatkul&mid=${id}`;
+    }
+    
+    const delMatkul = (id) => {
+        let confirmed = confirm('Are you sure delete this data?');
+        if (confirmed) {
+            window.location = `index.php?menu=matkul&delcom=1&mid=${id}`;
+        }
+    }
+</script>
 
