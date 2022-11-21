@@ -3,18 +3,32 @@
 class MahasiswaController
 {
     private $mahasiswaDao;
+
     public function __construct()
     {
         $this->mahasiswaDao = new MahasiswaDaoImpl();
     }
 
-    public function index() {
+    public function index()
+    {
+        $btnDel = filter_input(INPUT_GET, 'delcom');
+        if (isset($btnDel) && $btnDel == 1) {
+            $delId = filter_input(INPUT_GET, 'mid');
+            $delResult = $this->mahasiswaDao->deleteMahasiswa($delId);
+
+            if ($delResult) {
+                echo '<script>alert("Data delete success")</script>';
+                header('location: index.php?menu=mahasiswa');
+            } else {
+                echo '<script>alert("Error when delete data")</script>';
+            }
+        }
         $submitPressed = filter_input(INPUT_POST, 'addMahasiswa');
         if (isset($submitPressed)) {
             $nrp = filter_input(INPUT_POST, 'nrp');
             $nama = filter_input(INPUT_POST, 'nama');
-            $alamat = filter_input(INPUT_POST,'alamat');
-            $notelp = filter_input(INPUT_POST,'notelp');
+            $alamat = filter_input(INPUT_POST, 'alamat');
+            $notelp = filter_input(INPUT_POST, 'notelp');
             $result = $this->mahasiswaDao->checkNRP($nrp);
             if ($result) {
                 $message = "NRP Sudah Digunakan";
@@ -39,5 +53,46 @@ class MahasiswaController
         }
         $mahasiswa = $this->mahasiswaDao->fetchAllMahasiswa();
         include_once 'view/mahasiswa-view.php';
+    }
+
+
+    public function updateIndex()
+    {
+        $mId = filter_input(INPUT_GET, 'mid');
+        if (isset($mId) && $mId != '') {
+            $mahasiswa = $this->mahasiswaDao->fetchMahasiswa($mId);
+        }
+
+        $btnBack = filter_input(INPUT_POST, 'btnBack');
+
+        if (isset($btnBack)) {
+            header('location: index.php?menu=mahasiswa');
+        }
+
+        $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
+
+        if (isset($btnSubmit)) {
+            $nrp = filter_input(INPUT_POST, 'nrp');
+            $nama = filter_input(INPUT_POST, 'nama');
+            $alamat = filter_input(INPUT_POST, 'alamat');
+            $no_tlp = filter_input(INPUT_POST, 'no_tlp');
+
+            $mhs = new Mahasiswa();
+            $mhs->setNRP($nrp);
+            $mhs->setNama($nama);
+            $mhs->setAlamat($alamat);
+            $mhs->setNoTlp($no_tlp);
+
+            $result = $this->mahasiswaDao->updateMahasiswa($mhs, $mId);
+
+            if ($result) {
+                echo '<script>alert("Data update success")</script>';
+                header('location: index.php?menu=mahasiswa');
+            } else {
+                echo '<script>alert("Data update failed")</script>';
+            }
+        }
+
+        include_once 'view/mahasiswa-edit-view.php';
     }
 }

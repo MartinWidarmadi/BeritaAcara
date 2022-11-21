@@ -22,7 +22,6 @@ if ($_SESSION['roles'] == "dosen") :
         ?>
         </tbody>
         <thead>
-        <tr></tr>
         </thead>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
@@ -37,21 +36,25 @@ else :
             <th scope="col">Nama</th>
             <th scope="col">Alamat</th>
             <th scope="col">No HP</th>
+            <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
-        <?php
-        foreach ($mahasiswa as $item) {
-            echo '<tr>';
-            echo '<td>' . $item->getNRP() . '</td>';
-            echo '<td>' . $item->getNama() . '</td>';
-            echo '<td>' . $item->getAlamat() . '</td>';
-            echo '<td>' . $item->getNoTlp() . '</td>';
+    <?php
+    foreach ($mahasiswa as $item) {
+        echo '<tr>';
+        echo '<td>' . $item->getNRP() . '</td>';
+        echo '<td>' . $item->getNama() . '</td>';
+        echo '<td>' . $item->getAlamat() . '</td>';
+        echo '<td>' . $item->getNoTlp() . '</td>';
+        echo '<td> <button class="btn btn-success" onclick="editMahasiswa('.$item->getNRP().')">Edit </button >
+<button class="btn btn-danger" onclick = "delMahasiswa(' . $item->getNRP() . ')" > Delete</button >
+        
+        </td > ';
         }
         ?>
         </tbody>
         <thead>
-        <tr></tr>
         </thead>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
@@ -96,5 +99,19 @@ else :
             </div>
         </div>
     </div>
+
+<script>
+
+    const editMahasiswa = (id) => {
+        window.location = `index.php?menu=editmahasiswa&mid=${id}`;
+    }
+
+    const delMahasiswa= (id) => {
+        let confirmed = confirm('Are you sure delete this data ? ');
+        if (confirmed) {
+            window.location = `index.php?menu=mahasiswa&delcom=1&mid=${id}`;
+        }
+    }
+</script>
 <?php
 endif; ?>

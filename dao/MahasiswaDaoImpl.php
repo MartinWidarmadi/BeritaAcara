@@ -12,6 +12,17 @@ class MahasiswaDaoImpl
         return $stmt->fetchAll();
     }
 
+    public function fetchMahasiswa($id) {
+        $link = PDOUtil::connectDb();
+        $query = 'SELECT * FROM Mahasiswa WHERE NRP = ?';
+        $stmt = $link->prepare($query);
+        $stmt->bindParam(1, $id);
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        $stmt->execute();
+        $link = null;
+        return $stmt->fetchObject('Mahasiswa');
+    }
+
     public function checkNRP($NRP) {
         $link = PDOUtil::connectDb();
         $query = 'SELECT * FROM Mahasiswa WHERE NRP = ?';
@@ -32,6 +43,46 @@ class MahasiswaDaoImpl
         $stmt->bindValue(3,$mahasiswa->getAlamat());
         $stmt->bindValue(4,$mahasiswa->getNoTlp());
         $link->beginTransaction();
+        if ($stmt->execute()) {
+            $link->commit();
+            $result = 1;
+        } else {
+            $link->rollBack();
+        }
+        $link = null;
+        return $result;
+    }
+
+    public function deleteMahasiswa($id) {
+        $result = 0;
+        $link = PDOUtil::connectDb();
+        $query = 'DELETE FROM Mahasiswa WHERE NRP = ?';
+        $stmt = $link->prepare($query);
+        $stmt->bindParam(1, $id);
+        $link->beginTransaction();
+
+        if ($stmt->execute()) {
+            $link->commit();
+            $result = 1;
+        } else {
+            $link->rollBack();
+        }
+        $link = null;
+        return $result;
+    }
+
+    public function updateMahasiswa(Mahasiswa $mhs, $nrp) {
+        $result = 0;
+        $link = PDOUtil::connectDb();
+        $query = 'UPDATE Mahasiswa SET NRP = ?, Nama = ?, alamat = ?, no_tlp = ? WHERE NRP = ?';
+        $stmt = $link->prepare($query);
+        $stmt->bindValue(1, $mhs->getNRP());
+        $stmt->bindValue(2, $mhs->getNama());
+        $stmt->bindValue(3, $mhs->getAlamat());
+        $stmt->bindValue(4, $mhs->getNoTlp());
+        $stmt->bindValue(5, $nrp);
+        $link->beginTransaction();
+
         if ($stmt->execute()) {
             $link->commit();
             $result = 1;

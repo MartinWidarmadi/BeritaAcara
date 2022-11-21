@@ -154,6 +154,10 @@ if ($_SESSION['is_logged']):
             $editMatkul = new MataKuliahController();
             $editMatkul->updateIndex();
             break;
+        case 'editmahasiswa':
+            $editMahasiswa = new MahasiswaController();
+            $editMahasiswa->updateIndex();
+            break;
         // case 'addDosen':
         //     $addDosenController = new addDosenController();
         //     $addDosenController->index();
