@@ -11,6 +11,18 @@ class DosenController
     }
 
     public function index() {
+        $btnDel = filter_input(INPUT_GET, 'delcom');
+        if (isset($btnDel) && $btnDel == 1) {
+            $delId = filter_input(INPUT_GET, 'mid');
+            $delResult = $this->dosenDao->deleteDosen($delId);
+
+            if ($delResult) {
+                echo '<script>alert("Data delete success")</script>';
+                header('location: index.php?menu=dosen');
+            } else {
+                echo '<script>alert("Error when delete data")</script>';
+            }
+        }
         $submitPressed = filter_input(INPUT_POST, 'btnSubmit');
         if (isset($submitPressed)) {
             $email = filter_input(INPUT_POST, 'email');
