@@ -29,6 +29,7 @@ include_once 'entity/Jadwal.php';
 include_once 'entity/Semester.php';
 include_once 'entity/DetailJadwal.php';
 include_once 'entity/Mahasiswa.php';
+include_once 'entity/AssistenDosen.php';
 
 if (!isset($_SESSION['is_logged'])) {
     $_SESSION['is_logged'] = false;
@@ -46,7 +47,7 @@ if (!isset($_SESSION['is_logged'])) {
     <title>Berita Acara PBM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
@@ -202,12 +203,14 @@ endif; ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous">
-    
+        crossorigin="anonymous"> </script>
+
+<script>
     $(document).ready(function () {
             $('#example').DataTable();
         });
-    </script>
+</script>
+
 
 </body>
 </html>

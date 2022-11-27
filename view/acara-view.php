@@ -57,13 +57,15 @@ if ($_SESSION['roles'] == "dosen") :
                             <th scope="col">Waktu Mulai</th>
                             <th scope="col">Waktu Selesai</th>
                             <th scope="col">Rangkuman</th>
+                            <th scope="col">Nama Assisten</th>
+                            <th scope="col">Jumlah Jam Assisten</th>
                             <th scope="col">Jumlah Mahasiswa</th>
                             <th scope="col">Foto Presensi</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
-                        foreach($array_jadwal[$jadwalz->getIdJadwal()] as $index => $item) {
+                        foreach($array_jadwal[$jadwalz->getIdJadwal()] as $index => $item ) {
                             echo '<tr>';
                             echo '<td>' . $item->getPertemuan() . '</td>';
                             $date = date_create($item->getTanggalPertemuan());
@@ -73,6 +75,10 @@ if ($_SESSION['roles'] == "dosen") :
                             echo '<td>' . $item->getWaktuSelesai() . '</td>';
 
                             echo '<td>' . $item->getRangkuman() . '</td>';
+                            foreach ($array_assisten[$jadwalz->getIdJadwal()] as $index => $item2) {
+                                echo '<td>' . $item2->getNrpMahasiswa()->getNama() . '</td>';
+                                echo '<td>' . $item2->getJumlahJam() . " Jam" . '</td>';
+                            }
                             echo '<td>' . $item->getJumlahMahasiswa() . '</td>';
                             if ($item->getFotoPresensi() == null || $item->getFotoPresensi() == '') {
                                 echo '<td><img src="image/default_cover.svg" alt="Photo" style="max-width: 100px"></td>';
@@ -162,6 +168,8 @@ else:
                                 <th scope="col">Waktu Mulai</th>
                                 <th scope="col">Waktu Selesai</th>
                                 <th scope="col">Rangkuman</th>
+                                <th scope="col">Nama Assisten</th>
+                                <th scope="col">Jumlah Jam Assisten</th>
                                 <th scope="col">Jumlah Mahasiswa</th>
                                 <th scope="col">Foto Presensi</th>
                             </tr>
@@ -176,8 +184,11 @@ else:
 
                                 echo '<td>' . $item->getWaktuMulai() . '</td>';
                                 echo '<td>' . $item->getWaktuSelesai() . '</td>';
-
                                 echo '<td>' . $item->getRangkuman() . '</td>';
+                                foreach ($array_assisten[$jadwal->getIdJadwal()] as $index => $item2) {
+                                    echo '<td>' . $item2->getNrpMahasiswa()->getNama() . '</td>';
+                                    echo '<td>' . $item2->getJumlahJam() . " Jam" . '</td>';
+                                }
                                 echo '<td>' . $item->getJumlahMahasiswa() . '</td>';
                                 if ($item->getFotoPresensi() == null || $item->getFotoPresensi() == '') {
                                     echo '<td><img src="image/default_cover.svg" alt="Photo" style="max-width: 100px"></td>';
