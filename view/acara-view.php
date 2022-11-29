@@ -1,6 +1,7 @@
 <?php
 if ($_SESSION['roles'] == "dosen") :
 ?>
+<div class="mt-3 mx-5">
 <table class="table" id="example">
     <thead>
     <tr>
@@ -25,8 +26,6 @@ if ($_SESSION['roles'] == "dosen") :
         echo '<td>' . $item->getIdSemester()->getNamaSemester() . '</td>';
 
         echo "<td><button class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#jadwals-$index'>Detail</button></td>";
-
-        echo '<td>'. '</td>';
         echo '</tr>';
     }
     ?>
@@ -37,6 +36,7 @@ if ($_SESSION['roles'] == "dosen") :
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
 </table>
+</div>
     <?php foreach ($jadwal as $index => $jadwalz) { ?>
     <div class="modal fade" id="jadwals-<?= $index ?>" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
@@ -107,6 +107,7 @@ if ($_SESSION['roles'] == "dosen") :
 <?php
 else:
 ?>
+<div class="mt-3 mx-5">
     <table class="table" id="example">
         <thead>
         <tr>
@@ -139,7 +140,6 @@ else:
             echo '<td>' . $item->getKelas() . '</td>';
             echo '<td>' . $item->getIdSemester()->getNamaSemester() . '</td>';
             echo "<td><button class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#jadwal-$index'>Detail</button></td>";
-            echo '<td>'. '</td>';
             echo '</tr>';
         }
         ?>
@@ -148,6 +148,7 @@ else:
         <tr></tr>
         </thead>
     </table>
+</div>
         <?php foreach ($jadwals as $index => $jadwal) { ?>
         <div class="modal fade" id="jadwal-<?= $index ?>" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-scrollable">

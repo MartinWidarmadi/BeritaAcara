@@ -1,3 +1,4 @@
+<div class="mt-3 mx-5">
 <table class="table" id="example">
     <thead>
     <tr>
@@ -25,9 +26,11 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
 </table>
+
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1">
     Add Dosen
 </button>
+</div>
 <form method="post">
     <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">

@@ -1,3 +1,4 @@
+<div class="mt-3 mx-5">
 <table class="table" id="example">
     <thead>
     <tr>
@@ -33,6 +34,7 @@
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Add Mata Kuliah
 </button>
+</div>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">

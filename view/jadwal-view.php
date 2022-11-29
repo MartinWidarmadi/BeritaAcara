@@ -1,6 +1,7 @@
 <?php
 if ($_SESSION['roles'] == "dosen") :
     ?>
+<div class="mt-3 mx-5">
     <table class="table" id="example">
         <thead>
         <tr>
@@ -36,10 +37,11 @@ if ($_SESSION['roles'] == "dosen") :
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
     </table>
-
+</div>
 <?php
 else :
     ?>
+    <div class="mt-3 mx-5">
     <table class="table" id="example">
         <thead>
         <tr>
@@ -80,6 +82,7 @@ else :
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Add Jadwal
     </button>
+    </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
