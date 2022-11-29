@@ -85,7 +85,6 @@ if ($_SESSION['roles'] == "dosen") :
                             }   else {
                                 echo '<td><img src="uploads/' . $item->getFotoPresensi() . '" alt="photo" style="max-width: 100px"></td>';
                             }
-                            echo '<td>'. '</td>';
                             echo '</tr>';
                         }
                         ?>
@@ -177,7 +176,7 @@ else:
                             </thead>
                             <tbody>
                             <?php
-                            foreach($array_jadwals[$jadwal->getIdJadwal()] as $index => $item) {
+                            foreach($array_jadwals[$index] as $i => $item) {
                                 echo '<tr>';
                                 echo '<td>' . $item->getPertemuan() . '</td>';
                                 $date = date_create($item->getTanggalPertemuan());
@@ -186,17 +185,14 @@ else:
                                 echo '<td>' . $item->getWaktuMulai() . '</td>';
                                 echo '<td>' . $item->getWaktuSelesai() . '</td>';
                                 echo '<td>' . $item->getRangkuman() . '</td>';
-                                foreach ($array_assisten[$jadwal->getIdJadwal()] as $index => $item2) {
-                                    echo '<td>' . $item2->getNrpMahasiswa()->getNama() . '</td>';
-                                    echo '<td>' . $item2->getJumlahJam() . " Jam" . '</td>';
-                                }
+                                echo '<td>' . $array_assistens[$index][$i]->getNrpMahasiswa()->getNama() . '</td>';
+                                echo '<td>' . $array_assistens[$index][$i]->getJumlahJam() . " Jam" . '</td>';
                                 echo '<td>' . $item->getJumlahMahasiswa() . '</td>';
                                 if ($item->getFotoPresensi() == null || $item->getFotoPresensi() == '') {
                                     echo '<td><img src="image/default_cover.svg" alt="Photo" style="max-width: 100px"></td>';
                                 }   else {
                                     echo '<td><img src="uploads/' . $item->getFotoPresensi() . '" alt="photo" style="max-width: 100px"></td>';
                                 }
-                                echo '<td>'. '</td>';
                                 echo '</tr>';
                             }
                             ?>
