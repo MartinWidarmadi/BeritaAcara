@@ -6,7 +6,25 @@ class Dosen
     private $NamaDosen;
     private $Prodi_idProdi;
     private $MataKuliah_idMataKuliah;
+    private $status;
     private $User_idUser;
+
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 
     /**
      * @return mixed

@@ -15,7 +15,7 @@ class DosenDaoImpl
 
     public function fetchAllDosen() {
         $link = PDOUtil::connectDb();
-        $query = 'SELECT NIP, NamaDosen FROM Dosen WHERE NIP != 1 ORDER BY NIP ASC ';
+        $query = 'SELECT *FROM Dosen WHERE NIP != 1 ORDER BY NIP ASC ';
         $stmt = $link->prepare($query);
         $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Dosen');
         $stmt->execute();
@@ -62,12 +62,24 @@ class DosenDaoImpl
         return $result;
     }
 
-    public function deleteDosen($id) {
+
+    public function fetchDosenActive(){
+        $link = PDOUtil::connectDb();
+        $query = 'SELECT NIP, NamaDosen FROM Dosen WHERE status = 1 and NIP != 1 ORDER BY NIP ASC ';
+        $stmt = $link->prepare($query);
+        $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Dosen');
+        $stmt->execute();
+        $link = null;
+        return $stmt->fetchAll();
+    }
+
+    public function statusDosen($id,$status) {
         $result = 0;
         $link = PDOUtil::connectDb();
-        $query = 'DELETE FROM Dosen WHERE NIP = ?';
+        $query = 'UPDATE Dosen SET status = ? WHERE NIP = ?';
         $stmt = $link->prepare($query);
-        $stmt->bindParam(1, $id);
+        $stmt->bindParam(1,$status );
+        $stmt->bindParam(2, $id);
         $link->beginTransaction();
 
         if ($stmt->execute()) {

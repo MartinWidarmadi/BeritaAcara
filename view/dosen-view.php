@@ -1,35 +1,44 @@
 <div class="mt-3 mx-5">
-<table class="table" id="example">
-    <thead>
-    <tr>
-        <th scope="col">NIP</th>
-        <th scope="col">Dosen Name</th>
-        <th scope="col">Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php
-    foreach ($dosen as $dosens) {
-        echo '<tr>';
-        echo '<td>' . $dosens->getNIP() . '</td>';
-        echo '<td>' . $dosens->getNamaDosen() . '</td>';
-        echo '<td> <button class="btn btn-success" onclick="editDosesn(' . $dosens->getNIP() . ')">Edit </button >
-<button class="btn btn-danger" onclick = "delDosen(' . $dosens->getNIP() . ')" > Delete</button >
+    <table class="table" id="example">
+        <thead>
+        <tr>
+            <th scope="col">NIP</th>
+            <th scope="col">Dosen Name</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($dosen as $dosens) {
+            echo '<tr>';
+            echo '<td>' . $dosens->getNIP() . '</td>';
+            echo '<td>' . $dosens->getNamaDosen() . '</td>';
+
+            if ($dosens->getStatus() == 0) {
+                echo '<td> <button class="btn btn-success" onclick="editDosesn(' . $dosens->getNIP() . ')">Edit </button >
+<button class="btn btn-primary" onclick = "delDosen(' . $dosens->getNIP() . ',0)" > Non-aktif</button >
         
         </td > ';
-    }
-    ?>
-    </tbody>
-    <thead>
-    <tr></tr>
-    </thead>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
-</table>
+            } else {
+                echo '<td> <button class="btn btn-success" onclick="editDosesn(' . $dosens->getNIP() . ')">Edit </button >
+<button class="btn btn-primary" onclick = "delDosen(' . $dosens->getNIP() . ',1)" > aktif</button >
+        
+        </td > ';
+            }
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1">
-    Add Dosen
-</button>
+        }
+        ?>
+        </tbody>
+        <thead>
+        <tr></tr>
+        </thead>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
+    </table>
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1">
+        Add Dosen
+    </button>
 </div>
 <form method="post">
     <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -106,10 +115,11 @@
         window.location = `index.php?menu=editmahasiswa&mid=${id}`;
     }
 
-    const delDosen= (id) => {
-        let confirmed = confirm('Are you sure delete this data ? ');
+    const delDosen = (id, aktif) => {
+        let confirmed = confirm('Are you sure deactivate this data ? ');
+        confirm(`index.php?menu=dosen&delcom=1&mid=${id}&aktif=${aktif}`)
         if (confirmed) {
-            window.location = `index.php?menu=dosen&delcom=1&mid=${id}`;
+            window.location = `index.php?menu=dosen&delcom=1&mid=${id}&aktif=${aktif}`;
         }
     }
 </script>

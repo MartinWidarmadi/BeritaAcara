@@ -54,7 +54,7 @@ class JadwalController
         $dosenId = $this->dosenDao->fetchDosen($_SESSION['user_id'])->getNIP();
         $jadwal = $this->jadwalDao->fetchAllJadwal($dosenId);
         $jadwals = $this->jadwalDao->fetchAllJadwals();
-        $dosen = $this->dosenDao->fetchAllDosen();
+        $dosen = $this->dosenDao->fetchDosenActive();
         $matkul = $this->mkDao->fetchAllMK();
         $semester = $this->semesterDao->fetchAllSemester();
         include_once 'view/jadwal-view.php';

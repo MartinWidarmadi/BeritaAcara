@@ -14,11 +14,13 @@ class DosenController
         $btnDel = filter_input(INPUT_GET, 'delcom');
         if (isset($btnDel) && $btnDel == 1) {
             $delId = filter_input(INPUT_GET, 'mid');
-            $delResult = $this->dosenDao->deleteDosen($delId);
+            $status = filter_input(INPUT_GET, 'aktif');
+            $status = !$status;
+            $delResult = $this->dosenDao->statusDosen($delId,$status);
 
             if ($delResult) {
-                echo '<script>alert("Data delete success")</script>';
-                header('location: index.php?menu=dosen');
+                echo '<script>alert("Data has been changed")</script>';
+//                header('location: index.php?menu=dosen');
             } else {
                 echo '<script>alert("Error when delete data")</script>';
             }
