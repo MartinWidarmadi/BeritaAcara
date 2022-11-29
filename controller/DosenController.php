@@ -20,7 +20,17 @@ class DosenController
 
             if ($delResult) {
                 echo '<script>alert("Data has been changed")</script>';
-//                header('location: index.php?menu=dosen');
+                header('location: index.php?menu=dosen');
+            } else {
+                echo '<script>alert("Error when delete data")</script>';
+            }
+        }elseif (isset($btnDel) && $btnDel == 2){
+            $delId = filter_input(INPUT_GET, 'mid');
+            $delResult = $this->dosenDao->deleteDosen($delId);
+
+            if ($delResult) {
+                echo '<script>alert("Data has been deleted")</script>';
+                header('location: index.php?menu=dosen');
             } else {
                 echo '<script>alert("Error when delete data")</script>';
             }

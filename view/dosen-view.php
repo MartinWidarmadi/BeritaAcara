@@ -15,12 +15,13 @@
             echo '<td>' . $dosens->getNamaDosen() . '</td>';
 
             if ($dosens->getStatus() == 0) {
-                echo '<td> <button class="btn btn-success" onclick="editDosesn(' . $dosens->getNIP() . ')">Edit </button >
+                echo '<td> <button class="btn btn-success" onclick="editDosen(' . $dosens->getNIP() . ')">Edit </button >
 <button class="btn btn-primary" onclick = "delDosen(' . $dosens->getNIP() . ',0)" > Non-aktif</button >
-        
+<button class="btn btn-danger" onclick = "deleteDosen(' . $dosens->getNIP() . ')" > Delete</button >
+
         </td > ';
             } else {
-                echo '<td> <button class="btn btn-success" onclick="editDosesn(' . $dosens->getNIP() . ')">Edit </button >
+                echo '<td> <button class="btn btn-success" onclick="editDosen(' . $dosens->getNIP() . ')">Edit </button >
 <button class="btn btn-primary" onclick = "delDosen(' . $dosens->getNIP() . ',1)" > aktif</button >
         
         </td > ';
@@ -111,15 +112,21 @@
 
 <script>
 
-    const editDosesn = (id) => {
+    const editDosen = (id) => {
         window.location = `index.php?menu=editmahasiswa&mid=${id}`;
     }
 
     const delDosen = (id, aktif) => {
         let confirmed = confirm('Are you sure deactivate this data ? ');
-        confirm(`index.php?menu=dosen&delcom=1&mid=${id}&aktif=${aktif}`)
         if (confirmed) {
             window.location = `index.php?menu=dosen&delcom=1&mid=${id}&aktif=${aktif}`;
+        }
+    }
+
+    const deleteDosen = (id) => {
+        let confirmed = confirm('Are you sure deactivate this data ? ');
+        if (confirmed) {
+            window.location = `index.php?menu=dosen&delcom=2&mid=${id}`;
         }
     }
 </script>

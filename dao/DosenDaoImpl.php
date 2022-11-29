@@ -91,4 +91,23 @@ class DosenDaoImpl
         $link = null;
         return $result;
     }
+
+    public function deleteDosen($id) {
+        $result = 0;
+        $link = PDOUtil::connectDb();
+        $query = 'DELETE FROM Dosen WHERE NIP = ?';
+        $stmt = $link->prepare($query);
+        $stmt->bindParam(1, $id);
+        $link->beginTransaction();
+
+        if ($stmt->execute()) {
+            $link->commit();
+            $result = 1;
+        } else {
+            $link->rollBack();
+        }
+        $link = null;
+        return $result;
+    }
+
 }
