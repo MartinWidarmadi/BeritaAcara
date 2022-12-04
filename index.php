@@ -210,6 +210,7 @@ if ($_SESSION['is_logged']):
     <script>
         $(document).ready(function () {
             $('#example').DataTable();
+            $('#example2').DataTable();
         });
     </script>
 

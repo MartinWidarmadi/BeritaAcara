@@ -49,7 +49,7 @@ if ($_SESSION['roles'] == "dosen") :
                 </div>
 
                 <div class="modal-body">
-                    <table class="table" id="example">
+                    <table class="table" id="example2">
                         <thead>
                         <tr>
                             <th scope="col">Pertemuan</th>
@@ -69,7 +69,7 @@ if ($_SESSION['roles'] == "dosen") :
                             echo '<tr>';
                             echo '<td>' . $item->getPertemuan() . '</td>';
                             $date = date_create($item->getTanggalPertemuan());
-                            echo '<td>' . date_format($date,"d/m/Y") . '</td>';
+                            echo '<td>' . date_format($date,"d M Y") . '</td>';
 
                             echo '<td>' . $item->getWaktuMulai() . '</td>';
                             echo '<td>' . $item->getWaktuSelesai() . '</td>';
@@ -160,7 +160,7 @@ else:
                     </div>
 
                     <div class="modal-body">
-                        <table class="table" id="example">
+                        <table class="table" id="example2">
                             <thead>
                             <tr>
                                 <th scope="col">Pertemuan</th>
@@ -180,7 +180,7 @@ else:
                                 echo '<tr>';
                                 echo '<td>' . $item->getPertemuan() . '</td>';
                                 $date = date_create($item->getTanggalPertemuan());
-                                echo '<td>' . date_format($date,"d/m/Y") . '</td>';
+                                echo '<td>' . date_format($date,"d M Y") . '</td>';
 
                                 echo '<td>' . $item->getWaktuMulai() . '</td>';
                                 echo '<td>' . $item->getWaktuSelesai() . '</td>';
