@@ -71,16 +71,15 @@ class MahasiswaDaoImpl
         return $result;
     }
 
-    public function updateMahasiswa(Mahasiswa $mhs, $nrp) {
+    public function updateMahasiswa(Mahasiswa $mhs) {
         $result = 0;
         $link = PDOUtil::connectDb();
-        $query = 'UPDATE Mahasiswa SET NRP = ?, Nama = ?, alamat = ?, no_tlp = ? WHERE NRP = ?';
+        $query = 'UPDATE mahasiswa SET Nama = ?, alamat = ?, no_tlp = ? WHERE NRP = ?';
         $stmt = $link->prepare($query);
-        $stmt->bindValue(1, $mhs->getNRP());
-        $stmt->bindValue(2, $mhs->getNama());
-        $stmt->bindValue(3, $mhs->getAlamat());
-        $stmt->bindValue(4, $mhs->getNoTlp());
-        $stmt->bindValue(5, $nrp);
+        $stmt->bindValue(1, $mhs->getNama());
+        $stmt->bindValue(2, $mhs->getAlamat());
+        $stmt->bindValue(3, $mhs->getNoTlp());
+        $stmt->bindValue(4, $mhs->getNRP());
         $link->beginTransaction();
 
         if ($stmt->execute()) {

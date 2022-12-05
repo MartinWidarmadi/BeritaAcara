@@ -51,18 +51,6 @@ class MahasiswaController
                 }
             }
         }
-        $mahasiswa = $this->mahasiswaDao->fetchAllMahasiswa();
-        include_once 'view/mahasiswa-view.php';
-    }
-
-
-    public function updateIndex()
-    {
-        $mId = filter_input(INPUT_GET, 'mid');
-        if (isset($mId) && $mId != '') {
-            $mahasiswa = $this->mahasiswaDao->fetchMahasiswa($mId);
-        }
-
         $btnBack = filter_input(INPUT_POST, 'btnBack');
 
         if (isset($btnBack)) {
@@ -72,27 +60,38 @@ class MahasiswaController
         $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
 
         if (isset($btnSubmit)) {
-            $nrp = filter_input(INPUT_POST, 'nrp');
-            $nama = filter_input(INPUT_POST, 'nama');
-            $alamat = filter_input(INPUT_POST, 'alamat');
-            $no_tlp = filter_input(INPUT_POST, 'no_tlp');
+            $nrps = filter_input(INPUT_POST, 'nrps');
+            $namas = filter_input(INPUT_POST, 'namas');
+            $alamats = filter_input(INPUT_POST, 'alamats');
+            $no_tlps = filter_input(INPUT_POST, 'no_tlps');
 
             $mhs = new Mahasiswa();
-            $mhs->setNRP($nrp);
-            $mhs->setNama($nama);
-            $mhs->setAlamat($alamat);
-            $mhs->setNoTlp($no_tlp);
+            $mhs->setNama($namas);
+            $mhs->setAlamat($alamats);
+            $mhs->setNoTlp($no_tlps);
+            $mhs->setNRP($nrps);
 
-            $result = $this->mahasiswaDao->updateMahasiswa($mhs, $mId);
+            $result = $this->mahasiswaDao->updateMahasiswa($mhs);
 
             if ($result) {
-                echo '<script>alert("Data update success")</script>';
-                header('location: index.php?menu=mahasiswa');
+                echo "
+                <script>$.toast({
+    heading: 'Success',
+    text: 'Success Update Data Mahasiswa',
+    showHideTransition: 'slide',
+    icon: 'success'
+})</script>";
             } else {
-                echo '<script>alert("Data update failed")</script>';
+                echo "<script>$.toast({
+    heading: 'Error',
+    text: 'Failed Update Data',
+    showHideTransition: 'fade',
+    icon: 'error'
+})</script>";
             }
         }
 
-        include_once 'view/mahasiswa-edit-view.php';
+        $mahasiswa = $this->mahasiswaDao->fetchAllMahasiswa();
+        include_once 'view/mahasiswa-view.php';
     }
 }
