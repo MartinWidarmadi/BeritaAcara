@@ -17,8 +17,13 @@ class MahasiswaController
             $delResult = $this->mahasiswaDao->deleteMahasiswa($delId);
 
             if ($delResult) {
-                echo '<script>alert("Data delete success")</script>';
-                header('location: index.php?menu=mahasiswa');
+                echo "
+                <script>$.toast({
+                heading: 'Success',
+                text: 'Success Delete Data Mahasiswa',
+                showHideTransition: 'slide',
+                icon: 'success'
+            })</script>";
             } else {
                 echo '<script>alert("Error when delete data")</script>';
             }
@@ -44,8 +49,13 @@ class MahasiswaController
                 $mahasiswa->setNoTlp($notelp);
                 $result2 = $this->mahasiswaDao->insertNewMahasiswa($mahasiswa);
                 if ($result2) {
-                    echo '<div class="bg-success">Data succesfully added</div>';
-                    header('location:?menu=mahasiswa');
+                    echo "
+                <script>$.toast({
+                heading: 'Success',
+                text: 'Success Add Data Mahasiswa',
+                showHideTransition: 'slide',
+                icon: 'success'
+            })</script>";
                 } else {
                     echo '<div class="bg-danger">Error on add data</div>';
                 }

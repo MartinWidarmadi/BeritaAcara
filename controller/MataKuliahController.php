@@ -22,8 +22,13 @@ class MataKuliahController
             $delResult = $this->mkDao->deleteMatkul($delId);
 
             if ($delResult) {
-                echo '<script>alert("Data delete success")</script>';
-                header('location: index.php?menu=matkul');
+                echo "
+                <script>$.toast({
+                heading: 'Success',
+                text: 'Success Delete Data Matakuliah',
+                showHideTransition: 'slide',
+                icon: 'success'
+            })</script>";
             } else {
                 echo '<script>alert("Error when delete data")</script>';
             }
@@ -50,8 +55,13 @@ class MataKuliahController
                 $matakuliah->setIdProdi($prodi);
                 $result2 = $this->mkDao->insertNewMataKuliah($matakuliah);
                 if ($result2) {
-                    echo '<div class="bg-success">Data succesfully added</div>';
-                    header('location:?menu=matkul');
+                    echo "
+                <script>$.toast({
+                heading: 'Success',
+                text: 'Success Add Data Matakuliah',
+                showHideTransition: 'slide',
+                icon: 'success'
+            })</script>";
                 } else {
                     echo '<div class="bg-danger">Error on add data</div>';
                 }
