@@ -63,16 +63,16 @@ class MataKuliahDaoImpl {
         return $stmt->fetchObject('MataKuliah');
     }
 
-    public function updateMatkul(MataKuliah $mataKuliah, $id) {
+    public function updateMatkul(MataKuliah $mataKuliah) {
         $result = 0;
         $link = PDOUtil::connectDb();
-        $query = 'UPDATE MataKuliah SET idMataKuliah = ?, NamaMataKuliah = ?, SKS = ?, Prodi_idProdi = ? WHERE idMataKuliah = ?';
+        $query = 'UPDATE MataKuliah SET NamaMataKuliah = ?, SKS = ?, Prodi_idProdi = ? WHERE idMataKuliah = ?';
         $stmt = $link->prepare($query);
-        $stmt->bindValue(1, $mataKuliah->getIdMataKuliah());
-        $stmt->bindValue(2, $mataKuliah->getNamaMataKuliah());
-        $stmt->bindValue(3, $mataKuliah->getSKS());
-        $stmt->bindValue(4, $mataKuliah->getIdProdi());
-        $stmt->bindValue(5, $id);
+
+        $stmt->bindValue(1, $mataKuliah->getNamaMataKuliah());
+        $stmt->bindValue(2, $mataKuliah->getSKS());
+        $stmt->bindValue(3, $mataKuliah->getIdProdi());
+        $stmt->bindValue(4, $mataKuliah->getIdMataKuliah());
         $link->beginTransaction();
       
         if ($stmt->execute()) {

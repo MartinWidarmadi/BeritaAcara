@@ -104,8 +104,7 @@ else :
 
                     </div>
                     <div class="modal-footer">
-<!--                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-                        <button type="submit" name="btnBack" class="btn btn-primary">&larr;</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" name="btnSubmit" class="btn btn-primary">Update</button>
                     </div>
                 </form>
