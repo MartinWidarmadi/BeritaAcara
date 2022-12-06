@@ -19,15 +19,17 @@ class MahasiswaController
             if ($delResult) {
                 echo "
                 <script>$.toast({
-                heading: 'Success',
-                text: 'Success Delete Data Mahasiswa',
+                heading: 'DELETED',
+                text: 'Success DELETE Data Mahasiswa',
                 showHideTransition: 'slide',
-                icon: 'success'
+                stack: false,
+                icon: 'error'
             })</script>";
             } else {
                 echo '<script>alert("Error when delete data")</script>';
             }
         }
+
         $submitPressed = filter_input(INPUT_POST, 'addMahasiswa');
         if (isset($submitPressed)) {
             $nrp = filter_input(INPUT_POST, 'nrp');
@@ -54,6 +56,7 @@ class MahasiswaController
                 heading: 'Success',
                 text: 'Success Add Data Mahasiswa',
                 showHideTransition: 'slide',
+                stack: false,
                 icon: 'success'
             })</script>";
                 } else {
@@ -89,6 +92,7 @@ class MahasiswaController
     heading: 'Success',
     text: 'Success Update Data Mahasiswa',
     showHideTransition: 'slide',
+    stack: false,
     icon: 'success'
 })</script>";
             } else {

@@ -24,10 +24,11 @@ class MataKuliahController
             if ($delResult) {
                 echo "
                 <script>$.toast({
-                heading: 'Success',
-                text: 'Success Delete Data Matakuliah',
+                heading: 'DELETED',
+                text: 'Success DELETE Data Matakuliah',
                 showHideTransition: 'slide',
-                icon: 'success'
+                stack: false,
+                icon: 'error'
             })</script>";
             } else {
                 echo '<script>alert("Error when delete data")</script>';
@@ -60,6 +61,7 @@ class MataKuliahController
                 heading: 'Success',
                 text: 'Success Add Data Matakuliah',
                 showHideTransition: 'slide',
+                stack: false,
                 icon: 'success'
             })</script>";
                 } else {
@@ -91,6 +93,7 @@ class MataKuliahController
                 heading: 'Success',
                 text: 'Success Update Data Matakuliah',
                 showHideTransition: 'slide',
+                stack: false,
                 icon: 'success'
             })</script>";
             } else {
