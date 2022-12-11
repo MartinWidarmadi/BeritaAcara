@@ -1,4 +1,7 @@
 <?php
+require 'db-util/spreadsheet/vendor/autoload.php';
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class JadwalController
 {
@@ -15,8 +18,8 @@ class JadwalController
     }
 
     public function index() {
-        if ($_SESSION['roles'] == "admin") {
             $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
+        $jadwalfile = filter_input(INPUT_POST, 'btnBatchFile');
 
             if (isset($btnSubmit)) {
                 $nipDosen = filter_input(INPUT_POST, 'dosen');
@@ -49,7 +52,55 @@ class JadwalController
                     }
                 }
             }
-        }
+            else if (isset($jadwalfile)){
+                if (isset($_FILES['jadwalFile']['name']) && $_FILES['jadwalFile']['name'] != '') {
+                    $directory = 'uploads/';
+                    $fileExtension = pathinfo($_FILES['jadwalFile']['name'], PATHINFO_EXTENSION);
+                    $newFileName = 'Tanggal' . date("d M Y H i s") . '.' . $fileExtension;
+                    $targetFile = $directory . $newFileName;
+                    move_uploaded_file($_FILES['jadwalFile']['tmp_name'],$targetFile);
+                    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($targetFile);
+                    $data = $spreadsheet->getActiveSheet()->toArray(null, true, true , true);
+                    foreach ($data as $index=> $jadwal){
+                        $filejadwal = new Jadwal();
+                        $filejadwal->setNipDosen($jadwal["A"]);
+                        $filejadwal->setIdMatkul($jadwal["B"]);
+                        $filejadwal->setHari($jadwal["C"]);
+                        $filejadwal->setJamAwal($jadwal["D"]);
+                        $filejadwal->setJamAkhir($jadwal["E"]);
+                        $filejadwal->setType($jadwal["F"]);
+                        $filejadwal->setKelas($jadwal["G"]);
+                        $filejadwal->setIdSemester($jadwal["H"]);
+                        $result = $this->jadwalDao->insertNewJadwal($filejadwal);
+                    }
+                    if ($result) {
+                        echo "
+                                    <script>$.toast({
+                        heading: 'Success',
+                        text: 'Success Add Batch Data Jadwal',
+                        showHideTransition: 'slide',
+                        stack: false,
+                        icon: 'success'
+                    })</script>";
+                    } else {
+                        echo "<script>$.toast({
+                            heading: 'Error',
+                            text: 'Failed Add Batch Data Jadwal',
+                            showHideTransition: 'fade',
+                            icon: 'error'
+                    })</script>";
+                    }
+                } else {
+                    echo "<script>$.toast({
+                            heading: 'Error',
+                            text: 'Please Input File First',
+                            showHideTransition: 'fade',
+                            icon: 'error'
+                    })</script>";
+                }
+            }
+
+
 
         $dosenId = $this->dosenDao->fetchDosen($_SESSION['user_id'])->getNIP();
         $jadwal = $this->jadwalDao->fetchAllJadwal($dosenId);

@@ -82,6 +82,12 @@ else :
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Add Jadwal
     </button>
+        <div class="mb-3">
+            <form method="post" enctype="multipart/form-data">
+                <input type="file" name="jadwalFile" id="jadwalFile" class="form-control form-second" accept=".xls,.xlsx">
+                <button type="submit" name="btnBatchFile" class="btn btn-primary">Add Batch Jadwal</button>
+            </form>
+        </div>
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
