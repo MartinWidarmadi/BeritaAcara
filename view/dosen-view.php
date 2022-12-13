@@ -22,7 +22,7 @@
         </td > ';
             } else {
                 echo '<td> <button class="btn btn-success" onclick="editDosen(' . $dosens->getNIP() . ')">Edit </button >
-<button class="btn btn-primary" onclick = "delDosen(' . $dosens->getNIP() . ',1)" > Aktif</button >
+<button class="btn btn-primary" onclick = "delDosen(' . $dosens->getNIP() . ',1)" > aktif</button >
         
         </td > ';
             }
@@ -124,7 +124,7 @@
     }
 
     const deleteDosen = (id) => {
-        let confirmed = confirm('Are you sure delete this data ? ');
+        let confirmed = confirm('Are you sure deactivate this data ? ');
         if (confirmed) {
             window.location = `index.php?menu=dosen&delcom=2&mid=${id}`;
         }

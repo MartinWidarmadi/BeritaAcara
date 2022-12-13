@@ -14,36 +14,17 @@ class MahasiswaController
         $btnDel = filter_input(INPUT_GET, 'delcom');
         if (isset($btnDel) && $btnDel == 1) {
             $delId = filter_input(INPUT_GET, 'mid');
-            $status = filter_input(INPUT_GET, 'aktif');
-            $status = !$status;
-            $delResult = $this->mahasiswaDao->statusMahasiswa($delId, $status);
+            $delResult = $this->mahasiswaDao->deleteMahasiswa($delId);
 
             if ($delResult) {
                 echo "
                 <script>$.toast({
-                heading: 'DEACTIVATED',
-                text: 'Success DEACTIVATED Data Mahasiswa',
-                showHideTransition: 'slide',
-                stack: false,
-                icon: 'success'
-            })</script>";
-            } else {
-                echo '<script>alert("Success deactivated data")</script>';
-            }
-        } elseif (isset($btnDel) && $btnDel == 2) {
-            $delId = filter_input(INPUT_GET, 'mid');
-            $delResult = $this->mkDao->deleteMatkul($delId);
-
-            if ($delResult) {
-                echo "
-                <script>$.toast({
-                heading: 'DELETE',
+                heading: 'DELETED',
                 text: 'Success DELETE Data Mahasiswa',
                 showHideTransition: 'slide',
                 stack: false,
                 icon: 'error'
             })</script>";
-                header('location: index.php?menu=matkul');
             } else {
                 echo '<script>alert("Error when delete data")</script>';
             }

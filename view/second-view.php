@@ -186,16 +186,7 @@
         });
     }
 
-    var data = [];
-
-    $.ajax({
-        type: "GET",
-        url: "ajax.php",
-    }).then((asdos)=>{
-        asdos.forEach((a)=>{
-            data.push(a.Nama + " - " + a.NRP);
-        });
-    });
+    var data = ["Rio Jeremy", "Violance Gressia"];
     
     autocomplete(document.getElementById("myInput1"), data);
     autocomplete(document.getElementById("myInput2"), data);

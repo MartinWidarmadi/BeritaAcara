@@ -1,28 +1,11 @@
 <?php
 
-class Mahasiswa implements JsonSerializable
+class Mahasiswa
 {
     private $NRP;
     private $Nama;
     private $alamat;
     private $no_tlp;
-    private $status;
-
-    /**
-     * @return mixed
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param mixed $status
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
 
     /**
      * @return mixed
@@ -88,7 +71,6 @@ class Mahasiswa implements JsonSerializable
         $this->no_tlp = $no_tlp;
     }
 
-    public function jsonSerialize() {
-        return get_object_vars($this);
-    }
+
+
 }

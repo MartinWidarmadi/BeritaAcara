@@ -12,36 +12,6 @@ class MahasiswaDaoImpl
         return $stmt->fetchAll();
     }
 
-    public function fetchMahasiswaActive() {
-        $link = PDOUtil::connectDb();
-        $query = 'SELECT * FROM Mahasiswa WHERE status = 1';
-        $stmt = $link->prepare($query);
-        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Mahasiswa');
-        $stmt->execute();
-        $link = null;
-        return $stmt->fetchAll();
-    }
-
-    public function statusMahasiswa($id, $status)
-    {
-        $result = 0;
-        $link = PDOUtil::connectDb();
-        $query = 'UPDATE Mahasiswa SET status = ? WHERE NRP = ?';
-        $stmt = $link->prepare($query);
-        $stmt->bindParam(1, $status);
-        $stmt->bindParam(2, $id);
-        $link->beginTransaction();
-
-        if ($stmt->execute()) {
-            $link->commit();
-            $result = 1;
-        } else {
-            $link->rollBack();
-        }
-        $link = null;
-        return $result;
-    }
-
     public function fetchMahasiswa($id) {
         $link = PDOUtil::connectDb();
         $query = 'SELECT * FROM Mahasiswa WHERE NRP = ?';

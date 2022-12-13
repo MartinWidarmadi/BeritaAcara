@@ -9,7 +9,6 @@ class MataKuliah
     private $idKelas;
     private $idProdi;
     private $SKS;
-    private $status;
 
     /**
      * @return mixed
@@ -140,22 +139,6 @@ class MataKuliah
                 $this->idProdi = $value;
                 break;
         }
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param mixed $status
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
     }
 
 }
