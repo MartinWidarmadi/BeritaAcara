@@ -11,26 +11,25 @@
         </thead>
         <tbody>
         <?php
-        foreach ($mk as $item):
+        foreach ($mk as $index=>$item):
             ?>
             <tr>
                 <td><?= $item->getIdMataKuliah(); ?></td>
                 <td><?= $item->getNamaMataKuliah(); ?></td>
                 <td><?= $item->getSKS(); ?></td>
                 <td><?= $item->getIdProdi()->getNamaProdi(); ?></td>
-                <td>
                     <?php
                     if ($item->getStatus() == 0) {
-                        echo '<td> <button class="btn btn-success" onclick="editMatkul(\'' . $item->getIdMataKuliah() . '\')">Edit </button >
-                <button class="btn btn-primary" onclick = "activeMatkul(\'' . $item->getIdMataKuliah() . '\',0)" > Non-aktif</button >
-                <button class="btn btn-danger" onclick = "delMatkul(\'' . $item->getIdMataKuliah() . '\')" > Delete</button >
+                        echo "<td> <button class='btn btn-success'  data-bs-toggle='modal' data-bs-target='#modaleditMatkul-$index'>Edit </button >
+                <button class='btn btn-primary' onclick = 'activeMatkul(\"" . $item->getIdMataKuliah() . "\",0)' > Non-aktif</button >
+                <button class='btn btn-danger' onclick = 'delMatkul(\"" . $item->getIdMataKuliah() . "\")' > Delete</button >
 
-            </td > ';
+            </td > ";
                     } else {
-                        echo '<td> <button class="btn btn-success" onclick="editMatkul(\'' . $item->getIdMataKuliah() . '\')">Edit </button >
-                <button class="btn btn-primary" onclick = "activeMatkul(\'' . $item->getIdMataKuliah() . '\',1)" > Aktif</button >
+                        echo "<td> <button class='btn btn-success'  data-bs-toggle='modal' data-bs-target='#modaleditMatkul-$index'>Edit </button >
+                <button class='btn btn-primary' onclick = 'activeMatkul(\"" . $item->getIdMataKuliah() . "\",1)' > Aktif</button >
 
-            </td > ';
+            </td > ";
                     } ?>
             </tr>
         <?php endforeach; ?>

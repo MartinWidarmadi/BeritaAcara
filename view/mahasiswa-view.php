@@ -59,10 +59,10 @@ else :
 
         </td > ";
                 } else {
-                    echo '<td> <button class="btn btn-success" onclick="editMahasiswa(' . $item->getNRP() . ')">Edit </button >
-<button class="btn btn-primary" onclick = "activeMahasiswa(' . $item->getNRP() . ',1)" > Aktif</button >
+                    echo "<td> <button class='btn btn-success'  data-bs-toggle='modal' data-bs-target='#modaleditMahasiswa-$index'>Edit </button >
+<button class='btn btn-primary' onclick = 'activeMahasiswa(" . $item->getNRP() . ",1)' > Aktif</button >
         
-        </td > ';
+        </td > ";
                 }
             }
             ?>

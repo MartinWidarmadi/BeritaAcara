@@ -127,7 +127,6 @@ class MataKuliahController
         }
         $prodis = $this->prodiDao->fetchAllProdi();
         $mk = $this->mkDao->fetchAllMK();
-        print_r($mk);
         include_once 'view/mataKuliah-view.php';
     }
 }
