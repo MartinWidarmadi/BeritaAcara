@@ -9,6 +9,7 @@ if ($_SESSION['roles'] == "dosen") :
                 <th scope="col">Nama</th>
                 <th scope="col">Alamat</th>
                 <th scope="col">No HP</th>
+                <th scope="col">Status</th>
             </tr>
             </thead>
             <tbody>
@@ -19,7 +20,11 @@ if ($_SESSION['roles'] == "dosen") :
                 echo '<td>' . $item->getNama() . '</td>';
                 echo '<td>' . $item->getAlamat() . '</td>';
                 echo '<td>' . $item->getNoTlp() . '</td>';
-
+                if ($item->getStatus() == 0){
+                    echo '<td>' . "Non Aktif". '</td>';
+                } else{
+                    echo '<td>' . "Aktif". '</td>';
+                }
             }
             ?>
             </tbody>
