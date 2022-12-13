@@ -106,7 +106,7 @@ class JadwalController
         $jadwal = $this->jadwalDao->fetchAllJadwal($dosenId);
         $jadwals = $this->jadwalDao->fetchAllJadwals();
         $dosen = $this->dosenDao->fetchDosenActive();
-        $matkul = $this->mkDao->fetchAllMK();
+        $matkul = $this->mkDao->fetchMKstatus();
         $semester = $this->semesterDao->fetchAllSemester();
         include_once 'view/jadwal-view.php';
     }

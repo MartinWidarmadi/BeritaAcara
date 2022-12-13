@@ -1,73 +1,84 @@
 <?php
 if ($_SESSION['roles'] == "dosen") :
     ?>
-<div class="mt-3 mx-5">
-    <table class="table" id="example">
-        <thead>
-        <tr>
-            <th scope="col">NRP</th>
-            <th scope="col">Nama</th>
-            <th scope="col">Alamat</th>
-            <th scope="col">No HP</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        foreach ($mahasiswa as $item) {
-            echo '<tr>';
-            echo '<td>' . $item->getNRP() . '</td>';
-            echo '<td>' . $item->getNama() . '</td>';
-            echo '<td>' . $item->getAlamat() . '</td>';
-            echo '<td>' . $item->getNoTlp() . '</td>';
-        }
-        ?>
-        </tbody>
-        <thead>
-        </thead>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
-    </table>
-</div>
+    <div class="mt-3 mx-5">
+        <table class="table" id="example">
+            <thead>
+            <tr>
+                <th scope="col">NRP</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Alamat</th>
+                <th scope="col">No HP</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($mahasiswa as $item) {
+                echo '<tr>';
+                echo '<td>' . $item->getNRP() . '</td>';
+                echo '<td>' . $item->getNama() . '</td>';
+                echo '<td>' . $item->getAlamat() . '</td>';
+                echo '<td>' . $item->getNoTlp() . '</td>';
+
+            }
+            ?>
+            </tbody>
+            <thead>
+            </thead>
+            <link rel="stylesheet" type="text/css"
+                  href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
+            <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
+        </table>
+    </div>
 <?php
 else :
     ?>
-<div class="mt-3 mx-5">
-    <table class="table" id="example">
-        <thead>
-        <tr>
-            <th scope="col">NRP</th>
-            <th scope="col">Nama</th>
-            <th scope="col">Alamat</th>
-            <th scope="col">No HP</th>
-            <th scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-    <?php
-    foreach ($mahasiswa as $index => $item) {
-        echo '<tr>';
-        echo '<td>' . $item->getNRP() . '</td>';
-        echo '<td>' . $item->getNama() . '</td>';
-        echo '<td>' . $item->getAlamat() . '</td>';
-        echo '<td>' . $item->getNoTlp() . '</td>';
-        echo "<td> <button class='btn btn-success' data-bs-toggle='modal' data-bs-target='#modaleditMahasiswa-$index'>Edit </button >
-<button class='btn btn-danger' onclick = 'delMahasiswa(" . $item->getNRP() . ")' > Delete</button >
-        
-        </td > ";
-        }
-        ?>
-        </tbody>
-        <thead>
-        </thead>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
-    </table>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Add Mahasiswa
-    </button>
-</div>
+    <div class="mt-3 mx-5">
+        <table class="table" id="example">
+            <thead>
+            <tr>
+                <th scope="col">NRP</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Alamat</th>
+                <th scope="col">No HP</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($mahasiswa as $index => $item) {
+                echo '<tr>';
+                echo '<td>' . $item->getNRP() . '</td>';
+                echo '<td>' . $item->getNama() . '</td>';
+                echo '<td>' . $item->getAlamat() . '</td>';
+                echo '<td>' . $item->getNoTlp() . '</td>';
+                if ($item->getStatus() == 0) {
+                    echo "<td> <button class='btn btn-success'  data-bs-toggle='modal' data-bs-target='#modaleditMahasiswa-$index'>Edit </button >
+<button class='btn btn-primary' onclick = 'activeMahasiswa(" . $item->getNRP() . ",0)' > Non-aktif</button >
+<button class='btn btn-danger' onclick = 'deleteMahasiswa(" . $item->getNRP() . ")' > Delete</button >
 
-<?php foreach ($mahasiswa as $index => $item) { ?>
+        </td > ";
+                } else {
+                    echo '<td> <button class="btn btn-success" onclick="editMahasiswa(' . $item->getNRP() . ')">Edit </button >
+<button class="btn btn-primary" onclick = "activeMahasiswa(' . $item->getNRP() . ',1)" > Aktif</button >
+        
+        </td > ';
+                }
+            }
+            ?>
+            </tbody>
+            <thead>
+            </thead>
+            <link rel="stylesheet" type="text/css"
+                  href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
+            <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
+        </table>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add Mahasiswa
+        </button>
+    </div>
+
+    <?php foreach ($mahasiswa as $index => $item) { ?>
     <div class="modal fade" id="modaleditMahasiswa-<?= $index ?>" tabindex="-1" role="dialog"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -152,15 +163,22 @@ else :
         </div>
     </div>
 
-<script>
+    <script>
 
-    const delMahasiswa= (id) => {
-        let confirmed = confirm('Are you sure delete this data ? ');
-        if (confirmed) {
-            window.location = `index.php?menu=mahasiswa&delcom=1&mid=${id}`;
+        const activeMahasiswa = (id, aktif) => {
+            let confirmed = confirm('Are you sure deactivate this data ? ');
+            if (confirmed) {
+                window.location = `index.php?menu=mahasiswa&delcom=1&mid=${id}&aktif=${aktif}`;
+            }
         }
-    }
 
-</script>
+        const deleteMahasiswa = (id) => {
+            let confirmed = confirm('Are you sure delete this data ? ');
+            if (confirmed) {
+                window.location = `index.php?menu=mahasiswa&delcom=2&mid=${id}`;
+            }
+        }
+
+    </script>
 <?php
 endif; ?>
