@@ -82,12 +82,14 @@ else :
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Add Jadwal
     </button>
-        <div class="mb-3">
-            <form method="post" enctype="multipart/form-data">
-                <input type="file" name="jadwalFile" id="jadwalFile" class="form-control form-second" accept=".xls,.xlsx">
-                <button type="submit" name="btnBatchFile" class="btn btn-primary">Add Batch Jadwal</button>
-            </form>
-        </div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            Add Batch Jadwal
+        </button>
+<!--        <div class="mb-3">-->
+<!--            <form method="post" enctype="multipart/form-data">-->
+<!--                <input type="file" name="jadwalFile" id="jadwalFile" class="form-control form-second" accept=".xls,.xlsx">-->
+<!--                <button type="submit" name="btnBatchFile" class="btn btn-primary">Add Batch Jadwal</button>-->
+<!--        </div>-->
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
@@ -166,7 +168,54 @@ else :
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" name="btnSubmit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" name="btnSubmit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Batch Jadwal</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <select class="form-select" id="semesters" name="semesters"
+                                    aria-label="Default select example">
+                                <option selected value="0">Pilih Semester</option>
+                                <?php foreach ($semester as $item): ?>
+                                    <option value="<?= $item->getIdSemester();?>"><?= $item->getNamaSemester(); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h6>Silahkan download template ini terlebih dahulu</h6>
+                            <a href="src/TemplateJadwal.xlsx" download>Download link</a>
+                        </div>
+                        <div class="form-group">
+                            <h5 style="color: red">Attention</h5>
+                            <h6>Col A : NIP Dosen</h6>
+                            <h6>Col B : ID Matakuliah</h6>
+                            <h6>Col C : Hari</h6>
+                            <h6>Col D : Waktu Awal</h6>
+                            <h6>Col E : Waktu Akhir</h6>
+                            <h6>Col F : Type</h6>
+                            <h6>Col G : Kelas</h6>
+                        </div>
+                        <div>
+                            <input type="file" name="jadwalFile" id="jadwalFile" class="form-control form-second" accept=".xls,.xlsx">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="btnBatchFile" class="btn btn-primary">Add</button>
                     </div>
                 </form>
             </div>

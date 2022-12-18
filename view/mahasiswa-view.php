@@ -46,6 +46,7 @@ else :
                 <th scope="col">Nama</th>
                 <th scope="col">Alamat</th>
                 <th scope="col">No HP</th>
+                <th scope="col">Status</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
@@ -57,15 +58,20 @@ else :
                 echo '<td>' . $item->getNama() . '</td>';
                 echo '<td>' . $item->getAlamat() . '</td>';
                 echo '<td>' . $item->getNoTlp() . '</td>';
+                if ($item->getStatus() == 0){
+                    echo '<td>' . "Non Aktif". '</td>';
+                } else{
+                    echo '<td>' . "Aktif". '</td>';
+                }
                 if ($item->getStatus() == 0) {
                     echo "<td> <button class='btn btn-success'  data-bs-toggle='modal' data-bs-target='#modaleditMahasiswa-$index'>Edit </button >
-<button class='btn btn-primary' onclick = 'activeMahasiswa(" . $item->getNRP() . ",0)' > Non-aktif</button >
+<button class='btn btn-primary' onclick = 'activeMahasiswa(" . $item->getNRP() . ",0)' > Aktif/Non Aktif</button >
 <button class='btn btn-danger' onclick = 'deleteMahasiswa(" . $item->getNRP() . ")' > Delete</button >
 
         </td > ";
                 } else {
                     echo "<td> <button class='btn btn-success'  data-bs-toggle='modal' data-bs-target='#modaleditMahasiswa-$index'>Edit </button >
-<button class='btn btn-primary' onclick = 'activeMahasiswa(" . $item->getNRP() . ",1)' > Aktif</button >
+<button class='btn btn-primary' onclick = 'activeMahasiswa(" . $item->getNRP() . ",1)' > Aktif/Non Aktif</button >
         
         </td > ";
                 }
