@@ -48,7 +48,6 @@ class MataKuliahController
                 stack: false,
                 icon: 'error'
             })</script>";
-                header('location: index.php?menu=matkul');
             } else {
                 echo '<script>alert("Error when delete data")</script>';
             }

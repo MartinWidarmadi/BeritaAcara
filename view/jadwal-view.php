@@ -197,7 +197,7 @@ else :
                         </div>
                         <div class="form-group">
                             <h6>Silahkan download template ini terlebih dahulu</h6>
-                            <a href="src/TemplateJadwal.xlsx" download>Download link</a>
+                            <a href="src/Template.xlsx" download>Download link</a>
                         </div>
                         <div class="form-group">
                             <h5 style="color: red">Attention</h5>
