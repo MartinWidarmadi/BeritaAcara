@@ -4,6 +4,7 @@
         <tr>
             <th scope="col">NIP</th>
             <th scope="col">Dosen Name</th>
+            <th scope="col">Status</th>
             <th scope="col">Action</th>
         </tr>
         </thead>
@@ -13,16 +14,21 @@
             echo '<tr>';
             echo '<td>' . $dosens->getNIP() . '</td>';
             echo '<td>' . $dosens->getNamaDosen() . '</td>';
+            if ($dosens->getStatus() == 0){
+                echo '<td>' . "Non Aktif". '</td>';
+            } else{
+                echo '<td>' . "Aktif". '</td>';
+            }
 
             if ($dosens->getStatus() == 0) {
                 echo '<td> <button class="btn btn-success" onclick="editDosen(' . $dosens->getNIP() . ')">Edit </button >
-<button class="btn btn-primary" onclick = "delDosen(' . $dosens->getNIP() . ',0)" > Non-aktif</button >
+<button class="btn btn-primary" onclick = "delDosen(' . $dosens->getNIP() . ',0)" > Aktif/Non Aktif</button >
 <button class="btn btn-danger" onclick = "deleteDosen(' . $dosens->getNIP() . ')" > Delete</button >
 
         </td > ';
             } else {
                 echo '<td> <button class="btn btn-success" onclick="editDosen(' . $dosens->getNIP() . ')">Edit </button >
-<button class="btn btn-primary" onclick = "delDosen(' . $dosens->getNIP() . ',1)" > Aktif</button >
+<button class="btn btn-primary" onclick = "delDosen(' . $dosens->getNIP() . ',1)" > Aktif/Non Aktif</button >
         
         </td > ';
             }

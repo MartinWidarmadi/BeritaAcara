@@ -32,7 +32,7 @@ class MahasiswaController
             }
         } elseif (isset($btnDel) && $btnDel == 2) {
             $delId = filter_input(INPUT_GET, 'mid');
-            $delResult = $this->mkDao->deleteMatkul($delId);
+            $delResult = $this->mahasiswaDao->deleteMahasiswa($delId);
 
             if ($delResult) {
                 echo "
@@ -43,13 +43,13 @@ class MahasiswaController
                 stack: false,
                 icon: 'error'
             })</script>";
-                header('location: index.php?menu=matkul');
             } else {
                 echo '<script>alert("Error when delete data")</script>';
             }
         }
 
         $submitPressed = filter_input(INPUT_POST, 'addMahasiswa');
+        $mahasiswafile = filter_input(INPUT_POST, 'btnBatchFile');
         if (isset($submitPressed)) {
             $nrp = filter_input(INPUT_POST, 'nrp');
             $nama = filter_input(INPUT_POST, 'nama');
@@ -83,15 +83,56 @@ class MahasiswaController
                 }
             }
         }
-        $btnBack = filter_input(INPUT_POST, 'btnBack');
-
-        if (isset($btnBack)) {
-            header('location: index.php?menu=mahasiswa');
+        else if (isset($mahasiswafile)){
+            if (isset($_FILES['mahasiswaFile']['name']) && $_FILES['mahasiswaFile']['name'] != '') {
+                $directory = 'uploads/';
+                $fileExtension = pathinfo($_FILES['mahasiswaFile']['name'], PATHINFO_EXTENSION);
+                $newFileName = 'Tanggal' . date("d M Y H i s") . '.' . $fileExtension;
+                $targetFile = $directory . $newFileName;
+                move_uploaded_file($_FILES['mahasiswaFile']['tmp_name'],$targetFile);
+                $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($targetFile);
+                $data = $spreadsheet->getActiveSheet()->toArray(null, true, true , true);
+                foreach ($data as $index=> $mahasiswa){
+                    $filemahasiswa = new Mahasiswa();
+                    $filemahasiswa->setNRP($mahasiswa["A"]);
+                    $filemahasiswa->setNama($mahasiswa["B"]);
+                    $filemahasiswa->setAlamat($mahasiswa["C"]);
+                    $filemahasiswa->setNoTlp($mahasiswa["D"]);
+                    $result3 = $this->mahasiswaDao->insertNewMahasiswa($filemahasiswa);
+                }
+                if ($result3) {
+                    echo "
+                                    <script>$.toast({
+                        heading: 'Success',
+                        text: 'Success Add Batch Data mahasiswa',
+                        showHideTransition: 'slide',
+                        stack: false,
+                        icon: 'success'
+                    })</script>";
+                } else {
+                    echo "<script>$.toast({
+                            heading: 'Error',
+                            text: 'Failed Add Batch Data mahasiswa',
+                            stack: false,
+                            showHideTransition: 'fade',
+                            icon: 'error'
+                    })</script>";
+                }
+            } else {
+                echo "<script>$.toast({
+                            heading: 'Error',
+                            text: 'Please Input File First',
+                            stack: false,
+                            showHideTransition: 'fade',
+                            icon: 'error'
+                    })</script>";
+            }
         }
+        
 
-        $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
+        $btnSubmits = filter_input(INPUT_POST, 'btnSubmit');
 
-        if (isset($btnSubmit)) {
+        if (isset($btnSubmits)) {
             $nrps = filter_input(INPUT_POST, 'nrps');
             $namas = filter_input(INPUT_POST, 'namas');
             $alamats = filter_input(INPUT_POST, 'alamats');
