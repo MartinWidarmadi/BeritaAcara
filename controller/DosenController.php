@@ -96,6 +96,40 @@ class DosenController
                 echo "<script type='text/javascript'>alert('$message');</script>";
             }
         }
+
+        $btnUpdate = filter_input(INPUT_POST, 'btnUpdate');
+
+        if (isset($btnUpdate)) {
+            $namas = filter_input(INPUT_POST, 'namas');
+            $nip = filter_input(INPUT_POST, 'nip');
+
+
+            $dsn = new Dosen();
+            $dsn->setNamaDosen($namas);
+            $dsn->setNIP($nip);
+
+
+            $result = $this->dosenDao->updateDosen($dsn);
+
+            if ($result) {
+                echo "
+                <script>$.toast({
+    heading: 'Success',
+    text: 'Success Update Data Dosen',
+    showHideTransition: 'slide',
+    stack: false,
+    icon: 'success'
+})</script>";
+            } else {
+                echo "<script>$.toast({
+    heading: 'Error',
+    text: 'Failed Update Data',
+    showHideTransition: 'fade',
+    icon: 'error'
+})</script>";
+            }
+        }
+
         $dosen = $this->dosenDao->fetchAllDosen();
         include_once 'view/dosen-view.php';
     }

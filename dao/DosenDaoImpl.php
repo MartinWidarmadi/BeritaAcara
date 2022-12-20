@@ -110,4 +110,23 @@ class DosenDaoImpl
         return $result;
     }
 
+    public function updateDosen(Dosen $dsn) {
+        $result = 0;
+        $link = PDOUtil::connectDb();
+        $query = 'UPDATE Dosen SET NamaDosen = ? WHERE NIP = ?';
+        $stmt = $link->prepare($query);
+        $stmt->bindValue(1, $dsn->getNamaDosen());
+        $stmt->bindValue(2, $dsn->getNIP());
+        $link->beginTransaction();
+
+        if ($stmt->execute()) {
+            $link->commit();
+            $result = 1;
+        } else {
+            $link->rollBack();
+        }
+        $link = null;
+        return $result;
+    }
+
 }

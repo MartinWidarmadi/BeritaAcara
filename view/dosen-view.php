@@ -9,24 +9,22 @@
         </thead>
         <tbody>
         <?php
-        foreach ($dosen as $dosens) {
+        foreach ($dosen as $index => $item) {
             echo '<tr>';
-            echo '<td>' . $dosens->getNIP() . '</td>';
-            echo '<td>' . $dosens->getNamaDosen() . '</td>';
+            echo '<td>' . $item->getNIP() . '</td>';
+            echo '<td>' . $item->getNamaDosen() . '</td>';
+            if ($item->getStatus() == 0) {
+                echo "<td> <button class='btn btn-success'  data-bs-toggle='modal' data-bs-target='#modaleditDosen-$index'>Edit </button >
+<button class='btn btn-primary' onclick = 'delDosen(" . $item->getNIP() . ",0)' > Non-aktif</button >
+<button class='btn btn-danger' onclick = 'deleteDosen(" . $item->getNIP() . ")' > Delete</button >
 
-            if ($dosens->getStatus() == 0) {
-                echo '<td> <button class="btn btn-success" onclick="editDosen(' . $dosens->getNIP() . ')">Edit </button >
-<button class="btn btn-primary" onclick = "delDosen(' . $dosens->getNIP() . ',0)" > Non-aktif</button >
-<button class="btn btn-danger" onclick = "deleteDosen(' . $dosens->getNIP() . ')" > Delete</button >
-
-        </td > ';
+        </td > ";
             } else {
-                echo '<td> <button class="btn btn-success" onclick="editDosen(' . $dosens->getNIP() . ')">Edit </button >
-<button class="btn btn-primary" onclick = "delDosen(' . $dosens->getNIP() . ',1)" > Aktif</button >
+                echo "<td> <button class='btn btn-success'  data-bs-toggle='modal' data-bs-target='#modaleditDosen-$index'>Edit </button >
+<button class='btn btn-primary' onclick = 'delDosen(" . $item->getNIP() . ",1)' > Aktif</button >
         
-        </td > ';
+        </td > ";
             }
-
         }
         ?>
         </tbody>
@@ -109,13 +107,46 @@
         </div>
     </div>
 </form>
+<?php foreach ($dosen as $index => $item) { ?>
+    <div class="modal fade" id="modaleditDosen-<?= $index ?>" tabindex="-1" role="dialog"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modaleditLabel">Edit Dosen</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post">
+                    <div class="modal-body">
+
+                        <div class="form-group mt-3">
+                            <label for="nrp" class="form-label">NIP</label>
+                            <input class="form-control" type="text" name="nip" placeholder="NIP" id="nip"
+                                   value="<?php echo $item->getNIP(); ?>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama" class="form-label">Nama</label>
+                            <input class="form-control" type="text" name="namas" placeholder="Nama " id="nama"
+                                   value="<?php echo $item->getNamaDosen(); ?>" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="btnUpdate" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+            </form>
+        </div>
+    </div>
+</div>
 
 <script>
-
-    const editDosen = (id) => {
-        window.location = `index.php?menu=editmahasiswa&mid=${id}`;
-    }
-
     const delDosen = (id, aktif) => {
         let confirmed = confirm('Are you sure deactivate this data ? ');
         if (confirmed) {
