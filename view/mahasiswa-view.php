@@ -46,6 +46,7 @@ else :
                 <th scope="col">Nama</th>
                 <th scope="col">Alamat</th>
                 <th scope="col">No HP</th>
+                <th scope="col">Status</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
@@ -57,15 +58,20 @@ else :
                 echo '<td>' . $item->getNama() . '</td>';
                 echo '<td>' . $item->getAlamat() . '</td>';
                 echo '<td>' . $item->getNoTlp() . '</td>';
+                if ($item->getStatus() == 0){
+                    echo '<td>' . "Non Aktif". '</td>';
+                } else{
+                    echo '<td>' . "Aktif". '</td>';
+                }
                 if ($item->getStatus() == 0) {
                     echo "<td> <button class='btn btn-success'  data-bs-toggle='modal' data-bs-target='#modaleditMahasiswa-$index'>Edit </button >
-<button class='btn btn-primary' onclick = 'activeMahasiswa(" . $item->getNRP() . ",0)' > Non-aktif</button >
+<button class='btn btn-primary' onclick = 'activeMahasiswa(" . $item->getNRP() . ",0)' > Aktif/Non Aktif</button >
 <button class='btn btn-danger' onclick = 'deleteMahasiswa(" . $item->getNRP() . ")' > Delete</button >
 
         </td > ";
                 } else {
                     echo "<td> <button class='btn btn-success'  data-bs-toggle='modal' data-bs-target='#modaleditMahasiswa-$index'>Edit </button >
-<button class='btn btn-primary' onclick = 'activeMahasiswa(" . $item->getNRP() . ",1)' > Aktif</button >
+<button class='btn btn-primary' onclick = 'activeMahasiswa(" . $item->getNRP() . ",1)' > Aktif/Non Aktif</button >
         
         </td > ";
                 }
@@ -80,6 +86,9 @@ else :
         </table>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Add Mahasiswa
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            Add Batch Mahasiswa
         </button>
     </div>
 
@@ -162,6 +171,41 @@ else :
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary" name="addMahasiswa">Add Mahasiswa</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Batch Mahasiswa</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <h6>Silahkan download template ini terlebih dahulu</h6>
+                            <a href="src/Template.xlsx" download>Download link</a>
+                        </div>
+                        <div class="form-group">
+                            <h5 style="color: red">Attention</h5>
+                            <h6>Col A : NRP</h6>
+                            <h6>Col B : Nama Mahasiswa</h6>
+                            <h6>Col C : Alamat</h6>
+                            <h6>Col D : No HP</h6>
+                        </div>
+                        <div>
+                            <input type="file" name="mahasiswaFile" id="mahasiswaFile" class="form-control form-second" accept=".xls,.xlsx">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="btnBatchFile" class="btn btn-primary">Add</button>
                     </div>
                 </form>
             </div>

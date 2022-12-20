@@ -54,6 +54,7 @@ class JadwalController
             }
             else if (isset($jadwalfile)){
                 if (isset($_FILES['jadwalFile']['name']) && $_FILES['jadwalFile']['name'] != '') {
+                    $semesters = filter_input(INPUT_POST, 'semesters');
                     $directory = 'uploads/';
                     $fileExtension = pathinfo($_FILES['jadwalFile']['name'], PATHINFO_EXTENSION);
                     $newFileName = 'Tanggal' . date("d M Y H i s") . '.' . $fileExtension;
@@ -70,7 +71,7 @@ class JadwalController
                         $filejadwal->setJamAkhir($jadwal["E"]);
                         $filejadwal->setType($jadwal["F"]);
                         $filejadwal->setKelas($jadwal["G"]);
-                        $filejadwal->setIdSemester($jadwal["H"]);
+                        $filejadwal->setIdSemester($semesters);
                         $result = $this->jadwalDao->insertNewJadwal($filejadwal);
                     }
                     if ($result) {
