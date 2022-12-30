@@ -32,7 +32,6 @@ class AcaraController
         foreach ($jadwals as $index => $jadwalfour){
             $array_assistens[$index] = $this->detailDao->fetchAssitenDosen($jadwalfour);
         }
-        var_dump($array_jadwal);
         include_once 'view/acara-view.php';
     }
 }

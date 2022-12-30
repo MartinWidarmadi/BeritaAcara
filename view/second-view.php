@@ -89,15 +89,67 @@
         </div> -->
         <div class="mb-3">
             <div class="autocomplete">
-                <label for="" class="form-label">Masukkan Asdos (Jika Ada)</label>
+                <input type="checkbox" name="check" id="check" class="form-check-label">
+                <label for="check" class="form-label">Tekan Jika Ada Asdos 1</label>
+                <div class="d-flex justify-content">
+                    <label for="check" class="form-label">Nama Asdos</label>
+                </div>
+
                 <div class="d-flex justify-content">
                     <input type="text" name="asdos1" id="myInput1" class="kolom-asdos form-control me-3 form-second">
+                </div>
+                <div class="d-flex justify-content">
+                    <label for="check" class="form-label">Waktu Asdos</label>
+                </div>
+                <div class="d-flex justify-content">
+                    <input type="text" name="time" id="timeInput1" class="kolom-asdos form-control me-3 form-second">
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="mb-3">
+            <div class="autocomplete">
+                <input type="checkbox" name="check" id="check2" class="form-check-label">
+                <label for="check" class="form-label">Tekan Jika Ada Asdos 2</label>
+                <div class="d-flex justify-content">
+                    <label for="check" class="form-label">Nama Asdos</label>
+                </div>
+                <div class="d-flex justify-content">
                     <input type="text" name="asdos2" id="myInput2" class="kolom-asdos form-control me-3 form-second">
-                    <input type="text" name="asdos3" id="myInput3" class="kolom-asdos form-control me-3 form-second ">
+                </div>
+                <div class="d-flex justify-content">
+                    <label for="check" class="form-label">Waktu Asdos</label>
+                </div>
+                <div class="d-flex justify-content">
+                    <input type="text" name="time" id="timeInput2" class="kolom-asdos form-control me-3 form-second">
                 </div>
             </div>
-            <input type="checkbox" name="check" id="check" class="form-check-label">
-            <label for="check" class="form-label">Tekan Radio Button Jika Ada Asdos</label>
+
+
+        </div>
+
+        <div class="mb-3">
+            <div class="autocomplete">
+                <input type="checkbox" name="check" id="check3" class="form-check-label">
+                <label for="check" class="form-label">Tekan Jika Ada Asdos 3</label>
+                <div class="d-flex justify-content">
+                    <label for="check" class="form-label">Nama Asdos</label>
+                </div>
+                <div class="d-flex justify-content">
+                    <input type="text" name="asdos3" id="myInput3" class="kolom-asdos form-control me-3 form-second ">
+                </div>
+                <div class="d-flex justify-content">
+                    <label for="check" class="form-label">Waktu Asdos</label>
+                </div>
+                <div class="d-flex justify-content">
+                    <input type="text" name="time" id="timeInput3" class="kolom-asdos form-control me-3 form-second">
+                </div>
+            </div>
+
+
         </div>
 
         <div class="mb-3">
@@ -208,6 +260,8 @@
     const materi = document.querySelector('#materi');
     const pbm = document.querySelector('#pbm');
     const check = document.querySelector('#check');
+    const check2 = document.querySelector('#check2');
+    const check3 = document.querySelector('#check3');
     const kolomAsdos = document.querySelectorAll('.kolom-asdos');
     const foto = document.querySelector('#foto');
     const btnSubmit = document.querySelector('.btnSubmit');
@@ -219,15 +273,41 @@
     })
     let isChecked = false;
     check.addEventListener('click', function () {
-        kolomAsdos.forEach((element) => {
             if (check.checked) {
-                element.disabled = false;
+                document.getElementById("myInput1").disabled = false;
+                document.getElementById("timeInput1").disabled = false;
                 isChecked = true;
             } else {
-                element.disabled = true;
+                document.getElementById("myInput1").disabled = true;
+                document.getElementById("timeInput1").disabled = true;
                 isChecked = false;
             }
-        })
+    });
+
+    let isChecked2 = false;
+    check2.addEventListener('click', function () {
+        if (check2.checked) {
+            document.getElementById("myInput2").disabled = false;
+            document.getElementById("timeInput2").disabled = false;
+            isChecked2 = true;
+        } else {
+            document.getElementById("myInput2").disabled = true;
+            document.getElementById("timeInput2").disabled = true;
+            isChecked2 = false;
+        }
+    });
+
+    let isChecked3 = false;
+    check3.addEventListener('click', function () {
+        if (check3.checked) {
+            document.getElementById("myInput3").disabled = false;
+            document.getElementById("timeInput3").disabled = false;
+            isChecked3 = true;
+        } else {
+            document.getElementById("myInput3").disabled = true;
+            document.getElementById("timeInput3").disabled = true;
+            isChecked3 = false;
+        }
     });
 
     const formCheck = document.querySelectorAll('.form-second');

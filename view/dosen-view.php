@@ -15,14 +15,16 @@
             echo '<td>' . $item->getNIP() . '</td>';
             echo '<td>' . $item->getNamaDosen() . '</td>';
             if ($item->getStatus() == 0) {
+                echo '<td>' . "Non Aktif". '</td>';
                 echo "<td> <button class='btn btn-success'  data-bs-toggle='modal' data-bs-target='#modaleditDosen-$index'>Edit </button >
-<button class='btn btn-primary' onclick = 'delDosen(" . $item->getNIP() . ",0)' > Non-aktif</button >
+<button class='btn btn-primary' onclick = 'delDosen(" . $item->getNIP() . ",0)' > Aktif/Non Aktif</button >
 <button class='btn btn-danger' onclick = 'deleteDosen(" . $item->getNIP() . ")' > Delete</button >
 
         </td > ";
             } else {
+                echo '<td>' . "Aktif". '</td>';
                 echo "<td> <button class='btn btn-success'  data-bs-toggle='modal' data-bs-target='#modaleditDosen-$index'>Edit </button >
-<button class='btn btn-primary' onclick = 'delDosen(" . $item->getNIP() . ",1)' > Aktif</button >
+<button class='btn btn-primary' onclick = 'delDosen(" . $item->getNIP() . ",1)' > Aktif/Non Aktif</button >
         
         </td > ";
             }
