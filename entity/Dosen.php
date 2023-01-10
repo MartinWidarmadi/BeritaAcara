@@ -7,7 +7,7 @@ class Dosen
     private $Prodi_idProdi;
     private $MataKuliah_idMataKuliah;
     private $status;
-    private $User_idUser;
+    private $user;
 
 
     /**
@@ -95,15 +95,15 @@ class Dosen
      */
     public function getUserIdUser()
     {
-        return $this->User_idUser;
+        return $this->user;
     }
 
     /**
-     * @param mixed $User_idUser
+     * @param mixed $user
      */
-    public function setUserIdUser($User_idUser)
+    public function setUserIdUser($user)
     {
-        $this->User_idUser = $User_idUser;
+        $this->user = $user;
     }
 
     public function __set($name,$value){

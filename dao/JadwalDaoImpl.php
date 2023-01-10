@@ -22,6 +22,17 @@ class JadwalDaoImpl {
     return $stmt->fetchAll();
   }
 
+  public function fetchJadwalStatus()
+    {
+        $link = PDOUtil::connectDb();
+        $query = 'SELECT * FROM jadwal WHERE status = 1 ORDER BY MataKuliah_idMataKuliah ASC';
+        $stmt = $link->prepare($query);
+        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Jadwal');
+        $stmt->execute();
+        $link = null;
+        return $stmt->fetchAll();
+    }
+
   public function fetchJadwal($nipDosen, $idMatkul) {
     $link = PDOUtil::connectDb();
     $query = 'SELECT * FROM jadwal WHERE Dosen_NIP = ? AND MataKuliah_idMataKuliah = ?';
@@ -54,6 +65,30 @@ class JadwalDaoImpl {
       $result = 1;
     } else {
       $link->rollBack();
+    }
+    $link = null;
+    return $result;
+  }
+
+  public function updateJadwal(Jadwal $jadwal) {
+    $result = 0;
+    $link = PDOUtil::connectDb();
+    $query = 'UPDATE Dosen SET kelas = ?, hari = ?, jam_awal = ?, jam_akhir = ?, type = ?, Dosen_NIP = ?, Semester_id_Semester = ?, status = ? WHERE MataKuliah_idMataKuliah = ?';
+    $stmt = $link->prepare($query);
+    $stmt->bindValue(1, $jadwal->getKelas());
+    $stmt->bindValue(2, $jadwal->getHari());
+    $stmt->bindValue(3, $jadwal->getJamAwal());
+    $stmt->bindValue(4, $jadwal->getJamAkhir());
+    $stmt->bindValue(5, $jadwal->getNipDosen()->getNIP());
+    $stmt->bindValue(6, $jadwal->getIdSemester()->getIdSemester());
+    $stmt->bindValue(7, $jadwal->getStatus());
+    $link->beginTransaction();
+
+    if ($stmt->execute()) {
+        $link->commit();
+        $result = 1;
+    } else {
+        $link->rollBack();
     }
     $link = null;
     return $result;

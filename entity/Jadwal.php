@@ -11,6 +11,7 @@ class Jadwal {
   private $idMatkul;
   private $type;
   private $kelas;
+  private $status;
 
     /**
      * @return mixed
@@ -170,6 +171,22 @@ class Jadwal {
     public function setType($type)
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 
     public function __set($name,$value)

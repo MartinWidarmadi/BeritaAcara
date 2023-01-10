@@ -1,0 +1,315 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema PbmDB
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `PbmDB` ;
+
+-- -----------------------------------------------------
+-- Schema PbmDB
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `PbmDB` DEFAULT CHARACTER SET utf8 ;
+USE `PbmDB` ;
+
+-- -----------------------------------------------------
+-- Table `PbmDB`.`User`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PbmDB`.`User` (
+  `idUser` INT NOT NULL AUTO_INCREMENT,
+  `Email` VARCHAR(45) NULL,
+  `Password` VARCHAR(100) NULL,
+  `Role` VARCHAR(45) NULL,
+  PRIMARY KEY (`idUser`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `PbmDB`.`Dosen`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PbmDB`.`Dosen` (
+  `NIP` VARCHAR(8) NOT NULL,
+  `NamaDosen` VARCHAR(45) NULL,
+  `User_idUser` INT NOT NULL,
+  `status` TINYINT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`NIP`),
+  INDEX `fk_Dosen_User1_idx` (`User_idUser` ASC),
+  CONSTRAINT `fk_Dosen_User1`
+    FOREIGN KEY (`User_idUser`)
+    REFERENCES `PbmDB`.`User` (`idUser`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `PbmDB`.`Prodi`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PbmDB`.`Prodi` (
+  `idProdi` INT NOT NULL,
+  `NamaProdi` VARCHAR(45) NULL,
+  PRIMARY KEY (`idProdi`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `PbmDB`.`MataKuliah`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PbmDB`.`MataKuliah` (
+  `idMataKuliah` VARCHAR(5) NOT NULL,
+  `NamaMataKuliah` VARCHAR(45) NULL,
+  `SKS` INT NULL,
+  `Prodi_idProdi` INT NOT NULL,
+  `status` TINYINT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`idMataKuliah`),
+  INDEX `fk_MataKuliah_Prodi1_idx` (`Prodi_idProdi` ASC),
+  CONSTRAINT `fk_MataKuliah_Prodi1`
+    FOREIGN KEY (`Prodi_idProdi`)
+    REFERENCES `PbmDB`.`Prodi` (`idProdi`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `PbmDB`.`Semester`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PbmDB`.`Semester` (
+  `id_Semester` INT NOT NULL,
+  `nama_semester` VARCHAR(100) NULL,
+  PRIMARY KEY (`id_Semester`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `PbmDB`.`jadwal`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PbmDB`.`jadwal` (
+  `kelas` VARCHAR(1) NOT NULL,
+  `hari` VARCHAR(10) NOT NULL,
+  `jam_awal` TIME NULL,
+  `jam_akhir` TIME NULL,
+  `type` VARCHAR(10) NOT NULL,
+  `MataKuliah_idMataKuliah` VARCHAR(5) NOT NULL,
+  `Dosen_NIP` VARCHAR(8) NOT NULL,
+  `Semester_id_Semester` INT NOT NULL,
+  `status` TINYINT NOT NULL,
+  PRIMARY KEY (`kelas`, `type`, `MataKuliah_idMataKuliah`, `Dosen_NIP`, `Semester_id_Semester`, `hari`),
+  INDEX `fk_jadwal_MataKuliah1_idx` (`MataKuliah_idMataKuliah` ASC),
+  INDEX `fk_jadwal_Dosen1_idx` (`Dosen_NIP` ASC),
+  INDEX `fk_jadwal_Semester1_idx` (`Semester_id_Semester` ASC),
+  CONSTRAINT `fk_jadwal_MataKuliah1`
+    FOREIGN KEY (`MataKuliah_idMataKuliah`)
+    REFERENCES `PbmDB`.`MataKuliah` (`idMataKuliah`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_jadwal_Dosen1`
+    FOREIGN KEY (`Dosen_NIP`)
+    REFERENCES `PbmDB`.`Dosen` (`NIP`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_jadwal_Semester1`
+    FOREIGN KEY (`Semester_id_Semester`)
+    REFERENCES `PbmDB`.`Semester` (`id_Semester`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `PbmDB`.`detail_jadwal`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PbmDB`.`detail_jadwal` (
+  `pertemuan` VARCHAR(3) NOT NULL,
+  `tanggal_pertemuan` DATE NULL,
+  `waktu_mulai` TIME NULL,
+  `waktu_selesai` TIME NULL,
+  `jumlah_mahasiswa` INT NULL,
+  `rangkuman` LONGTEXT NULL,
+  `foto_presensi` VARCHAR(255) NULL,
+  `jadwal_kelas` VARCHAR(1) NOT NULL,
+  `jadwal_type` VARCHAR(10) NOT NULL,
+  `jadwal_MataKuliah_idMataKuliah` VARCHAR(5) NOT NULL,
+  `jadwal_Dosen_NIP` VARCHAR(8) NOT NULL,
+  `jadwal_Semester_id_Semester` INT NOT NULL,
+  `jadwal_hari` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`pertemuan`, `jadwal_kelas`, `jadwal_type`, `jadwal_MataKuliah_idMataKuliah`, `jadwal_Dosen_NIP`, `jadwal_Semester_id_Semester`, `jadwal_hari`),
+  INDEX `fk_detail_jadwal_jadwal1_idx` (`jadwal_kelas` ASC, `jadwal_type` ASC, `jadwal_MataKuliah_idMataKuliah` ASC, `jadwal_Dosen_NIP` ASC, `jadwal_Semester_id_Semester` ASC, `jadwal_hari` ASC),
+  CONSTRAINT `fk_detail_jadwal_jadwal1`
+    FOREIGN KEY (`jadwal_kelas` , `jadwal_type` , `jadwal_MataKuliah_idMataKuliah` , `jadwal_Dosen_NIP` , `jadwal_Semester_id_Semester` , `jadwal_hari`)
+    REFERENCES `PbmDB`.`jadwal` (`kelas` , `type` , `MataKuliah_idMataKuliah` , `Dosen_NIP` , `Semester_id_Semester` , `hari`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `PbmDB`.`Mahasiswa`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PbmDB`.`Mahasiswa` (
+  `NRP` VARCHAR(8) NOT NULL,
+  `Nama` VARCHAR(45) NULL,
+  `alamat` VARCHAR(45) NULL,
+  `no_tlp` VARCHAR(45) NULL,
+  `status` TINYINT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`NRP`))
+ENGINE = InnoDB
+KEY_BLOCK_SIZE = 2;
+
+
+-- -----------------------------------------------------
+-- Table `PbmDB`.`asisten_dosen`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PbmDB`.`asisten_dosen` (
+  `Mahasiswa_NRP` VARCHAR(8) NOT NULL,
+  `jumlah_jam` VARCHAR(45) NOT NULL,
+  `pertemuan` VARCHAR(45) NOT NULL,
+  `tanggal_aktivitas` VARCHAR(45) NULL,
+  `jadwal_kelas` VARCHAR(1) NOT NULL,
+  `jadwal_type` VARCHAR(10) NOT NULL,
+  `jadwal_MataKuliah_idMataKuliah` VARCHAR(5) NOT NULL,
+  `jadwal_Dosen_NIP` VARCHAR(8) NOT NULL,
+  `jadwal_Semester_id_Semester` INT NOT NULL,
+  `jadwal_hari` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`Mahasiswa_NRP`, `pertemuan`, `jadwal_kelas`, `jadwal_type`, `jadwal_MataKuliah_idMataKuliah`, `jadwal_Dosen_NIP`, `jadwal_Semester_id_Semester`, `jadwal_hari`),
+  INDEX `fk_Mahasiswa_has_jadwal_Mahasiswa1_idx` (`Mahasiswa_NRP` ASC),
+  INDEX `fk_asisten_dosen_jadwal1_idx` (`jadwal_kelas` ASC, `jadwal_type` ASC, `jadwal_MataKuliah_idMataKuliah` ASC, `jadwal_Dosen_NIP` ASC, `jadwal_Semester_id_Semester` ASC, `jadwal_hari` ASC),
+  CONSTRAINT `fk_Mahasiswa_has_jadwal_Mahasiswa1`
+    FOREIGN KEY (`Mahasiswa_NRP`)
+    REFERENCES `PbmDB`.`Mahasiswa` (`NRP`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_asisten_dosen_jadwal1`
+    FOREIGN KEY (`jadwal_kelas` , `jadwal_type` , `jadwal_MataKuliah_idMataKuliah` , `jadwal_Dosen_NIP` , `jadwal_Semester_id_Semester` , `jadwal_hari`)
+    REFERENCES `PbmDB`.`jadwal` (`kelas` , `type` , `MataKuliah_idMataKuliah` , `Dosen_NIP` , `Semester_id_Semester` , `hari`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `PbmDB`.`OTP`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PbmDB`.`OTP` (
+  `no_otp` VARCHAR(45) NULL,
+  `request_date` TIMESTAMP NOT NULL,
+  `expired_date` TIMESTAMP NULL,
+  `User_idUser` INT NOT NULL,
+  PRIMARY KEY (`User_idUser`, `request_date`),
+  INDEX `fk_OTP_User1_idx` (`User_idUser` ASC),
+  CONSTRAINT `fk_OTP_User1`
+    FOREIGN KEY (`User_idUser`)
+    REFERENCES `PbmDB`.`User` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `PbmDB`.`User`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `PbmDB`;
+INSERT INTO `PbmDB`.`User` (`idUser`, `Email`, `Password`, `Role`) VALUES (1, 'john.doe@email.com', '827ccb0eea8a706c4c34a16891f84e7b', 'admin');
+INSERT INTO `PbmDB`.`User` (`idUser`, `Email`, `Password`, `Role`) VALUES (2, 'mekkel.rio@email.com', '827ccb0eea8a706c4c34a16891f84e7b', 'dosen');
+INSERT INTO `PbmDB`.`User` (`idUser`, `Email`, `Password`, `Role`) VALUES (3, 'martin.widar@email.com', '827ccb0eea8a706c4c34a16891f84e7b', 'dosen');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `PbmDB`.`Dosen`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `PbmDB`;
+INSERT INTO `PbmDB`.`Dosen` (`NIP`, `NamaDosen`, `User_idUser`, `status`) VALUES ('1', 'Admin', 1, DEFAULT);
+INSERT INTO `PbmDB`.`Dosen` (`NIP`, `NamaDosen`, `User_idUser`, `status`) VALUES ('12345001', 'Dosen1', 2, DEFAULT);
+INSERT INTO `PbmDB`.`Dosen` (`NIP`, `NamaDosen`, `User_idUser`, `status`) VALUES ('12345002', 'Dosen2', 3, DEFAULT);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `PbmDB`.`Prodi`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `PbmDB`;
+INSERT INTO `PbmDB`.`Prodi` (`idProdi`, `NamaProdi`) VALUES (1, 'Sistem Informasi');
+INSERT INTO `PbmDB`.`Prodi` (`idProdi`, `NamaProdi`) VALUES (2, 'Teknik Informatika');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `PbmDB`.`MataKuliah`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `PbmDB`;
+INSERT INTO `PbmDB`.`MataKuliah` (`idMataKuliah`, `NamaMataKuliah`, `SKS`, `Prodi_idProdi`, `status`) VALUES ('IN001', 'Dasar Pemrograman', 2, 2, DEFAULT);
+INSERT INTO `PbmDB`.`MataKuliah` (`idMataKuliah`, `NamaMataKuliah`, `SKS`, `Prodi_idProdi`, `status`) VALUES ('IN002', 'Proses Bisnis', 3, 1, DEFAULT);
+INSERT INTO `PbmDB`.`MataKuliah` (`idMataKuliah`, `NamaMataKuliah`, `SKS`, `Prodi_idProdi`, `status`) VALUES ('IN003', 'Desain Basis Data', 2, 2, DEFAULT);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `PbmDB`.`Semester`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `PbmDB`;
+INSERT INTO `PbmDB`.`Semester` (`id_Semester`, `nama_semester`) VALUES (1, 'Reguler Ganjil 2021/2022');
+INSERT INTO `PbmDB`.`Semester` (`id_Semester`, `nama_semester`) VALUES (2, 'Reguler Ganjil 2022/2023');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `PbmDB`.`jadwal`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `PbmDB`;
+INSERT INTO `PbmDB`.`jadwal` (`kelas`, `hari`, `jam_awal`, `jam_akhir`, `type`, `MataKuliah_idMataKuliah`, `Dosen_NIP`, `Semester_id_Semester`, `status`) VALUES ('A', 'Senin', '07:00', '09:30', 'Teori', 'IN001', '12345001', 1, 1);
+INSERT INTO `PbmDB`.`jadwal` (`kelas`, `hari`, `jam_awal`, `jam_akhir`, `type`, `MataKuliah_idMataKuliah`, `Dosen_NIP`, `Semester_id_Semester`, `status`) VALUES ('B', 'Selasa', '12:30', '15:00', 'Praktikum', 'IN002', '12345002', 1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `PbmDB`.`detail_jadwal`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `PbmDB`;
+INSERT INTO `PbmDB`.`detail_jadwal` (`pertemuan`, `tanggal_pertemuan`, `waktu_mulai`, `waktu_selesai`, `jumlah_mahasiswa`, `rangkuman`, `foto_presensi`, `jadwal_kelas`, `jadwal_type`, `jadwal_MataKuliah_idMataKuliah`, `jadwal_Dosen_NIP`, `jadwal_Semester_id_Semester`, `jadwal_hari`) VALUES ('1', '2022-10-11', '07:00:00', '09:30:00', 20, 'Pertemuan ini membahas teori dari matakuliah ini', NULL, 'A', 'Teori', 'IN001', '12345001', 1, 'Senin');
+INSERT INTO `PbmDB`.`detail_jadwal` (`pertemuan`, `tanggal_pertemuan`, `waktu_mulai`, `waktu_selesai`, `jumlah_mahasiswa`, `rangkuman`, `foto_presensi`, `jadwal_kelas`, `jadwal_type`, `jadwal_MataKuliah_idMataKuliah`, `jadwal_Dosen_NIP`, `jadwal_Semester_id_Semester`, `jadwal_hari`) VALUES ('1', '2022-10-10', '12:30:00', '15:00:00', 20, 'Pertemuan ini membahas teori dari mata kuliah ini', NULL, 'B', 'Praktikum', 'IN002', '12345002', 1, 'Selasa');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `PbmDB`.`Mahasiswa`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `PbmDB`;
+INSERT INTO `PbmDB`.`Mahasiswa` (`NRP`, `Nama`, `alamat`, `no_tlp`, `status`) VALUES ('2072001', 'Rio Jeremy', 'jl.kembang layang, no 32 cimahi', '081235415725', DEFAULT);
+INSERT INTO `PbmDB`.`Mahasiswa` (`NRP`, `Nama`, `alamat`, `no_tlp`, `status`) VALUES ('2072002', 'Violance Gressia', 'jl.Sudirman , no 146 Bandung', '087514254788', DEFAULT);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `PbmDB`.`asisten_dosen`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `PbmDB`;
+INSERT INTO `PbmDB`.`asisten_dosen` (`Mahasiswa_NRP`, `jumlah_jam`, `pertemuan`, `tanggal_aktivitas`, `jadwal_kelas`, `jadwal_type`, `jadwal_MataKuliah_idMataKuliah`, `jadwal_Dosen_NIP`, `jadwal_Semester_id_Semester`, `jadwal_hari`) VALUES ('2072001', '2', '1', NULL, 'A', 'Teori', 'IN001', '12345001', 1, 'Senin');
+INSERT INTO `PbmDB`.`asisten_dosen` (`Mahasiswa_NRP`, `jumlah_jam`, `pertemuan`, `tanggal_aktivitas`, `jadwal_kelas`, `jadwal_type`, `jadwal_MataKuliah_idMataKuliah`, `jadwal_Dosen_NIP`, `jadwal_Semester_id_Semester`, `jadwal_hari`) VALUES ('2072002', '3', '1', NULL, 'B', 'Praktikum', 'IN002', '12345002', 1, 'Selasa');
+
+COMMIT;
+
