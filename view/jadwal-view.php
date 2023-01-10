@@ -1,96 +1,133 @@
 <?php
 if ($_SESSION['roles'] == "dosen") :
     ?>
-<div class="mt-3 mx-5">
-    <table class="table" id="example">
-        <thead>
-        <tr>
-            <th scope="col">ID MK</th>
-            <th scope="col">Mata Kuliah</th>
-            <th scope="col">Hari</th>
-            <th scope="col">Jam Mulai</th>
-            <th scope="col">Jam Selesai</th>
-            <th scope="col">Tipe</th>
-            <th scope="col">Kelas</th>
-            <th scope="col">Semester</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        foreach ($jadwal as $item) {
-            echo '<tr>';
-            echo '<td>' . $item->getIdMatkul()->getIdMataKuliah() . '</td>';
-            echo '<td>' . $item->getIdMatkul()->getNamaMataKuliah() . '</td>';
-            echo '<td>' . $item->getHari() . '</td>';
-            echo '<td>' . $item->getJamAwal() . '</td>';
-            echo '<td>' . $item->getJamAkhir() . '</td>';
-            echo '<td>' . $item->getType() . '</td>';
-            echo '<td>' . $item->getKelas() . '</td>';
-            echo '<td>' . $item->getIdSemester()->getNamaSemester() . '</td>';
-            echo '</tr>';
-        }
-        ?>
-        </tbody>
-        <thead>
-        <tr></tr>
-        </thead>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
-    </table>
-</div>
+    <div class="mt-3 mx-5">
+        <table class="table" id="example">
+            <thead>
+            <tr>
+                <th scope="col">ID MK</th>
+                <th scope="col">Mata Kuliah</th>
+                <th scope="col">Hari</th>
+                <th scope="col">Jam Mulai</th>
+                <th scope="col">Jam Selesai</th>
+                <th scope="col">Tipe</th>
+                <th scope="col">Kelas</th>
+                <th scope="col">Semester</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($jadwal as $item) {
+                echo '<tr>';
+                echo '<td>' . $item->getIdMatkul()->getIdMataKuliah() . '</td>';
+                echo '<td>' . $item->getIdMatkul()->getNamaMataKuliah() . '</td>';
+                echo '<td>' . $item->getHari() . '</td>';
+                echo '<td>' . $item->getJamAwal() . '</td>';
+                echo '<td>' . $item->getJamAkhir() . '</td>';
+                echo '<td>' . $item->getType() . '</td>';
+                echo '<td>' . $item->getKelas() . '</td>';
+                echo '<td>' . $item->getIdSemester()->getNamaSemester() . '</td>';
+                echo '</tr>';
+            }
+            ?>
+            </tbody>
+            <thead>
+            <tr></tr>
+            </thead>
+            <link rel="stylesheet" type="text/css"
+                  href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
+            <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
+        </table>
+    </div>
 <?php
 else :
     ?>
-    <div class="mt-3 mx-5">
-    <table class="table" id="example">
-        <thead>
-        <tr>
-            <th scope="col">Nama Dosen</th>
-            <th scope="col">Id MK</th>
-            <th scope="col">Mata Kuliah</th>
-            <th scope="col">Hari</th>
-            <th scope="col">Jam Mulai</th>
-            <th scope="col">Jam Selesai</th>
-            <th scope="col">Tipe</th>
-            <th scope="col">Kelas</th>
-            <th scope="col">Semester</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        foreach ($jadwals as $item) {
-            echo '<tr>';
-            echo '<td>' . $item->getNipDosen()->getNamaDosen() . '</td>';
-            echo '<td>' . $item->getIdMatkul()->getIdMataKuliah() . '</td>';
-            echo '<td>' . $item->getIdMatkul()->getNamaMataKuliah() . '</td>';
-            echo '<td>' . $item->getHari() . '</td>';
-            echo '<td>' . $item->getJamAwal() . '</td>';
-            echo '<td>' . $item->getJamAkhir() . '</td>';
-            echo '<td>' . $item->getType() . '</td>';
-            echo '<td>' . $item->getKelas() . '</td>';
-            echo '<td>' . $item->getIdSemester()->getNamaSemester() . '</td>';
-            echo '</tr>';
-        }
-        ?>
-        </tbody>
-        <thead>
-        <tr></tr>
-        </thead>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
-    </table>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Add Jadwal
-    </button>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-            Add Batch Jadwal
-        </button>
-<!--        <div class="mb-3">-->
-<!--            <form method="post" enctype="multipart/form-data">-->
-<!--                <input type="file" name="jadwalFile" id="jadwalFile" class="form-control form-second" accept=".xls,.xlsx">-->
-<!--                <button type="submit" name="btnBatchFile" class="btn btn-primary">Add Batch Jadwal</button>-->
-<!--        </div>-->
+    <div class="row" style="padding: 50px">
+        <div class="col-2">
+            <form method="post">
+                <h5 class="fw-bold">FILTER</h5>
+                <select class="form-select" id="filterSemester" name="filterSemester"
+                        aria-label="Default select example" style="margin: 10px">
+                    <option selected value=>Pilih Semester</option>
+                    <?php foreach ($semester as $smstr): ?>
+                        <option value="<?= $smstr->getIdSemester(); ?>"><?= $smstr->getNamaSemester(); ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <select class="form-select" id="filterDosen" name="filterDosen" aria-label="Default select example"
+                        style="margin: 10px">
+                    <?php
+                    if (!isset($filDosen)){
+                        echo "<option selected value=>Pilih Dosen</option>";
+                    }else{
+                        echo '<option value=>Pilih Dosen</option>';
+                    }
+                    ?>
+                    <?php foreach ($dosen as $item):
+                        if ($item->getNIP() == $filDosen){
+                            echo"<option selected value='" . $item->getNIP() . "'>" .  $item->getNamaDosen() . "</option>";
+                        } else{
+                            echo"<option value='" . $item->getNIP() . "'>" .  $item->getNamaDosen() . "</option>";
+                        }?>
+                    <?php endforeach; ?>
+                </select>
+                <button type="submit" name="btnFilter" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+        <div class="col-10">
+            <table class="table" id="example">
+                <thead>
+                <tr>
+                    <th scope="col">Nama Dosen</th>
+                    <th scope="col">Id MK</th>
+                    <th scope="col">Mata Kuliah</th>
+                    <th scope="col">Hari</th>
+                    <th scope="col">Jam Mulai</th>
+                    <th scope="col">Jam Selesai</th>
+                    <th scope="col">Tipe</th>
+                    <th scope="col">Kelas</th>
+                    <th scope="col">Semester</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                foreach ($jadwals as $item) {
+                    echo '<tr>';
+                    echo '<td>' . $item->getNipDosen()->getNamaDosen() . '</td>';
+                    echo '<td>' . $item->getIdMatkul()->getIdMataKuliah() . '</td>';
+                    echo '<td>' . $item->getIdMatkul()->getNamaMataKuliah() . '</td>';
+                    echo '<td>' . $item->getHari() . '</td>';
+                    echo '<td>' . $item->getJamAwal() . '</td>';
+                    echo '<td>' . $item->getJamAkhir() . '</td>';
+                    echo '<td>' . $item->getType() . '</td>';
+                    echo '<td>' . $item->getKelas() . '</td>';
+                    echo '<td>' . $item->getIdSemester()->getNamaSemester() . '</td>';
+                    echo '</tr>';
+                }
+                ?>
+                </tbody>
+                <thead>
+                <tr></tr>
+                </thead>
+                <link rel="stylesheet" type="text/css"
+                      href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
+                <script type="text/javascript"
+                        src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
+            </table>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add Jadwal
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                Add Batch Jadwal
+            </button>
+            <!--        <div class="mb-3">-->
+            <!--            <form method="post" enctype="multipart/form-data">-->
+            <!--                <input type="file" name="jadwalFile" id="jadwalFile" class="form-control form-second" accept=".xls,.xlsx">-->
+            <!--                <button type="submit" name="btnBatchFile" class="btn btn-primary">Add Batch Jadwal</button>-->
+            <!--        </div>-->
+        </div>
+
     </div>
+
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -108,8 +145,8 @@ else :
                             <div class="form-group">
                                 <select class="form-select" id="dosen" name="dosen" aria-label="Default select example">
                                     <option selected value="0">Pilih Dosen</option>
-                                    <?php foreach($dosen as $item):?>
-                                        <option value="<?= $item->getNIP();?>"><?=  $item->getNamaDosen(); ?></option>
+                                    <?php foreach ($dosen as $item): ?>
+                                        <option value="<?= $item->getNIP(); ?>"><?= $item->getNamaDosen(); ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -117,8 +154,8 @@ else :
                                 <select class="form-select" id="matkul" name="matkul"
                                         aria-label="Default select example">
                                     <option selected value="0">Pilih Mata Kuliah</option>
-                                    <?php foreach($matkul as $item):?>
-                                        <option value="<?= $item->getIdMataKuliah();?>"><?=  $item->getNamaMataKuliah(); ?></option>
+                                    <?php foreach ($matkul as $item): ?>
+                                        <option value="<?= $item->getIdMataKuliah(); ?>"><?= $item->getNamaMataKuliah(); ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -160,7 +197,7 @@ else :
                                         aria-label="Default select example">
                                     <option selected value="0">Pilih Semester</option>
                                     <?php foreach ($semester as $item): ?>
-                                        <option value="<?= $item->getIdSemester();?>"><?= $item->getNamaSemester(); ?></option>
+                                        <option value="<?= $item->getIdSemester(); ?>"><?= $item->getNamaSemester(); ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -191,7 +228,7 @@ else :
                                     aria-label="Default select example">
                                 <option selected value="0">Pilih Semester</option>
                                 <?php foreach ($semester as $item): ?>
-                                    <option value="<?= $item->getIdSemester();?>"><?= $item->getNamaSemester(); ?></option>
+                                    <option value="<?= $item->getIdSemester(); ?>"><?= $item->getNamaSemester(); ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -210,7 +247,8 @@ else :
                             <h6>Col G : Kelas</h6>
                         </div>
                         <div>
-                            <input type="file" name="jadwalFile" id="jadwalFile" class="form-control form-second" accept=".xls,.xlsx">
+                            <input type="file" name="jadwalFile" id="jadwalFile" class="form-control form-second"
+                                   accept=".xls,.xlsx">
                         </div>
                     </div>
                     <div class="modal-footer">

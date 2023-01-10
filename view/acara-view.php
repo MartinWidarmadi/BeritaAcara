@@ -118,13 +118,6 @@ else:
             <th scope="col">Kelas</th>
             <th scope="col">Semester</th>
             <th scope="col">Action</th>
-<!--            <th scope="col">Waktu Mulai</th>-->
-<!--            <th scope="col">Waktu Selesai</th>-->
-<!--            <th scope="col">Tipe</th>-->
-<!--            <th scope="col">Kelas</th>-->
-<!--            <th scope="col">Rangkuman</th>-->
-<!--            <th scope="col">Jumlah Mahasiswa</th>-->
-<!--            <th scope="col">Foto Presensi</th>-->
         </tr>
         </thead>
         <tbody>

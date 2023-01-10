@@ -18,10 +18,13 @@ class JadwalController
     }
 
     public function index() {
-            $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
+        $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
+        $btnFilter = filter_input(INPUT_POST, 'btnFilter');
         $jadwalfile = filter_input(INPUT_POST, 'btnBatchFile');
 
-            if (isset($btnSubmit)) {
+        $jadwals = $this->jadwalDao->fetchAllJadwals();
+
+        if (isset($btnSubmit)) {
                 $nipDosen = filter_input(INPUT_POST, 'dosen');
                 $idMatkul = filter_input(INPUT_POST, 'matkul');
                 $type = filter_input(INPUT_POST, 'type');
@@ -99,13 +102,16 @@ class JadwalController
                             icon: 'error'
                     })</script>";
                 }
-            }
+            }else if (isset($btnFilter)) {
+            $filSemester = filter_input(INPUT_POST, 'filterSemester');
+            $filDosen = filter_input(INPUT_POST, 'filterDosen');
+            $jadwals = $this->jadwalDao->fetchFilterJadwal($filSemester,$filDosen);
+        }
 
 
 
         $dosenId = $this->dosenDao->fetchDosen($_SESSION['user_id'])->getNIP();
         $jadwal = $this->jadwalDao->fetchAllJadwal($dosenId);
-        $jadwals = $this->jadwalDao->fetchAllJadwals();
         $dosen = $this->dosenDao->fetchDosenActive();
         $matkul = $this->mkDao->fetchMKstatus();
         $semester = $this->semesterDao->fetchAllSemester();
