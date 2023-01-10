@@ -33,6 +33,25 @@ class JadwalDaoImpl {
         return $stmt->fetchAll();
     }
 
+  public function updateStatusJadwal($id, $status) {
+    $result = 0;
+    $link = PDOUtil::connectDb();
+    $query = 'UPDATE jadwal SET status = ? WHERE MataKuliah_idMataKuliah = ?';
+    $stmt = $link->prepare($query);
+    $stmt->bindParam(1, $status);
+    $stmt->bindParam(2, $id);
+    $link->beginTransaction();
+
+    if ($stmt->execute()) {
+        $link->commit();
+        $result = 1;
+    } else {
+        $link->rollBack();
+    }
+    $link = null;
+    return $result;
+  }
+
     public function fetchJadwal($nipDosen, $idMatkul)
     {
         $link = PDOUtil::connectDb();
@@ -109,6 +128,49 @@ class JadwalDaoImpl {
         $link = null;
         return $result;
     }
+
+  public function updateJadwal(Jadwal $jadwal) {
+      $result = 0;
+      $link = PDOUtil::connectDb();
+      $query = 'UPDATE jadwal SET kelas = ?, hari = ?, jam_awal = ?, jam_akhir = ?, type = ?, Dosen_NIP = ?, Semester_id_Semester, status = ? WHERE MataKuliah_idMataKuliah = ?';
+      $stmt = $link->prepare($query);
+      $stmt->bindValue(1, $jadwal->getKelas());
+      $stmt->bindValue(2, $jadwal->getHari());
+      $stmt->bindValue(3, $jadwal->getJamAwal());
+      $stmt->bindValue(4, $jadwal->getJamAkhir());
+      $stmt->bindValue(5, $jadwal->getType());
+      $stmt->bindValue(6, $jadwal->getNipDosen()->getNIP());
+      $stmt->bindValue(7, $jadwal->getIdSemester()->getIdSemester());
+      $stmt->bindValue(8, $jadwal->getStatus());
+      $link->beginTransaction();
+
+      if ($stmt->execute()) {
+          $link->commit();
+          $result = 1;
+      } else {
+          $link->rollBack();
+      }
+      $link = null;
+      return $result;
+  }
+
+  public function deleteJadwal($id) {
+    $result = 0;
+    $link = PDOUtil::connectDb();
+    $query = 'DELETE FROM jadwal WHERE MataKuliah_idMataKuliah = ?';
+    $stmt = $link->prepare($query);
+    $stmt->bindParam(1, $id);
+    $link->beginTransaction();
+
+    if ($stmt->execute()) {
+        $link->commit();
+        $result = 1;
+    } else {
+        $link->rollBack();
+    }
+    $link = null;
+    return $result;
+}
 }
 
 ?>

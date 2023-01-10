@@ -110,10 +110,13 @@ else :
                 <td>Non Aktif</td>
             <?php endif; ?>
             <td>
-                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>               
-                <button class="btn btn-primary" onclick="activeJadwal(<?= $item->getIdJadwal();?>)">Aktif/Non Aktif</button>
-                <?php if ($item->getStatus() == 1): ?>
-                    <button class="btn btn-danger" onclick="deleteJadwal(<?= $item->getIdJadwal();?>)">Delete</button>
+                <?php if ($item->getStatus() == 0): ?>
+                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>               
+                    <button class="btn btn-primary" onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', 0)">Aktif/Non Aktif</button>
+                <?php else: ?>
+                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>               
+                    <button class="btn btn-primary" onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', 1)">Aktif/Non Aktif</button>
+                    <button class="btn btn-danger" onclick="delJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>')">Delete</button>
                 <?php endif; ?>
             </td>
         </tr>

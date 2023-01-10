@@ -18,6 +18,43 @@ class JadwalController
     }
 
     public function index() {
+        $btnDel = filter_input(INPUT_GET, 'delcom');
+        if (isset($btnDel)) {
+            $delId = filter_input(INPUT_GET, 'jid');
+            if ($btnDel == 1) {
+                $status = filter_input(INPUT_GET, 'aktif');
+                $status = !$status;
+                $delResult = $this->jadwalDao->updateStatusJadwal($delId, $status);
+                
+                if ($delResult) {
+                    echo "
+                    <script>$.toast({
+                    heading: 'DEACTIVATED',
+                    text: 'Success DEACTIVATED Data Jadwal',
+                    showHideTransition: 'slide',
+                    stack: false,
+                    icon: 'success'
+                    })</script>";
+            } else {
+                echo '<script>alert("Error when deactivated data")</script>';
+            }
+        } else if ($btnDel == 2) {
+            $delResult = $this->jadwalDao->deleteJadwal($delId);
+
+            if ($delResult) {
+                echo "
+                <script>$.toast({
+                heading: 'DELETE',
+                text: 'Success DELETE Data Matakuliah',
+                showHideTransition: 'slide',
+                stack: false,
+                icon: 'error'
+                })</script>";
+            } else {
+                echo '<script>alert("Error when delete data")</script>';
+            }
+        }
+    }
         $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
         $btnFilter = filter_input(INPUT_POST, 'btnFilter');
         $jadwalfile = filter_input(INPUT_POST, 'btnBatchFile');

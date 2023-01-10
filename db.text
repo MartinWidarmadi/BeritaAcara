@@ -97,15 +97,15 @@ CREATE TABLE IF NOT EXISTS `PbmDB`.`jadwal` (
   `Dosen_NIP` VARCHAR(8) NOT NULL,
   `Semester_id_Semester` INT NOT NULL,
   `status` TINYINT NOT NULL,
-  PRIMARY KEY (`kelas`, `type`, `MataKuliah_idMataKuliah`, `Dosen_NIP`, `Semester_id_Semester`, `hari`),
+  PRIMARY KEY (`kelas`, `hari`, `type`, `MataKuliah_idMataKuliah`, `Dosen_NIP`, `Semester_id_Semester`),
   INDEX `fk_jadwal_MataKuliah1_idx` (`MataKuliah_idMataKuliah` ASC),
   INDEX `fk_jadwal_Dosen1_idx` (`Dosen_NIP` ASC),
   INDEX `fk_jadwal_Semester1_idx` (`Semester_id_Semester` ASC),
   CONSTRAINT `fk_jadwal_MataKuliah1`
     FOREIGN KEY (`MataKuliah_idMataKuliah`)
     REFERENCES `PbmDB`.`MataKuliah` (`idMataKuliah`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_jadwal_Dosen1`
     FOREIGN KEY (`Dosen_NIP`)
     REFERENCES `PbmDB`.`Dosen` (`NIP`)
@@ -312,4 +312,5 @@ INSERT INTO `PbmDB`.`asisten_dosen` (`Mahasiswa_NRP`, `jumlah_jam`, `pertemuan`,
 INSERT INTO `PbmDB`.`asisten_dosen` (`Mahasiswa_NRP`, `jumlah_jam`, `pertemuan`, `tanggal_aktivitas`, `jadwal_kelas`, `jadwal_type`, `jadwal_MataKuliah_idMataKuliah`, `jadwal_Dosen_NIP`, `jadwal_Semester_id_Semester`, `jadwal_hari`) VALUES ('2072002', '3', '1', NULL, 'B', 'Praktikum', 'IN002', '12345002', 1, 'Selasa');
 
 COMMIT;
+
 
