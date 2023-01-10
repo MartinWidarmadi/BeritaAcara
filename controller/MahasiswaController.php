@@ -92,13 +92,17 @@ class MahasiswaController
                 move_uploaded_file($_FILES['mahasiswaFile']['tmp_name'],$targetFile);
                 $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($targetFile);
                 $data = $spreadsheet->getActiveSheet()->toArray(null, true, true , true);
-                foreach ($data as $index=> $mahasiswa){
+                $result3 = false;
+                for ($i = 2; $i <= count($data); $i++){
                     $filemahasiswa = new Mahasiswa();
-                    $filemahasiswa->setNRP($mahasiswa["A"]);
-                    $filemahasiswa->setNama($mahasiswa["B"]);
-                    $filemahasiswa->setAlamat($mahasiswa["C"]);
-                    $filemahasiswa->setNoTlp($mahasiswa["D"]);
-                    $result3 = $this->mahasiswaDao->insertNewMahasiswa($filemahasiswa);
+                    $filemahasiswa->setNRP($data[$i]["A"]);
+                    $filemahasiswa->setNama($data[$i]["B"]);
+                    $filemahasiswa->setAlamat($data[$i]["C"]);
+                    $filemahasiswa->setNoTlp("0".$data[$i]["D"]);
+                    $checksuccess = $this->mahasiswaDao->fetchMahasiswa($data[$i]["A"]);
+                    if (!$checksuccess){
+                        $result3 = $this->mahasiswaDao->insertNewMahasiswa($filemahasiswa);
+                    }
                 }
                 if ($result3) {
                     echo "

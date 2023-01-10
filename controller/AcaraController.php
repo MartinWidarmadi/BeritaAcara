@@ -23,15 +23,16 @@ class AcaraController
         foreach ($jadwals as $index => $jadwalone){
             $array_jadwals[$index] = $this->detailDao->fetchBeritaAcara($jadwalone);
         }
-        foreach ($jadwal as $jadwaltwo){
-            $array_jadwal[$jadwaltwo->getIdJadwal()] = $this->detailDao->fetchBeritaAcara($jadwaltwo);
+        foreach ($jadwal as $index => $jadwaltwo){
+            $array_jadwal[$index] = $this->detailDao->fetchBeritaAcara($jadwaltwo);
         }
-        foreach ($jadwal as $jadwalthree){
-            $array_assisten[$jadwalthree->getIdJadwal()] = $this->detailDao->fetchAssitenDosen($jadwalthree);
+        foreach ($jadwal as $index =>  $jadwalthree){
+            $array_assisten[$index] = $this->detailDao->fetchAssitenDosen($jadwalthree);
         }
         foreach ($jadwals as $index => $jadwalfour){
             $array_assistens[$index] = $this->detailDao->fetchAssitenDosen($jadwalfour);
         }
+//        var_dump($array_jadwal);
         include_once 'view/acara-view.php';
     }
 }

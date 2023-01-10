@@ -41,6 +41,9 @@
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1">
         Add Dosen
     </button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+        Add Batch Dosen
+    </button>
 </div>
 <form method="post">
     <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -144,6 +147,41 @@
         </div>
     </div>
 <?php } ?>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Batch Dosen</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <h6>Silahkan download template ini terlebih dahulu</h6>
+                        <a href="src/TemplateDosen.xlsx" download>Download link</a>
+                    </div>
+                    <div class="form-group">
+                        <h5 style="color: red">Attention</h5>
+                        <h6>Col A : Email</h6>
+                        <h6>Col B : Password</h6>
+                        <h6>Col B : NIP Dosen</h6>
+                        <h6>Col B : Nama Dosen</h6>
+                    </div>
+                    <div>
+                        <input type="file" name="dosenFile" id="dosenFile" class="form-control form-second" accept=".xls,.xlsx">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" name="btnBatchFile" class="btn btn-primary">Add</button>
+                </div>
             </form>
         </div>
     </div>
