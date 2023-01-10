@@ -88,21 +88,21 @@
           <input type="text" name="materi" id="materi" class="form-control form-second">
         </div> -->
         <div class="mb-3">
-            <div class="autocomplete">
+            <div class="col-3">
                 <input type="checkbox" name="check" id="check" class="form-check-label">
                 <label for="check" class="form-label">Tekan Jika Ada Asdos 1</label>
                 <div class="d-flex justify-content">
                     <label for="check" class="form-label">Nama Asdos</label>
                 </div>
 
-                <div class="d-flex justify-content">
+                <div class="d-flex justify-content autocomplete">
                     <input type="text" name="asdos1" id="myInput1" class="kolom-asdos form-control me-3 form-second">
                 </div>
                 <div class="d-flex justify-content">
                     <label for="check" class="form-label">Waktu Asdos</label>
                 </div>
                 <div class="d-flex justify-content">
-                    <input type="text" name="time" id="timeInput1" class="kolom-asdos form-control me-3 form-second">
+                    <input type="text" name="time1" id="timeInput1" class="kolom-asdos form-control me-3 form-second">
                 </div>
 
             </div>
@@ -111,20 +111,20 @@
         </div>
 
         <div class="mb-3">
-            <div class="autocomplete">
+            <div class="col-3">
                 <input type="checkbox" name="check" id="check2" class="form-check-label">
                 <label for="check" class="form-label">Tekan Jika Ada Asdos 2</label>
                 <div class="d-flex justify-content">
                     <label for="check" class="form-label">Nama Asdos</label>
                 </div>
-                <div class="d-flex justify-content">
+                <div class="d-flex justify-content autocomplete">
                     <input type="text" name="asdos2" id="myInput2" class="kolom-asdos form-control me-3 form-second">
                 </div>
                 <div class="d-flex justify-content">
                     <label for="check" class="form-label">Waktu Asdos</label>
                 </div>
                 <div class="d-flex justify-content">
-                    <input type="text" name="time" id="timeInput2" class="kolom-asdos form-control me-3 form-second">
+                    <input type="text" name="time2" id="timeInput2" class="kolom-asdos form-control me-3 form-second">
                 </div>
             </div>
 
@@ -132,20 +132,20 @@
         </div>
 
         <div class="mb-3">
-            <div class="autocomplete">
+            <div class="col-3">
                 <input type="checkbox" name="check" id="check3" class="form-check-label">
                 <label for="check" class="form-label">Tekan Jika Ada Asdos 3</label>
                 <div class="d-flex justify-content">
                     <label for="check" class="form-label">Nama Asdos</label>
                 </div>
-                <div class="d-flex justify-content">
+                <div class="d-flex justify-content autocomplete">
                     <input type="text" name="asdos3" id="myInput3" class="kolom-asdos form-control me-3 form-second ">
                 </div>
                 <div class="d-flex justify-content">
                     <label for="check" class="form-label">Waktu Asdos</label>
                 </div>
                 <div class="d-flex justify-content">
-                    <input type="text" name="time" id="timeInput3" class="kolom-asdos form-control me-3 form-second">
+                    <input type="text" name="time3" id="timeInput3" class="kolom-asdos form-control me-3 form-second">
                 </div>
             </div>
 

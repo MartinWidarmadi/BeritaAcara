@@ -18,10 +18,13 @@ class JadwalController
     }
 
     public function index() {
-            $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
+        $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
+        $btnFilter = filter_input(INPUT_POST, 'btnFilter');
         $jadwalfile = filter_input(INPUT_POST, 'btnBatchFile');
 
-            if (isset($btnSubmit)) {
+        $jadwals = $this->jadwalDao->fetchAllJadwals();
+
+        if (isset($btnSubmit)) {
                 $nipDosen = filter_input(INPUT_POST, 'dosen');
                 $idMatkul = filter_input(INPUT_POST, 'matkul');
                 $type = filter_input(INPUT_POST, 'type');
@@ -61,18 +64,23 @@ class JadwalController
                     $targetFile = $directory . $newFileName;
                     move_uploaded_file($_FILES['jadwalFile']['tmp_name'],$targetFile);
                     $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($targetFile);
+                    $result = false;
                     $data = $spreadsheet->getActiveSheet()->toArray(null, true, true , true);
-                    foreach ($data as $index=> $jadwal){
+                    for ($i = 2; $i <= count($data); $i++){
                         $filejadwal = new Jadwal();
-                        $filejadwal->setNipDosen($jadwal["A"]);
-                        $filejadwal->setIdMatkul($jadwal["B"]);
-                        $filejadwal->setHari($jadwal["C"]);
-                        $filejadwal->setJamAwal($jadwal["D"]);
-                        $filejadwal->setJamAkhir($jadwal["E"]);
-                        $filejadwal->setType($jadwal["F"]);
-                        $filejadwal->setKelas($jadwal["G"]);
+                        $filejadwal->setNipDosen($data[$i]["A"]);
+                        $filejadwal->setIdMatkul($data[$i]["B"]);
+                        $filejadwal->setHari($data[$i]["C"]);
+                        $filejadwal->setJamAwal($data[$i]["D"]);
+                        $filejadwal->setJamAkhir($data[$i]["E"]);
+                        $filejadwal->setType($data[$i]["F"]);
+                        $filejadwal->setKelas($data[$i]["G"]);
                         $filejadwal->setIdSemester($semesters);
-                        $result = $this->jadwalDao->insertNewJadwal($filejadwal);
+
+                        $checksuccess = $this->jadwalDao->fetchJadwal($data[$i]["A"],$data[$i]["B"]);
+                        if (!$checksuccess){
+                            $result = $this->jadwalDao->insertNewJadwal($filejadwal);
+                        }
                     }
                     if ($result) {
                         echo "
@@ -99,13 +107,16 @@ class JadwalController
                             icon: 'error'
                     })</script>";
                 }
-            }
+            }else if (isset($btnFilter)) {
+            $filSemester = filter_input(INPUT_POST, 'filterSemester');
+            $filDosen = filter_input(INPUT_POST, 'filterDosen');
+            $jadwals = $this->jadwalDao->fetchFilterJadwal($filSemester,$filDosen);
+        }
 
 
 
         $dosenId = $this->dosenDao->fetchDosen($_SESSION['user_id'])->getNIP();
         $jadwal = $this->jadwalDao->fetchAllJadwal($dosenId);
-        $jadwals = $this->jadwalDao->fetchAllJadwals();
         $dosen = $this->dosenDao->fetchDosenActive();
         $matkul = $this->mkDao->fetchMKstatus();
         $semester = $this->semesterDao->fetchAllSemester();

@@ -56,7 +56,7 @@ public function fetchAllJadwals() {
   public function insertNewDetailJadwal (DetailJadwal $detailJadwal) {
     $result = 0;
     $link = PDOUtil::connectDb();
-    $query = 'INSERT INTO detail_jadwal(jadwal_Dosen_NIP, jadwal_MataKuliah_idMataKuliah, jadwal_Semester_id_Semester, jadwal_type, pertemuan, tanggal_pertemuan, waktu_mulai, waktu_selesai, rangkuman, foto_presensi, jadwal_kelas, jumlah_mahasiswa) VALUES(?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)';
+    $query = 'INSERT INTO detail_jadwal(jadwal_Dosen_NIP, jadwal_MataKuliah_idMataKuliah, jadwal_Semester_id_Semester, jadwal_type, pertemuan, tanggal_pertemuan, waktu_mulai, waktu_selesai, rangkuman, foto_presensi, jadwal_kelas, jumlah_mahasiswa,jadwal_hari) VALUES(?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?)';
     $stmt = $link->prepare($query);
     $stmt->bindValue(1, $detailJadwal->getNipDosen());
     $stmt->bindValue(2, $detailJadwal->getIdMatkul());
@@ -70,8 +70,37 @@ public function fetchAllJadwals() {
     $stmt->bindValue(10, $detailJadwal->getFotoPresensi());
     $stmt->bindValue(11, $detailJadwal->getKelas());
     $stmt->bindValue(12, $detailJadwal->getJumlahMahasiswa());
+    $stmt->bindValue(13, $detailJadwal->getHari());
     $link->beginTransaction();
   
+    if($stmt->execute()) {
+      $link->commit();
+      $result = 1;
+    } else {
+      $link->rollBack();
+    }
+    $link = null;
+    return $result;
+  }
+
+  public function insertNewAsdos (AssistenDosen $assistenDosen) {
+    $result = 0;
+    $link = PDOUtil::connectDb();
+    $query = 'INSERT INTO asisten_dosen(jadwal_kelas,jadwal_hari,jadwal_Matakuliah_idMatakuliah,jadwal_Semester_id_Semester,jumlah_jam,jadwal_Dosen_NIP,Mahasiswa_NRP,pertemuan,jadwal_type,tanggal_aktivitas) VALUES(?, ?, ?, ? ,?, ?, ?, ?, ?, ?)';
+    $stmt = $link->prepare($query);
+    $stmt->bindValue(1, $assistenDosen->getKelas());
+    $stmt->bindValue(2, $assistenDosen->getHari());
+    $stmt->bindValue(3, $assistenDosen->getIdMatkul());
+    $stmt->bindValue(4, $assistenDosen->getIdSemester());
+    $stmt->bindValue(5, $assistenDosen->getJumlahJam());
+    $stmt->bindValue(6, $assistenDosen->getNipDosen());
+    $stmt->bindValue(7, $assistenDosen->getNrpMahasiswa());
+    $stmt->bindValue(8, $assistenDosen->getPertemuan());
+    $stmt->bindValue(9, $assistenDosen->getType());
+    $stmt->bindValue(10, $assistenDosen->getTanggal());
+
+    $link->beginTransaction();
+
     if($stmt->execute()) {
       $link->commit();
       $result = 1;

@@ -98,13 +98,17 @@ class MataKuliahController
                 move_uploaded_file($_FILES['matkulFile']['tmp_name'],$targetFile);
                 $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($targetFile);
                 $data = $spreadsheet->getActiveSheet()->toArray(null, true, true , true);
-                foreach ($data as $index=> $matkul){
+                $result3 = false;
+                for ($i = 2; $i <= count($data); $i++){
                     $filematkul = new MataKuliah();
-                    $filematkul->setIdMataKuliah($matkul["A"]);
-                    $filematkul->setNamaMataKuliah($matkul["B"]);
-                    $filematkul->setSKS($matkul["C"]);
+                    $filematkul->setIdMataKuliah($data[$i]["A"]);
+                    $filematkul->setNamaMataKuliah($data[$i]["B"]);
+                    $filematkul->setSKS($data[$i]["C"]);
                     $filematkul->setIdProdi($prodis);
-                    $result3 = $this->mkDao->insertNewMataKuliah($filematkul);
+                    $checksuccess = $this->mkDao->fetchMK($data[$i]["A"]);
+                    if (!$checksuccess){
+                        $result3 = $this->mkDao->insertNewMataKuliah($filematkul);
+                    }
                 }
                 if ($result3) {
                     echo "

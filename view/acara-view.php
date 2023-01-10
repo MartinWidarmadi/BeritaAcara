@@ -37,8 +37,8 @@ if ($_SESSION['roles'] == "dosen") :
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
 </table>
 </div>
-    <?php foreach ($jadwal as $index => $jadwalz) { ?>
-    <div class="modal fade" id="jadwals-<?= $index ?>" tabindex="-1" aria-hidden="true">
+    <?php foreach ($jadwal as $i => $jadwalz) { ?>
+    <div class="modal fade" id="jadwals-<?= $i ?>" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -65,7 +65,7 @@ if ($_SESSION['roles'] == "dosen") :
                         </thead>
                         <tbody>
                         <?php
-                        foreach($array_jadwal[$jadwalz->getIdJadwal()] as $index => $item ) {
+                        foreach($array_jadwal[$i] as $index => $item ) {
                             echo '<tr>';
                             echo '<td>' . $item->getPertemuan() . '</td>';
                             $date = date_create($item->getTanggalPertemuan());
@@ -75,10 +75,18 @@ if ($_SESSION['roles'] == "dosen") :
                             echo '<td>' . $item->getWaktuSelesai() . '</td>';
 
                             echo '<td>' . $item->getRangkuman() . '</td>';
-                            foreach ($array_assisten[$jadwalz->getIdJadwal()] as $index => $item2) {
-                                echo '<td>' . $item2->getNrpMahasiswa()->getNama() . '</td>';
-                                echo '<td>' . $item2->getJumlahJam() . " Jam" . '</td>';
+                            echo '<td>';
+                            foreach ($array_assisten[$i] as $item2) {
+                                echo    $item2->getNrpMahasiswa()->getNama() . '<br>';
                             }
+                            echo '</td>';
+
+                            echo '<td>';
+                            foreach ($array_assisten[$i] as $item2) {
+                                echo    $item2->getJumlahJam() . " Jam" . '<br>';
+                            }
+                            echo '</td>';
+
                             echo '<td>' . $item->getJumlahMahasiswa() . '</td>';
                             if ($item->getFotoPresensi() == null || $item->getFotoPresensi() == '') {
                                 echo '<td><img src="image/default_cover.svg" alt="Photo" style="max-width: 100px"></td>';
@@ -118,13 +126,6 @@ else:
             <th scope="col">Kelas</th>
             <th scope="col">Semester</th>
             <th scope="col">Action</th>
-<!--            <th scope="col">Waktu Mulai</th>-->
-<!--            <th scope="col">Waktu Selesai</th>-->
-<!--            <th scope="col">Tipe</th>-->
-<!--            <th scope="col">Kelas</th>-->
-<!--            <th scope="col">Rangkuman</th>-->
-<!--            <th scope="col">Jumlah Mahasiswa</th>-->
-<!--            <th scope="col">Foto Presensi</th>-->
         </tr>
         </thead>
         <tbody>

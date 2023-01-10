@@ -38,6 +38,7 @@ class DosenController
             }
         }
         $submitPressed = filter_input(INPUT_POST, 'btnSubmit');
+        $btnbatchdosen = filter_input(INPUT_POST, 'btnBatchFile');
         if (isset($submitPressed)) {
             $email = filter_input(INPUT_POST, 'email');
             $password = filter_input(INPUT_POST, 'password');
@@ -95,7 +96,57 @@ class DosenController
                 $message = "Email Sudah digunakan";
                 echo "<script type='text/javascript'>alert('$message');</script>";
             }
-        }
+        }elseif (isset($btnbatchdosen)) {
+            if (isset($_FILES['dosenFile']['name']) && $_FILES['dosenFile']['name'] != '') {
+                $directory = 'uploads/';
+                $fileExtension = pathinfo($_FILES['dosenFile']['name'], PATHINFO_EXTENSION);
+                $newFileName = 'Tanggal' . date("d M Y H i s") . '.' . $fileExtension;
+                $targetFile = $directory . $newFileName;
+                move_uploaded_file($_FILES['dosenFile']['tmp_name'], $targetFile);
+                $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($targetFile);
+                $data = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+                $result3 = false;
+                    for ($i = 2; $i <= count($data); $i++) {
+                        $users = new User();
+                        $users->setEmail($data[$i]["A"]);
+                        $users->setPassword(md5($data[$i]["B"]));
+                        $users->setRole("dosen");
+                        $this->userDao->insertNewUser($users);
+                        $result4 = $this->userDao->checkEmail($data[$i]["A"]);
+                        $filedosen = new Dosen();
+                        $filedosen->setNIP($data[$i]["C"]);
+                        $filedosen->setNamaDosen($data[$i]["D"]);
+                        $filedosen->setUserIdUser($result4->getIdUser());
+                        $result3 = $this->dosenDao->insertNewDosen($filedosen);
+                    }
+                    if ($result3) {
+                        echo "
+                                    <script>$.toast({
+                        heading: 'Success',
+                        text: 'Success Add Batch Data dosen',
+                        showHideTransition: 'slide',
+                        stack: false,
+                        icon: 'success'
+                    })</script>";
+                    } else {
+                        echo "<script>$.toast({
+                            heading: 'Error',
+                            text: 'Failed Add Batch Data dosen',
+                            stack: false,
+                            showHideTransition: 'fade',
+                            icon: 'error'
+                    })</script>";
+                    }
+                } else {
+                    echo "<script>$.toast({
+                            heading: 'Error',
+                            text: 'Please Input File First',
+                            stack: false,
+                            showHideTransition: 'fade',
+                            icon: 'error'
+                    })</script>";
+                }
+            }
 
         $btnUpdate = filter_input(INPUT_POST, 'btnUpdate');
 

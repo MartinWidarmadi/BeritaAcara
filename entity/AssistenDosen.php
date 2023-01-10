@@ -4,7 +4,6 @@ class AssistenDosen
 {
     private $nipDosen;
     private $idMatkul;
-    private $kodeKelas;
     private $idSemester;
     private $type;
     private $pertemuan;
@@ -12,6 +11,23 @@ class AssistenDosen
     private $hari;
     private $nrpMahasiswa;
     private $jumlah_jam;
+    private $tanggal;
+
+    /**
+     * @return mixed
+     */
+    public function getTanggal()
+    {
+        return $this->tanggal;
+    }
+
+    /**
+     * @param mixed $tanggal
+     */
+    public function setTanggal($tanggal)
+    {
+        $this->tanggal = $tanggal;
+    }
 
     /**
      * @return mixed
@@ -43,22 +59,6 @@ class AssistenDosen
     public function setIdMatkul($idMatkul)
     {
         $this->idMatkul = $idMatkul;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getKodeKelas()
-    {
-        return $this->kodeKelas;
-    }
-
-    /**
-     * @param mixed $kodeKelas
-     */
-    public function setKodeKelas($kodeKelas)
-    {
-        $this->kodeKelas = $kodeKelas;
     }
 
     /**
