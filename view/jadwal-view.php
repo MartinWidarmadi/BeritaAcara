@@ -112,10 +112,10 @@ else :
             <td>
                 <?php if ($item->getStatus() == 0): ?>
                     <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>               
-                    <button class="btn btn-primary" onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', 0)">Aktif/Non Aktif</button>
+                    <button class="btn btn-primary" onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', '<?= $item->getType();?>', '<?= $item->getKelas();?>', '<?= $item->getIdSemester()->getIdSemester();?>', 0)">Aktif/Non Aktif</button>
                 <?php else: ?>
                     <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>               
-                    <button class="btn btn-primary" onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', 1)">Aktif/Non Aktif</button>
+                    <button class="btn btn-primary" onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', '<?= $item->getType();?>', '<?= $item->getKelas();?>', '<?= $item->getIdSemester()->getIdSemester();?>', 1)">Aktif/Non Aktif</button>
                     <button class="btn btn-danger" onclick="delJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>')">Delete</button>
                 <?php endif; ?>
             </td>
@@ -156,14 +156,14 @@ else :
                     <div class="modal-body">
                         <!-- MK readonly -->
                         <div class="form-group mt-3">
-                            <label for="idJadwal" class="form-label">Id Jadwal</label>
-                            <input type="text" name="idJadwal" id="idJadwal"  class="form-control" value="<?= $item->getIdMatkul()->getIdMataKuliah() . ' ' .$item->getIdMatkul()->getNamaMataKuliah();?>" readonly>
+                            <label for="idMatkul" class="form-label">Id Jadwal</label>
+                            <input type="text" name="idMatkul" id="idMatkul"  class="form-control" value="<?= $item->getIdMatkul()->getIdMataKuliah() . ' ' .$item->getIdMatkul()->getNamaMataKuliah();?>" readonly>
                         </div>
 
                         <!-- pilih dosen -->
                         <div class="form-group mt-3">
                             <label for="dosen" class="form-label">Dosen</label>
-                            <select class="form-select" name="dosen" id="">
+                            <select class="form-select" name="dosen" id="dosen">
                                 <option value="<?= $item->getNipDosen()->getNIP(); ?>" selected><?= $item->getNipDosen()->getNamaDosen(); ?></option>
                                 <?php foreach($dosen as $d) :
                                     if ($d->getNIP() != $item->getNipDosen()->getNIP()):
@@ -177,7 +177,7 @@ else :
                         <!-- pilih hari -->
                         <div class="form-group mt-3">
                             <label for="hari" class="form-label">Hari</label>
-                            <select class="form-select" name="hari" id="">
+                            <select class="form-select" name="hari" id="hari">
                                 <option value="<?= $item->getHari(); ?>" selected><?= $item->getHari(); ?></option>
                                 <?php 
                                 $hari = array("Senin", "Selasa", "Rabu", "Kamis", "Jumat");
@@ -194,11 +194,11 @@ else :
                         <div class="form-group mt-3 d-flex">
                             <div class="w-100">
                                 <label for="jamMulai" class="form-label">Jam Mulai</label>
-                                <input class="form-control" type="time" name="jamMulai" id="jamMulai" value="<?= $item->getJamAwal(); ?>">
+                                <input class="form-control" type="time" name="jamMulai" id="jamMulai" value="<?= $item->getJamAwal(); ?>" required>
                             </div>
                             <div class="w-100 ms-2">
                                 <label for="jamSelesai" class="form-label">Jam Selesai</label>
-                                <input class="form-control" type="time" name="jamSelesai" id="jamSelesai" value="<?= $item->getJamAkhir(); ?>">
+                                <input class="form-control" type="time" name="jamSelesai" id="jamSelesai" value="<?= $item->getJamAkhir(); ?>" required>
                             </div>
                         </div>
 
@@ -249,11 +249,12 @@ else :
                             </select>
                         </div>
                     </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="btnUpdate">Update</button>
+                    </div>
                 </form>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
-                </div>
                 </div>
             </div>
         </div>
@@ -261,7 +262,7 @@ else :
     
     
         
-
+    <!-- Add Jadwal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -345,6 +346,8 @@ else :
             </div>
         </div>
     </div>
+
+    <!-- Add Batch Jadwal -->
     <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModal2Label"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -403,10 +406,10 @@ endif; ?>
         window.location = `index.php?menu=editjadwal&jid=%{id}`;
     }
 
-    const activeJadwal = (id, aktif) => {
+    const activeJadwal = (id, type, kelas, semester, aktif) => {
         let confirmed = confirm('Are you sure deactivate this data?');
         if (confirmed) {
-            window.location = `index.php?menu=jadwal&delcom=1&jid=${id}&aktif=${aktif}`;
+            window.location = `index.php?menu=jadwal&delcom=1&jid=${id}&type=${type}&kelas=${kelas}&semester=${semester}&aktif=${aktif}`;
         }
     }
 

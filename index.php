@@ -154,10 +154,10 @@ if ($_SESSION['is_logged']):
             $userController = new UserController();
             $userController->logout();
             break;
-        case 'editmatkul':
-            $editMatkul = new MataKuliahController();
-            $editMatkul->updateIndex();
-            break;
+        // case 'editmatkul':
+        //     $editMatkul = new MataKuliahController();
+        //     $editMatkul->updateIndex();
+        //     break;
         // case 'addDosen':
         //     $addDosenController = new addDosenController();
         //     $addDosenController->index();

@@ -21,12 +21,15 @@ class JadwalController
         $btnDel = filter_input(INPUT_GET, 'delcom');
         if (isset($btnDel)) {
             $delId = filter_input(INPUT_GET, 'jid');
+            $type = filter_input(INPUT_GET, 'type');
+            $kelas = filter_input(INPUT_GET, 'kelas');
+            $semester = filter_input(INPUT_GET, 'semester');
             if ($btnDel == 1) {
                 $status = filter_input(INPUT_GET, 'aktif');
                 $status = !$status;
-                $delResult = $this->jadwalDao->updateStatusJadwal($delId, $status);
+                $delResult = $this->jadwalDao->updateStatusJadwal($delId, $type, $kelas, $semester, $status,);
                 
-                if ($delResult) {
+                if ($delResult && $status == 1) {
                     echo "
                     <script>$.toast({
                     heading: 'DEACTIVATED',
@@ -35,9 +38,18 @@ class JadwalController
                     stack: false,
                     icon: 'success'
                     })</script>";
-            } else {
-                echo '<script>alert("Error when deactivated data")</script>';
-            }
+                } else if ($delResult && $status == 0) {
+                    echo "
+                    <script>$.toast({
+                    heading: 'ACTIVATED',
+                    text: 'Success ACTIVATED Data Jadwal',
+                    showHideTransition: 'slide',
+                    stack: false,
+                    icon: 'success'
+                    })</script>";
+                } else {
+                    echo '<script>alert("Error when deactivated data")</script>';
+                }
         } else if ($btnDel == 2) {
             $delResult = $this->jadwalDao->deleteJadwal($delId);
 
@@ -55,6 +67,7 @@ class JadwalController
             }
         }
     }
+
         $btnSubmit = filter_input(INPUT_POST, 'btnSubmit');
         $btnFilter = filter_input(INPUT_POST, 'btnFilter');
         $jadwalfile = filter_input(INPUT_POST, 'btnBatchFile');
@@ -150,7 +163,50 @@ class JadwalController
             $jadwals = $this->jadwalDao->fetchFilterJadwal($filSemester,$filDosen);
         }
 
+        // edit jadwal
+        $btnUpdate = filter_input(INPUT_POST, 'btnUpdate');
 
+        if (isset($btnUpdate)) {
+            $idMatkul = strtok(filter_input(INPUT_POST, 'idMatkul'), " ");
+            $dosen = filter_input(INPUT_POST, 'dosen');
+            $hari = filter_input(INPUT_POST, 'hari');
+            $jamMulai = filter_input(INPUT_POST, 'jamMulai');
+            $jamSelesai = filter_input(INPUT_POST, 'jamSelesai');
+            $tipe = filter_input(INPUT_POST, 'tipe');
+            $kelas = filter_input(INPUT_POST, 'kelas');
+            $semester = filter_input(INPUT_POST, 'semester');
+
+            $jadwal = new Jadwal();
+            // $jadwal->setIdMatkul($idMatkul);
+            $jadwal->setKelas($kelas);
+            $jadwal->setHari($hari);
+            $jadwal->setJamAwal($jamMulai);
+            $jadwal->setJamAkhir($jamSelesai);
+            $jadwal->setType($tipe);
+            $jadwal->setNipDosen($dosen);
+            $jadwal->setIdSemester($semester);
+            $jadwal->setIdMatkul($idMatkul);
+
+            $result = $this->jadwalDao->updateJadwal($jadwal);
+
+            if ($result) {
+                echo "
+                    <script>$.toast({
+                    heading: 'Success',
+                    text: 'Success Update Data Jadwal',
+                    showHideTransition: 'slide',
+                    stack: false,
+                    icon: 'success'
+                })</script>";
+            } else {
+                echo "<script>$.toast({
+                    heading: 'Error',
+                    text: 'Failed Update Data',
+                    showHideTransition: 'fade',
+                    icon: 'error'
+                })</script>";
+            }
+        }
 
         $dosenId = $this->dosenDao->fetchDosen($_SESSION['user_id'])->getNIP();
         $jadwal = $this->jadwalDao->fetchAllJadwal($dosenId);
@@ -159,4 +215,5 @@ class JadwalController
         $semester = $this->semesterDao->fetchAllSemester();
         include_once 'view/jadwal-view.php';
     }
+
 }

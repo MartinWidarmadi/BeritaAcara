@@ -33,13 +33,16 @@ class JadwalDaoImpl {
         return $stmt->fetchAll();
     }
 
-  public function updateStatusJadwal($id, $status) {
+  public function updateStatusJadwal($id, $tipe, $kelas, $semester, $status) {
     $result = 0;
     $link = PDOUtil::connectDb();
-    $query = 'UPDATE jadwal SET status = ? WHERE MataKuliah_idMataKuliah = ?';
+    $query = 'UPDATE jadwal SET status = ? WHERE MataKuliah_idMataKuliah = ? AND type = ? AND kelas = ? AND Semester_id_Semester = ?';
     $stmt = $link->prepare($query);
     $stmt->bindParam(1, $status);
     $stmt->bindParam(2, $id);
+    $stmt->bindParam(3, $tipe);
+    $stmt->bindParam(4, $kelas);
+    $stmt->bindParam(5, $semester);
     $link->beginTransaction();
 
     if ($stmt->execute()) {
@@ -107,7 +110,7 @@ class JadwalDaoImpl {
     {
         $result = 0;
         $link = PDOUtil::connectDb();
-        $query = 'INSERT INTO jadwal(kelas, hari, jam_awal, jam_akhir, type, MataKuliah_idMataKuliah, Dosen_NIP, Semester_id_Semester) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
+        $query = 'INSERT INTO jadwal(kelas, hari, jam_awal, jam_akhir, type, MataKuliah_idMataKuliah, Dosen_NIP, Semester_id_Semester, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, 0)';
         $stmt = $link->prepare($query);
         $stmt->bindValue(1, $jadwal->getKelas());
         $stmt->bindValue(2, $jadwal->getHari());
@@ -132,16 +135,16 @@ class JadwalDaoImpl {
   public function updateJadwal(Jadwal $jadwal) {
       $result = 0;
       $link = PDOUtil::connectDb();
-      $query = 'UPDATE jadwal SET kelas = ?, hari = ?, jam_awal = ?, jam_akhir = ?, type = ?, Dosen_NIP = ?, Semester_id_Semester, status = ? WHERE MataKuliah_idMataKuliah = ?';
+      $query = 'UPDATE jadwal SET kelas = ?, hari = ?, jam_awal = ?, jam_akhir = ?, type = ?, Dosen_NIP = ?, Semester_id_Semester = ? WHERE MataKuliah_idMataKuliah = ?';
       $stmt = $link->prepare($query);
       $stmt->bindValue(1, $jadwal->getKelas());
       $stmt->bindValue(2, $jadwal->getHari());
       $stmt->bindValue(3, $jadwal->getJamAwal());
       $stmt->bindValue(4, $jadwal->getJamAkhir());
       $stmt->bindValue(5, $jadwal->getType());
-      $stmt->bindValue(6, $jadwal->getNipDosen()->getNIP());
-      $stmt->bindValue(7, $jadwal->getIdSemester()->getIdSemester());
-      $stmt->bindValue(8, $jadwal->getStatus());
+      $stmt->bindValue(6, $jadwal->getNipDosen());
+      $stmt->bindValue(7, $jadwal->getIdSemester());
+      $stmt->bindValue(8, $jadwal->getIdMatkul());
       $link->beginTransaction();
 
       if ($stmt->execute()) {
