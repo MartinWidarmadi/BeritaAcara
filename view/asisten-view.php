@@ -2,11 +2,15 @@
     <div class="col-2">
         <form method="post">
             <h5 class="fw-bold">FILTER</h5>
-            <div class="col-12">
-                <input type="date" name="calendar2" id="calendar2" class="form-control form-second">
-            </div>
-            <div class="col-12">
-                <input type="date" name="calendar3" id="calendar3" class="form-control form-second">
+            <div style="margin: 10px">
+                <h6>FROM</h6>
+                <div style="margin: 10px">
+                    <input type="date" name="calendar2" id="calendar2" class="form-control form-second">
+                </div>
+                <h6>UNTIL</h6>
+                <div style="margin: 10px">
+                    <input type="date" name="calendar3" id="calendar3" class="form-control form-second">
+                </div>
             </div>
             <button type="submit" name="btnFilter" class="btn btn-success">Submit</button>
         </form>
