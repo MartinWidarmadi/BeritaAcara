@@ -11,25 +11,17 @@ class ProfileController
     }
 
     public function index() {
-      $dosen = $this->dosenDao->fetchDosen($_SESSION['user_id']);
-      $user = $this->userDao->fetchUser($_SESSION['user_id']);
-//        var_dump($array_jadwal);
-      include_once 'view/profile-view.php';
-    }
-
-    function updateIndex() {
       $btnCheck = filter_input(INPUT_POST, 'btnCheck');
       if (isset($btnCheck)) {
-        $idUser = filter_input(INPUT_GET, 'uid');
+        $idUser = $_SESSION['user_id'];
         $oldPassword = filter_input(INPUT_POST, 'oldPassword');
         $newPassword = filter_input(INPUT_POST, 'newPassword');
         $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
         $checkPassword = $this->userDao->fetchUser($idUser)->getPassword();
-        var_dump($checkPassword, $idUser);
         if ($checkPassword != md5($oldPassword)) {
           $message = "Kata sandi lama salah!!";
           echo "<script>alert('$message')</script>";
-        } else if ($newPassword != $oldPassword) {
+        } else if ($newPassword != $confirmPassword) {
           $message = "Kata sandi tidak cocok!!";
           echo "<script>alert('$message')</script>";
         } else {
@@ -59,6 +51,9 @@ class ProfileController
           }
         }
       }
+      $dosen = $this->dosenDao->fetchDosen($_SESSION['user_id']);
+      $user = $this->userDao->fetchUser($_SESSION['user_id']);
+//        var_dump($array_jadwal);
       include_once 'view/profile-view.php';
     }
 }

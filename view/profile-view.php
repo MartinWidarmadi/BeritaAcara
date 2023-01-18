@@ -55,7 +55,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary" name="btnCheck" id="checkPw" onclick="changePw('<?= $_SESSION['user_id'];?>')">Update Password</button>
+          <button type="submit" class="btn btn-primary" name="btnCheck" id="checkPw" onclick="changePw()">Update Password</button>
         </div>
       </form>
     </div>
@@ -70,15 +70,10 @@
     if (confirmation) window.location = `index.php?menu=logout`;
   })
 
-  const changePw = (id) => {
-    window.location = `index.php?&updatePass&uid=${id}`;
-  }
-
-  // const checkPw = document.querySelector('#checkPw');
-  // checkPw.addEventListener('click', (e) => {
-  //   console.log(`index.php?menu=profile&id=<?= $user->getIdUser();?>`);
-  //   // window.location = `index.php?menu=profile&id=<?= $user->getIdUser();?>`;
-  // })
+  const checkPw = document.querySelector('#checkPw');
+  checkPw.addEventListener('click', (e) => {
+    window.location = `index.php?menu=profile`;
+  })
 </script>
 
 

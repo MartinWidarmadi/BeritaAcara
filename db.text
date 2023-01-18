@@ -69,8 +69,8 @@ CREATE TABLE IF NOT EXISTS `PbmDB`.`MataKuliah` (
   CONSTRAINT `fk_MataKuliah_Prodi1`
     FOREIGN KEY (`Prodi_idProdi`)
     REFERENCES `PbmDB`.`Prodi` (`idProdi`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -104,8 +104,8 @@ CREATE TABLE IF NOT EXISTS `PbmDB`.`jadwal` (
   CONSTRAINT `fk_jadwal_MataKuliah1`
     FOREIGN KEY (`MataKuliah_idMataKuliah`)
     REFERENCES `PbmDB`.`MataKuliah` (`idMataKuliah`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_jadwal_Dosen1`
     FOREIGN KEY (`Dosen_NIP`)
     REFERENCES `PbmDB`.`Dosen` (`NIP`)
@@ -114,8 +114,8 @@ CREATE TABLE IF NOT EXISTS `PbmDB`.`jadwal` (
   CONSTRAINT `fk_jadwal_Semester1`
     FOREIGN KEY (`Semester_id_Semester`)
     REFERENCES `PbmDB`.`Semester` (`id_Semester`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
