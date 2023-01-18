@@ -157,12 +157,14 @@ class JadwalDaoImpl {
       return $result;
   }
 
-  public function deleteJadwal($id) {
+  public function deleteJadwal($tipe, $kelas, $hari) {
     $result = 0;
     $link = PDOUtil::connectDb();
-    $query = 'DELETE FROM jadwal WHERE MataKuliah_idMataKuliah = ?';
+    $query = 'DELETE FROM jadwal WHERE type = ? AND kelas = ? AND hari = ?';
     $stmt = $link->prepare($query);
-    $stmt->bindParam(1, $id);
+    $stmt->bindParam(1, $tipe);
+    $stmt->bindParam(2, $kelas);
+    $stmt->bindParam(3, $hari);
     $link->beginTransaction();
 
     if ($stmt->execute()) {

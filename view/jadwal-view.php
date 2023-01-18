@@ -116,7 +116,7 @@ else :
                 <?php else: ?>
                     <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>               
                     <button class="btn btn-primary" onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', '<?= $item->getType();?>', '<?= $item->getKelas();?>', '<?= $item->getIdSemester()->getIdSemester();?>', 1)">Aktif/Non Aktif</button>
-                    <button class="btn btn-danger" onclick="delJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>')">Delete</button>
+                    <button class="btn btn-danger" onclick="delJadwal('<?= $item->getHari();?>')">Delete</button>
                 <?php endif; ?>
             </td>
         </tr>
@@ -413,10 +413,10 @@ endif; ?>
         }
     }
 
-    const delJadwal = (id) => {
+    const delJadwal = (id,hari) => {
         let confirmed = confirm('Are you sure delete this data?');
         if (confirmed) {
-            window.location = `index.php?menu=matkul&delcom=2&mid=${id}`;
+            window.location = `index.php?menu=matkul&delcom=2&hari=${hari}`;
         }
     }
 </script>

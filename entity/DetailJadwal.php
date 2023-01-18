@@ -14,6 +14,7 @@ class DetailJadwal {
   private $fotoPresensi;
   private $kelas;
   private $hari;
+  public $asisten;
 
     /**
      * @return mixed

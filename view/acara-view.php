@@ -57,8 +57,9 @@ if ($_SESSION['roles'] == "dosen") :
                             <th scope="col">Waktu Mulai</th>
                             <th scope="col">Waktu Selesai</th>
                             <th scope="col">Rangkuman</th>
-                            <th scope="col">Nama Assisten</th>
-                            <th scope="col">Jumlah Jam Assisten</th>
+                            <th scope="col">Nama Assisten 1 - Jumlah Jam</th>
+                            <th scope="col">Nama Assisten 2 - Jumlah Jam</th>
+                            <th scope="col">Nama Assisten 3 - Jumlah Jam</th>
                             <th scope="col">Jumlah Mahasiswa</th>
                             <th scope="col">Foto Presensi</th>
                         </tr>
@@ -75,17 +76,26 @@ if ($_SESSION['roles'] == "dosen") :
                             echo '<td>' . $item->getWaktuSelesai() . '</td>';
 
                             echo '<td>' . $item->getRangkuman() . '</td>';
-                            echo '<td>';
-                            foreach ($array_assisten[$i] as $item2) {
-                                echo    $item2->getNrpMahasiswa()->getNama() . '<br>';
+                            if ($item->asisten != null && $item->asisten[0] != null){
+                                echo '<td>' . $item->asisten[0]->getNrpMahasiswa()->getNama() . ' - ' . $item->asisten[0]->getJumlahJam() . ' Jam' . '</td>';
                             }
-                            echo '</td>';
+                            else {
+                                echo '<td>' .'' . '</td>';
+                            }
 
-                            echo '<td>';
-                            foreach ($array_assisten[$i] as $item2) {
-                                echo    $item2->getJumlahJam() . " Jam" . '<br>';
+                            if ($item->asisten != null && $item->asisten[1] != null){
+                                echo '<td>' . $item->asisten[1]->getNrpMahasiswa()->getNama() . ' - ' . $item->asisten[1]->getJumlahJam() . ' Jam' . '</td>';
                             }
-                            echo '</td>';
+                            else {
+                                echo '<td>' .'' . '</td>';
+                            }
+
+                            if ($item->asisten != null && $item->asisten[2] != null){
+                                echo '<td>' . $item->asisten[2]->getNrpMahasiswa()->getNama() . ' - ' . $item->asisten[2]->getJumlahJam() . ' Jam' . '</td>';
+                            }
+                            else{
+                                echo '<td>' .'' . '</td>';
+                            }
 
                             echo '<td>' . $item->getJumlahMahasiswa() . '</td>';
                             if ($item->getFotoPresensi() == null || $item->getFotoPresensi() == '') {
@@ -205,8 +215,9 @@ else:
                                 <th scope="col">Waktu Mulai</th>
                                 <th scope="col">Waktu Selesai</th>
                                 <th scope="col">Rangkuman</th>
-                                <th scope="col">Nama Assisten</th>
-                                <th scope="col">Jumlah Jam Assisten</th>
+                                <th scope="col">Nama Assisten 1 - Jumlah Jam</th>
+                                <th scope="col">Nama Assisten 2 - Jumlah Jam</th>
+                                <th scope="col">Nama Assisten 3 - Jumlah Jam</th>
                                 <th scope="col">Jumlah Mahasiswa</th>
                                 <th scope="col">Foto Presensi</th>
                             </tr>
@@ -222,8 +233,26 @@ else:
                                 echo '<td>' . $item->getWaktuMulai() . '</td>';
                                 echo '<td>' . $item->getWaktuSelesai() . '</td>';
                                 echo '<td>' . $item->getRangkuman() . '</td>';
-                                echo '<td>' . $array_assistens[$index][$i]->getNrpMahasiswa()->getNama() . '</td>';
-                                echo '<td>' . $array_assistens[$index][$i]->getJumlahJam() . " Jam" . '</td>';
+                                if ($item->asisten != null && $item->asisten[0] != null){
+                                    echo '<td>' . $item->asisten[0]->getNrpMahasiswa()->getNama() . ' - ' . $item->asisten[0]->getJumlahJam() . ' Jam' . '</td>';
+                                }
+                                else {
+                                    echo '<td>' .'' . '</td>';
+                                }
+
+                                if ($item->asisten != null && $item->asisten[1] != null){
+                                    echo '<td>' . $item->asisten[1]->getNrpMahasiswa()->getNama() . ' - ' . $item->asisten[1]->getJumlahJam() . ' Jam' . '</td>';
+                                }
+                                else {
+                                    echo '<td>' .'' . '</td>';
+                                }
+
+                                if ($item->asisten != null && $item->asisten[2] != null){
+                                    echo '<td>' . $item->asisten[2]->getNrpMahasiswa()->getNama() . ' - ' . $item->asisten[2]->getJumlahJam() . ' Jam' . '</td>';
+                                }
+                                else{
+                                    echo '<td>' .'' . '</td>';
+                                }
                                 echo '<td>' . $item->getJumlahMahasiswa() . '</td>';
                                 if ($item->getFotoPresensi() == null || $item->getFotoPresensi() == '') {
                                     echo '<td><img src="image/default_cover.svg" alt="Photo" style="max-width: 100px"></td>';

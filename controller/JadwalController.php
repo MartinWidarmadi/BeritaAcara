@@ -23,11 +23,14 @@ class JadwalController
             $delId = filter_input(INPUT_GET, 'jid');
             $type = filter_input(INPUT_GET, 'type');
             $kelas = filter_input(INPUT_GET, 'kelas');
+            $hari = filter_input(INPUT_GET,'hari');
             $semester = filter_input(INPUT_GET, 'semester');
+
             if ($btnDel == 1) {
                 $status = filter_input(INPUT_GET, 'aktif');
+
                 $status = !$status;
-                $delResult = $this->jadwalDao->updateStatusJadwal($delId, $type, $kelas, $semester, $status,);
+                $delResult = $this->jadwalDao->updateStatusJadwal($delId, $type, $kelas, $semester, $status);
                 
                 if ($delResult && $status == 1) {
                     echo "
@@ -51,13 +54,14 @@ class JadwalController
                     echo '<script>alert("Error when deactivated data")</script>';
                 }
         } else if ($btnDel == 2) {
-            $delResult = $this->jadwalDao->deleteJadwal($delId);
+
+            $delResult = $this->jadwalDao->deleteJadwal($type,$kelas,$hari);
 
             if ($delResult) {
                 echo "
                 <script>$.toast({
                 heading: 'DELETE',
-                text: 'Success DELETE Data Matakuliah',
+                text: 'Success DELETE Data Jadwal',
                 showHideTransition: 'slide',
                 stack: false,
                 icon: 'error'

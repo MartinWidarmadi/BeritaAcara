@@ -122,7 +122,7 @@ class SecondController
                     $assistendosen2->setIdSemester($semester);
                     $assistendosen2->setJumlahJam($time1);
                     $assistendosen2->setNipDosen($nipDosen);
-                    $assistendosen2->setNrpMahasiswa($nrpAsdos1);
+                    $assistendosen2->setNrpMahasiswa($nrpAsdos2);
                     $assistendosen2->setPertemuan($pertemuan);
                     $assistendosen2->setType($tipe);
                     $assistendosen2->setTanggal(date($tanggalPertemuan));
@@ -137,7 +137,7 @@ class SecondController
                     $assistendosen3->setIdSemester($semester);
                     $assistendosen3->setJumlahJam($time1);
                     $assistendosen3->setNipDosen($nipDosen);
-                    $assistendosen3->setNrpMahasiswa($nrpAsdos1);
+                    $assistendosen3->setNrpMahasiswa($nrpAsdos3);
                     $assistendosen3->setPertemuan($pertemuan);
                     $assistendosen3->setType($tipe);
                     $assistendosen3->setTanggal(date($tanggalPertemuan));

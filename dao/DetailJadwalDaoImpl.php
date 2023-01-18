@@ -53,9 +53,9 @@ public function fetchAllJadwals() {
     return $stmt->fetchAll();
   }
 
-  public function fetchAssitenDosen(Jadwal $assistenDosen){
+  public function fetchAssitenDosen(DetailJadwal $assistenDosen){
     $link = PDOUtil::connectDb();
-    $query = 'SELECT asisten_dosen.*, Mahasiswa.Nama AS "namaAsdos"  FROM asisten_dosen JOIN Mahasiswa ON Mahasiswa.NRP = asisten_dosen.Mahasiswa_NRP WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? AND  jadwal_Semester_id_Semester = ?';
+    $query = 'SELECT asisten_dosen.*, Mahasiswa.Nama AS "namaAsdos"  FROM asisten_dosen JOIN Mahasiswa ON Mahasiswa.NRP = asisten_dosen.Mahasiswa_NRP WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? AND  jadwal_Semester_id_Semester = ? AND pertemuan = ?';
     $stmt = $link->prepare($query);
     $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'AssistenDosen');
     $stmt->bindValue(1, $assistenDosen->getKelas());
@@ -63,6 +63,7 @@ public function fetchAllJadwals() {
     $stmt->bindValue(3, $assistenDosen->getIdMatkul()->getIdMataKuliah());
     $stmt->bindValue(4, $assistenDosen->getNipDosen()->getNIP());
     $stmt->bindValue(5, $assistenDosen->getIdSemester()->getIdSemester());
+    $stmt->bindValue(6, $assistenDosen->getPertemuan());
 
     $stmt->execute();
     $link = null;
