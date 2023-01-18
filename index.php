@@ -12,6 +12,7 @@ include_once 'controller/AcaraController.php';
 include_once 'controller/MataKuliahController.php';
 include_once 'controller/MahasiswaController.php';
 include_once 'controller/ProfileController.php';
+include_once 'controller/AsistenController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
@@ -20,6 +21,7 @@ include_once 'dao/JadwalDaoImpl.php';
 include_once 'dao/DetailJadwalDaoImpl.php';
 include_once 'dao/MahasiswaDaoImpl.php';
 include_once 'dao/SemesterDaoImpl.php';
+include_once 'dao/AsistenDaoImpl.php';
 include_once 'db-util/PDOUtil.php';
 include_once 'entity/Dosen.php';
 include_once 'entity/Kelas.php';
@@ -106,6 +108,15 @@ if ($_SESSION['is_logged']):
                     <i class="fa-solid fa-bag-shopping nav-img"></i>
                     <a class="nav-link" href="?menu=acara">Berita Acara</a>
                 </li>
+                <?php
+                if ($_SESSION['roles'] == "admin") :
+                    ?>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-bag-shopping nav-img"></i>
+                        <a class="nav-link" href="?menu=asdos">Asisten Dosen</a>
+                    </li>
+                <?php
+                endif; ?>
                 <li class="nav-item">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <a class="nav-link" href="?menu=profile">Profile</a>
@@ -150,6 +161,10 @@ if ($_SESSION['is_logged']):
         case 'acara' :
             $acaraController = new AcaraController();
             $acaraController->index();
+            break;
+        case 'asdos' :
+            $assistenController = new AsistenController();
+            $assistenController->index();
             break;
         case 'logout':
             $userController = new UserController();

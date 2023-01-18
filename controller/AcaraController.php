@@ -28,11 +28,21 @@ class AcaraController
         $dosen = $this->dosenDao->fetchDosenActive();
         $semester = $this->semesterDao->fetchAllSemester();
 
+
+
         foreach ($jadwals as $index => $jadwalone){
-            $array_jadwals[$index] = $this->detailDao->fetchBeritaAcara($jadwalone);
+            if (isset($btnFilter)){
+                $date1 = filter_input(INPUT_POST,'calendar2');
+                $date2 = filter_input(INPUT_POST,'calendar3');
+                $array_jadwals[$index] = $this->detailDao->fetchBeritaAcaraFilterTanggal($jadwalone,$date1,$date2);
+            }
+            else {
+                $array_jadwals[$index] = $this->detailDao->fetchBeritaAcara($jadwalone);
+            }
             foreach ($array_jadwals[$index] as $i => $jadwalasdosadmin){
                 $jadwalasdosadmin->asisten = $this->detailDao->fetchAssitenDosen($jadwalasdosadmin);
             }
+
         }
         foreach ($jadwal as $index => $jadwaltwo){
             $array_jadwal[$index] = $this->detailDao->fetchBeritaAcara($jadwaltwo);
@@ -40,6 +50,8 @@ class AcaraController
                 $jadwalasdosdosen->asisten = $this->detailDao->fetchAssitenDosen($jadwalasdosdosen);
             }
         }
+
+
 
 //        if (isset($btnFilter)) {
 //

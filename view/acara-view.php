@@ -12,6 +12,7 @@ if ($_SESSION['roles'] == "dosen") :
         <th scope="col">Kelas</th>
         <th scope="col">Semester</th>
         <th scope="col">Action</th>
+        <th scope="col">Jumlah</th>
     </tr>
     </thead>
     <tbody>
@@ -25,7 +26,9 @@ if ($_SESSION['roles'] == "dosen") :
         echo '<td>' . $item->getKelas() . '</td>';
         echo '<td>' . $item->getIdSemester()->getNamaSemester() . '</td>';
 
+
         echo "<td><button class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#jadwals-$index'>Detail</button></td>";
+        echo '<td>' . count($array_jadwal[$index]) . '</td>';
         echo '</tr>';
     }
     ?>
@@ -103,6 +106,7 @@ if ($_SESSION['roles'] == "dosen") :
                             }   else {
                                 echo '<td><img src="uploads/' . $item->getFotoPresensi() . '" alt="photo" style="max-width: 100px"></td>';
                             }
+
                             echo '</tr>';
                         }
                         ?>
@@ -153,6 +157,12 @@ else:
                     }?>
                 <?php endforeach; ?>
             </select>
+            <div class="col-12">
+                <input type="date" name="calendar2" id="calendar2" class="form-control form-second">
+            </div>
+            <div class="col-12">
+                <input type="date" name="calendar3" id="calendar3" class="form-control form-second">
+            </div>
             <button type="submit" name="btnFilter" class="btn btn-success">Submit</button>
         </form>
     </div>
@@ -168,6 +178,7 @@ else:
                 <th scope="col">Kelas</th>
                 <th scope="col">Semester</th>
                 <th scope="col">Action</th>
+                <th scope="col">Jumlah</th>
             </tr>
             </thead>
             <tbody>
@@ -182,6 +193,7 @@ else:
                 echo '<td>' . $item->getKelas() . '</td>';
                 echo '<td>' . $item->getIdSemester()->getNamaSemester() . '</td>';
                 echo "<td><button class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#jadwal-$index'>Detail</button></td>";
+                echo '<td>' . count($array_jadwals[$index]) . '</td>';
                 echo '</tr>';
             }
             ?>
