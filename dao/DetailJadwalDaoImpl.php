@@ -42,79 +42,149 @@ class DetailJadwalDaoImpl
         return $stmt->fetchAll();
     }
 
-    public function fetchFilterBeritaAcara(Jadwal $detailJadwal, $dosenFil, $semesterFil)
+    public function fetchFilterBeritaAcara(Jadwal $detailJadwal, $dosenFil, $semesterFil, $date1, $date2)
     {
         $link = PDOUtil::connectDb();
         if ($semesterFil != "" && $dosenFil != "") {
-            $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? AND  jadwal_Semester_id_Semester = ?';
-            $stmt = $link->prepare($query);
-            $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
-            $stmt->bindValue(1, $detailJadwal->getKelas());
-            $stmt->bindValue(2, $detailJadwal->getType());
-            $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
-            $stmt->bindValue(4, $dosenFil);
-            $stmt->bindValue(5, $semesterFil);
+            if ($date1 && $date2 != "") {
+                $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? AND  jadwal_Semester_id_Semester = ? AND tanggal_pertemuan BETWEEN ? AND ?';
+                $stmt = $link->prepare($query);
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
+                $stmt->bindValue(1, $detailJadwal->getKelas());
+                $stmt->bindValue(2, $detailJadwal->getType());
+                $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
+                $stmt->bindValue(4, $dosenFil);
+                $stmt->bindValue(5, $semesterFil);
+                $stmt->bindValue(6, $date1);
+                $stmt->bindValue(7, $date2);
 
-            $stmt->execute();
-            $link = null;
-            return $stmt->fetchAll();
+                $stmt->execute();
+                $link = null;
+                return $stmt->fetchAll();
+            } else {
+                $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? AND  jadwal_Semester_id_Semester = ?';
+                $stmt = $link->prepare($query);
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
+                $stmt->bindValue(1, $detailJadwal->getKelas());
+                $stmt->bindValue(2, $detailJadwal->getType());
+                $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
+                $stmt->bindValue(4, $dosenFil);
+                $stmt->bindValue(5, $semesterFil);
+
+                $stmt->execute();
+                $link = null;
+                return $stmt->fetchAll();
+            }
+
         } elseif ($semesterFil == "" && $dosenFil != "") {
-            $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? ';
-            $stmt = $link->prepare($query);
-            $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
-            $stmt->bindValue(1, $detailJadwal->getKelas());
-            $stmt->bindValue(2, $detailJadwal->getType());
-            $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
-            $stmt->bindValue(4, $dosenFil);
+            if ($date1 && $date2 != "") {
+                $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? AND tanggal_pertemuan BETWEEN ? AND ?';
+                $stmt = $link->prepare($query);
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
+                $stmt->bindValue(1, $detailJadwal->getKelas());
+                $stmt->bindValue(2, $detailJadwal->getType());
+                $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
+                $stmt->bindValue(4, $dosenFil);
+                $stmt->bindValue(5, $date1);
+                $stmt->bindValue(6, $date2);
 
-            $stmt->execute();
-            $link = null;
-            return $stmt->fetchAll();
+                $stmt->execute();
+                $link = null;
+                return $stmt->fetchAll();
+            } else {
+                $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? ';
+                $stmt = $link->prepare($query);
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
+                $stmt->bindValue(1, $detailJadwal->getKelas());
+                $stmt->bindValue(2, $detailJadwal->getType());
+                $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
+                $stmt->bindValue(4, $dosenFil);
+
+                $stmt->execute();
+                $link = null;
+                return $stmt->fetchAll();
+            }
+
         } elseif ($semesterFil != "" && $dosenFil == "") {
-            $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND  jadwal_Semester_id_Semester = ? ';
-            $stmt = $link->prepare($query);
-            $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
-            $stmt->bindValue(1, $detailJadwal->getKelas());
-            $stmt->bindValue(2, $detailJadwal->getType());
-            $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
-            $stmt->bindValue(4, $semesterFil);
+            if ($date1 && $date2 != "") {
+                $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Semester_id_Semester = ? AND tanggal_pertemuan BETWEEN ? AND ?';
+                $stmt = $link->prepare($query);
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
+                $stmt->bindValue(1, $detailJadwal->getKelas());
+                $stmt->bindValue(2, $detailJadwal->getType());
+                $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
+                $stmt->bindValue(4, $semesterFil);
+                $stmt->bindValue(5, $date1);
+                $stmt->bindValue(6, $date2);
 
-            $stmt->execute();
-            $link = null;
-            return $stmt->fetchAll();
+                $stmt->execute();
+                $link = null;
+                return $stmt->fetchAll();
+            } else {
+                $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND  jadwal_Semester_id_Semester = ? ';
+                $stmt = $link->prepare($query);
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
+                $stmt->bindValue(1, $detailJadwal->getKelas());
+                $stmt->bindValue(2, $detailJadwal->getType());
+                $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
+                $stmt->bindValue(4, $semesterFil);
+
+                $stmt->execute();
+                $link = null;
+                return $stmt->fetchAll();
+            }
+
         } elseif ($semesterFil == "" && $dosenFil == "") {
-            $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? AND  jadwal_Semester_id_Semester = ?';
-            $stmt = $link->prepare($query);
-            $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
-            $stmt->bindValue(1, $detailJadwal->getKelas());
-            $stmt->bindValue(2, $detailJadwal->getType());
-            $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
-            $stmt->bindValue(4, $detailJadwal->getNipDosen()->getNIP());
-            $stmt->bindValue(5, $detailJadwal->getIdSemester()->getIdSemester());
+            if ($date1 && $date2 != "") {
+                $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? AND  jadwal_Semester_id_Semester = ? AND tanggal_pertemuan BETWEEN ? AND ?';
+                $stmt = $link->prepare($query);
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
+                $stmt->bindValue(1, $detailJadwal->getKelas());
+                $stmt->bindValue(2, $detailJadwal->getType());
+                $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
+                $stmt->bindValue(4, $detailJadwal->getNipDosen()->getNIP());
+                $stmt->bindValue(5, $detailJadwal->getIdSemester()->getIdSemester());
+                $stmt->bindValue(6, $date1);
+                $stmt->bindValue(7, $date2);
 
-            $stmt->execute();
-            $link = null;
-            return $stmt->fetchAll();
+                $stmt->execute();
+                $link = null;
+                return $stmt->fetchAll();
+            } else {
+                $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? AND  jadwal_Semester_id_Semester = ?';
+                $stmt = $link->prepare($query);
+                $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
+                $stmt->bindValue(1, $detailJadwal->getKelas());
+                $stmt->bindValue(2, $detailJadwal->getType());
+                $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
+                $stmt->bindValue(4, $detailJadwal->getNipDosen()->getNIP());
+                $stmt->bindValue(5, $detailJadwal->getIdSemester()->getIdSemester());
+
+                $stmt->execute();
+                $link = null;
+                return $stmt->fetchAll();
+            }
         }
     }
 
-    public function fetchBeritaAcaraFilterTanggal(Jadwal $detailJadwal, $tanggal1 , $tanggal2){
-        $link = PDOUtil::connectDb();
-        $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? AND  jadwal_Semester_id_Semester = ? AND tanggal_pertemuan BETWEEN ? AND ?';
-        $stmt = $link->prepare($query);
-        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
-        $stmt->bindValue(1, $detailJadwal->getKelas());
-        $stmt->bindValue(2, $detailJadwal->getType());
-        $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
-        $stmt->bindValue(4, $detailJadwal->getNipDosen()->getNIP());
-        $stmt->bindValue(5, $detailJadwal->getIdSemester()->getIdSemester());
-        $stmt->bindValue(6, $tanggal1);
-        $stmt->bindValue(7, $tanggal2);
-
-        $stmt->execute();
-        $link = null;
-        return $stmt->fetchAll();
-    }
+//    public function fetchBeritaAcaraFilterTanggal(Jadwal $detailJadwal, $tanggal1, $tanggal2)
+//    {
+//        $link = PDOUtil::connectDb();
+//        $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? AND  jadwal_Semester_id_Semester = ? AND tanggal_pertemuan BETWEEN ? AND ?';
+//        $stmt = $link->prepare($query);
+//        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
+//        $stmt->bindValue(1, $detailJadwal->getKelas());
+//        $stmt->bindValue(2, $detailJadwal->getType());
+//        $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
+//        $stmt->bindValue(4, $detailJadwal->getNipDosen()->getNIP());
+//        $stmt->bindValue(5, $detailJadwal->getIdSemester()->getIdSemester());
+//        $stmt->bindValue(6, $tanggal1);
+//        $stmt->bindValue(7, $tanggal2);
+//
+//        $stmt->execute();
+//        $link = null;
+//        return $stmt->fetchAll();
+//    }
 
     public function fetchAssitenDosen(DetailJadwal $assistenDosen)
     {

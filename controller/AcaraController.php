@@ -34,7 +34,10 @@ class AcaraController
             if (isset($btnFilter)){
                 $date1 = filter_input(INPUT_POST,'calendar2');
                 $date2 = filter_input(INPUT_POST,'calendar3');
-                $array_jadwals[$index] = $this->detailDao->fetchBeritaAcaraFilterTanggal($jadwalone,$date1,$date2);
+                $filSemester = filter_input(INPUT_POST, 'filterSemester');
+                $filDosen = filter_input(INPUT_POST, 'filterDosen');
+                $jadwals = $this->jadwalDao->fetchFilterJadwal($filSemester, $filDosen);
+                $array_jadwals[$index] = $this->detailDao->fetchFilterBeritaAcara($jadwalone,$filDosen,$filSemester,$date1,$date2);
             }
             else {
                 $array_jadwals[$index] = $this->detailDao->fetchBeritaAcara($jadwalone);

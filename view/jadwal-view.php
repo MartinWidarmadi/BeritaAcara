@@ -48,18 +48,28 @@ else :
                 <h5 class="fw-bold">FILTER</h5>
                 <select class="form-select" id="filterSemester" name="filterSemester"
                         aria-label="Default select example" style="margin: 10px">
-                    <option selected value=>Pilih Semester</option>
-                    <?php foreach ($semester as $smstr): ?>
-                        <option value="<?= $smstr->getIdSemester(); ?>"><?= $smstr->getNamaSemester(); ?></option>
+                    <?php
+                    if (!isset($filSemester)) {
+                        echo "<option selected value=>Semua Semester</option>";
+                    } else {
+                        echo '<option value=>Semua Semester</option>';
+                    }
+                    ?>
+                    <?php foreach ($semester as $smstr):
+                        if ($smstr->getIdSemester() == $filSemester){
+                            echo"<option selected value='" . $smstr->getIdSemester() . "'>" .  $smstr->getNamaSemester() . "</option>";
+                        } else{
+                            echo"<option value='" . $smstr->getIdSemester() . "'>" .  $smstr->getNamaSemester() . "</option>";
+                        }?>
                     <?php endforeach; ?>
                 </select>
                 <select class="form-select" id="filterDosen" name="filterDosen" aria-label="Default select example"
                         style="margin: 10px">
                     <?php
                     if (!isset($filDosen)){
-                        echo "<option selected value=>Pilih Dosen</option>";
+                        echo "<option selected value=>Semua Dosen</option>";
                     }else{
-                        echo '<option value=>Pilih Dosen</option>';
+                        echo '<option value=>Semua Dosen</option>';
                     }
                     ?>
                     <?php foreach ($dosen as $item):
@@ -111,10 +121,10 @@ else :
             <?php endif; ?>
             <td>
                 <?php if ($item->getStatus() == 0): ?>
-                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>               
+                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>
                     <button class="btn btn-primary" onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', '<?= $item->getType();?>', '<?= $item->getKelas();?>', '<?= $item->getIdSemester()->getIdSemester();?>', 0)">Aktif/Non Aktif</button>
                 <?php else: ?>
-                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>               
+                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>
                     <button class="btn btn-primary" onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', '<?= $item->getType();?>', '<?= $item->getKelas();?>', '<?= $item->getIdSemester()->getIdSemester();?>', 1)">Aktif/Non Aktif</button>
                     <button class="btn btn-danger" onclick="delJadwal('<?= $item->getHari();?>')">Delete</button>
                 <?php endif; ?>
@@ -123,7 +133,7 @@ else :
 
         <?php endforeach; ?>
 
-        
+
         </tbody>
         <thead>
         <tr></tr>
@@ -179,7 +189,7 @@ else :
                             <label for="hari" class="form-label">Hari</label>
                             <select class="form-select" name="hari" id="hari">
                                 <option value="<?= $item->getHari(); ?>" selected><?= $item->getHari(); ?></option>
-                                <?php 
+                                <?php
                                 $hari = array("Senin", "Selasa", "Rabu", "Kamis", "Jumat");
                                 foreach($hari as $h):
                                     if ($h != $item->getHari()):
@@ -207,7 +217,7 @@ else :
                             <label for="tipe" class="form-label">Tipe</label>
                             <select class="form-select" name="tipe" id="tipe">
                                 <option value="<?= $item->getType(); ?>" selected><?= $item->getType(); ?></option>
-                                <?php 
+                                <?php
                                 $tipe = array("Teori", "Praktikum");
                                 foreach($tipe as $t):
                                     if ($t != $item->getType()):
@@ -223,7 +233,7 @@ else :
                             <label for="kelas" class="form-label">Kelas</label>
                             <select class="form-select" name="kelas" id="kelas">
                                 <option value="<?= $item->getKelas(); ?>" selected><?= $item->getKelas(); ?></option>
-                                <?php 
+                                <?php
                                 $kelas = array("A", "B");
                                 foreach($kelas as $k):
                                     if ($k != $item->getKelas()):
@@ -239,7 +249,7 @@ else :
                             <label for="semester" class="form-label">Semester</label>
                             <select class="form-select" name="semester" id="semester">
                                 <option value="<?= $item->getIdSemester()->getIdSemester(); ?>" selected><?= $item->getIdSemester()->getNamaSemester(); ?></option>
-                                <?php 
+                                <?php
                                 foreach($semester as $s):
                                     if ($s->getIdSemester() != $item->getIdSemester()->getIdSemester()):
                                 ?>
@@ -259,9 +269,9 @@ else :
             </div>
         </div>
     <?php } ?>
-    
-    
-        
+
+
+
     <!-- Add Jadwal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
