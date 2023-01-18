@@ -5,11 +5,13 @@ class AcaraController
     private $dosenDao;
     private $detailDao;
     private $jadwalDao;
+    private $semesterDao;
     public function __construct()
     {
         $this->dosenDao = new DosenDaoImpl();
         $this->detailDao = new DetailJadwalDaoImpl();
         $this->jadwalDao = new JadwalDaoImpl();
+        $this->semesterDao = new SemesterDaoImpl();
     }
 
     public function index() {
@@ -20,6 +22,9 @@ class AcaraController
         $array_jadwal = [];
         $array_assisten = [];
         $array_assistens = [];
+        $dosen = $this->dosenDao->fetchDosenActive();
+        $semester = $this->semesterDao->fetchAllSemester();
+
         foreach ($jadwals as $index => $jadwalone){
             $array_jadwals[$index] = $this->detailDao->fetchBeritaAcara($jadwalone);
         }

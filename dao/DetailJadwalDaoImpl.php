@@ -37,6 +37,22 @@ public function fetchAllJadwals() {
     return $stmt->fetchAll();
   }
 
+  public function fetchFilterBeritaAcara(Jadwal $detailJadwal, $dosenFil, $semesterFil) {
+    $link = PDOUtil::connectDb();
+    $query = 'SELECT detail_jadwal.*  FROM detail_jadwal WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? AND  jadwal_Semester_id_Semester = ?';
+    $stmt = $link->prepare($query);
+    $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'DetailJadwal');
+    $stmt->bindValue(1, $detailJadwal->getKelas());
+    $stmt->bindValue(2, $detailJadwal->getType());
+    $stmt->bindValue(3, $detailJadwal->getIdMatkul()->getIdMataKuliah());
+    $stmt->bindValue(4, $detailJadwal->getNipDosen()->getNIP());
+    $stmt->bindValue(5, $detailJadwal->getIdSemester()->getIdSemester());
+
+    $stmt->execute();
+    $link = null;
+    return $stmt->fetchAll();
+  }
+
   public function fetchAssitenDosen(Jadwal $assistenDosen){
     $link = PDOUtil::connectDb();
     $query = 'SELECT asisten_dosen.*, Mahasiswa.Nama AS "namaAsdos"  FROM asisten_dosen JOIN Mahasiswa ON Mahasiswa.NRP = asisten_dosen.Mahasiswa_NRP WHERE jadwal_kelas = ? AND jadwal_type = ? AND jadwal_MataKuliah_idMataKuliah = ? AND jadwal_Dosen_NIP = ? AND  jadwal_Semester_id_Semester = ?';
