@@ -7,7 +7,7 @@ class UserController
     public function __construct()
     {
         $this->userDao = new UserDaoImpl();
-        $this->DosenDao = new DosenDaoImpl();
+        $this->dosenDao = new DosenDaoImpl();
     }
 
     public function index() {
@@ -18,7 +18,7 @@ class UserController
             $result = $this->userDao->userLogin($email, $password);
 
             if ($result) {
-                $resultDosen = $this->DosenDao->fetchDosen($result->getIdUser());
+                $resultDosen = $this->dosenDao->fetchDosen($result->getIdUser());
                 $_SESSION['is_logged'] = true;
                 $_SESSION['user_id'] = $result->getIdUser();
                 $_SESSION['password'] = $result->getPassword();

@@ -13,6 +13,16 @@ class UserDaoImpl
         return $stmt->fetchObject('User');
     }
 
+    public function fetchUser($id) {
+        $link = PDOUtil::connectDb();
+        $query = 'SELECT * FROM User WHERE idUser = ?';
+        $stmt = $link->prepare($query);
+        $stmt->bindParam(1,$id);
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        $stmt->execute();
+        return $stmt->fetchObject('User');
+    }
+
     public function checkEmail($userEmail) {
         $link = PDOUtil::connectDb();
         $query = 'SELECT * FROM User WHERE Email = ?';

@@ -11,6 +11,7 @@ include_once 'controller/JadwalController.php';
 include_once 'controller/AcaraController.php';
 include_once 'controller/MataKuliahController.php';
 include_once 'controller/MahasiswaController.php';
+include_once 'controller/ProfileController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
@@ -107,7 +108,7 @@ if ($_SESSION['is_logged']):
                 </li>
                 <li class="nav-item">
                     <i class="fa-solid fa-right-from-bracket"></i>
-                    <a class="nav-link" href="?menu=logout">Log Out</a>
+                    <a class="nav-link" href="?menu=profile">Profile</a>
                 </li>
             </ul>
         </div>
@@ -154,6 +155,14 @@ if ($_SESSION['is_logged']):
             $userController = new UserController();
             $userController->logout();
             break;
+        case 'profile':
+            $profileController = new ProfileController();
+            $profileController->index();
+            break;
+        case 'updatePass':
+            $profileController = new ProfileController();
+            $profileController->updateIndex();
+            break;
         // case 'editmatkul':
         //     $editMatkul = new MataKuliahController();
         //     $editMatkul->updateIndex();
@@ -185,7 +194,11 @@ if ($_SESSION['is_logged']):
             $OTPController = new  OTPController();
             $OTPController->index();
             $OTPController->updateindex();
-        }
+        } 
+        // else if ($menu == "changepw1") {
+        //     $changepwController = new ChangePWController();
+        //     $changepwController->updateindex();
+        // }
         // else if ($menu == "addDosen") {
         //     $addDosenController = new  addDosenController();
         //     $addDosenController->index();
