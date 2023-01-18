@@ -69,7 +69,7 @@ if (!isset($_SESSION['is_logged'])) {
 $menu = filter_input(INPUT_GET, 'menu');
 if ($_SESSION['is_logged']):
 ?>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
     <div class="container m-0">
         <a class="navbar-brand" href="#">PPL</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

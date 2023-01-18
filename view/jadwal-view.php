@@ -121,12 +121,12 @@ else :
             <?php endif; ?>
             <td>
                 <?php if ($item->getStatus() == 0): ?>
-                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>
-                    <button class="btn btn-primary" onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', '<?= $item->getType();?>', '<?= $item->getKelas();?>', '<?= $item->getIdSemester()->getIdSemester();?>', 0)">Aktif/Non Aktif</button>
+                    <button class="btn btn-success" style='margin: 5px' type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>
+                    <button class="btn btn-primary" style='margin: 5px' onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', '<?= $item->getType();?>', '<?= $item->getKelas();?>', '<?= $item->getIdSemester()->getIdSemester();?>', 0)">Aktif/Non Aktif</button>
                 <?php else: ?>
-                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>
-                    <button class="btn btn-primary" onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', '<?= $item->getType();?>', '<?= $item->getKelas();?>', '<?= $item->getIdSemester()->getIdSemester();?>', 1)">Aktif/Non Aktif</button>
-                    <button class="btn btn-danger" onclick="delJadwal('<?= $item->getHari();?>')">Delete</button>
+                    <button class="btn btn-success" style='margin: 5px' type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>
+                    <button class="btn btn-primary" style='margin: 5px' onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', '<?= $item->getType();?>', '<?= $item->getKelas();?>', '<?= $item->getIdSemester()->getIdSemester();?>', 1)">Aktif/Non Aktif</button>
+                    <button class="btn btn-danger" style='margin: 5px' onclick="delJadwal('<?= $item->getHari();?>')">Delete</button>
                 <?php endif; ?>
             </td>
         </tr>
