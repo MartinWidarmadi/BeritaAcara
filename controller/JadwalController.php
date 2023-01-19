@@ -89,8 +89,15 @@ class JadwalController
                 $jamSelesai = filter_input(INPUT_POST, 'jamSelesai');
                 $semester = filter_input(INPUT_POST, 'semester');
 
-                if (empty($namaDosen) && empty($matkul) && empty($type) && empty($kelas) && empty($hari) && empty($jamMulai) && empty($jamSelesai) && empty($semester)) {
-                    echo '<script>alert(\'Input semua field!\')</script>';
+                if ($nipDosen == "0" || $idMatkul == "0" || $type == "0" || $kelas == "0" || $hari == "0" || $jamMulai == "0" || $jamSelesai == "0" || $semester == "0") {
+                    echo "
+                                    <script>$.toast({
+                        heading: 'Error',
+                        text: 'Please Input All Field',
+                        showHideTransition: 'slide',
+                        stack: false,
+                        icon: 'error'
+                    })</script>";
                 } else {
                     $jadwal = new Jadwal();
                     $jadwal->setKelas($kelas);
@@ -101,12 +108,27 @@ class JadwalController
                     $jadwal->setIdMatkul($idMatkul);
                     $jadwal->setNipDosen($nipDosen);
                     $jadwal->setIdSemester($semester);
+                    var_dump($jamSelesai);
                     $result = $this->jadwalDao->insertNewJadwal($jadwal);
                     if ($result) {
-                        echo '<script>alert(\'Jadwal berhasil diinput!\')</script>';
                         echo '<script>window.location = "index.php?menu=jadwal";</script>';
+                        echo "
+                                    <script>$.toast({
+                        heading: 'Success',
+                        text: 'Success Add Data Jadwal',
+                        showHideTransition: 'slide',
+                        stack: false,
+                        icon: 'success'
+                    })</script>";
                     } else {
-                        echo '<script>alert(\'Jadwal gagal diinput!\')</script>';
+                        echo "
+                                    <script>$.toast({
+                        heading: 'Error',
+                        text: 'Error Add Data Jadwal',
+                        showHideTransition: 'slide',
+                        stack: false,
+                        icon: 'error'
+                    })</script>";
                     }
                 }
             }
