@@ -53,6 +53,6 @@ class UserController
     public function logout() {
         session_unset();
         session_destroy();
-        header('location:index.php');
+        echo '<script>window.location = "index.php?menu=login";</script>';
     }
 }
