@@ -21,20 +21,48 @@ class DosenController
             $delResult = $this->dosenDao->statusDosen($delId, $status);
 
             if ($delResult) {
-                echo '<script>alert("Data has been changed")</script>';
+                echo "
+                                    <script>$.toast({
+                        heading: 'Success',
+                        text: 'Data Has Change',
+                        showHideTransition: 'slide',
+                        stack: false,
+                        icon: 'success'
+                    })</script>";
                 echo '<script>window.location = "index.php?menu=dosen";</script>';
             } else {
-                echo '<script>alert("Error when delete data")</script>';
+                echo "
+                                    <script>$.toast({
+                        heading: 'Error',
+                        text: 'Nothing Change',
+                        showHideTransition: 'slide',
+                        stack: false,
+                        icon: 'Error'
+                    })</script>";
             }
         } elseif (isset($btnDel) && $btnDel == 2) {
             $delId = filter_input(INPUT_GET, 'mid');
             $delResult = $this->dosenDao->deleteDosen($delId);
 
             if ($delResult) {
-                echo '<script>alert("Data has been deleted")</script>';
+                echo "
+                                    <script>$.toast({
+                        heading: 'Success',
+                        text: 'Success Delete Data dosen',
+                        showHideTransition: 'slide',
+                        stack: false,
+                        icon: 'error'
+                    })</script>";
                 echo '<script>window.location = "index.php?menu=dosen";</script>';
             } else {
-                echo '<script>alert("Error when delete data")</script>';
+                echo "
+                                    <script>$.toast({
+                        heading: 'Error',
+                        text: 'Error Delete Data dosen',
+                        showHideTransition: 'slide',
+                        stack: false,
+                        icon: 'error'
+                    })</script>";
             }
         }
         $submitPressed = filter_input(INPUT_POST, 'btnSubmit');
@@ -76,10 +104,25 @@ class DosenController
                         $dosen->setUserIdUser($result4->getIdUser());
                         $result3 = $this->dosenDao->insertNewDosen($dosen);
                         if ($result4) {
-                            echo '<div class="bg-success">Data succesfully added</div>';
-                            header('location:?menu=dosen');
+
+                            echo '<script>window.location = "index.php?menu=dosen";</script>';
+                            echo "
+                                    <script>$.toast({
+                        heading: 'Success',
+                        text: 'Success Add Data dosen',
+                        showHideTransition: 'slide',
+                        stack: false,
+                        icon: 'success'
+                    })</script>";
                         } else {
-                            echo '<div class="bg-danger">Error on add data</div>';
+                            echo "
+                                    <script>$.toast({
+                        heading: 'Error',
+                        text: 'Error Add Data dosen',
+                        showHideTransition: 'slide',
+                        stack: false,
+                        icon: 'error'
+                    })</script>";
                         }
                     }
                 } else {
@@ -91,9 +134,6 @@ class DosenController
                 echo "<script type='text/javascript'>alert('$message');</script>";
             } elseif ($password != $confirmpassword) {
                 $message = "Password dan Confirm Password tidak sama";
-                echo "<script type='text/javascript'>alert('$message');</script>";
-            } else {
-                $message = "Email Sudah digunakan";
                 echo "<script type='text/javascript'>alert('$message');</script>";
             }
         }elseif (isset($btnbatchdosen)) {
