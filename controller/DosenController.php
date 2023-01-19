@@ -22,7 +22,7 @@ class DosenController
 
             if ($delResult) {
                 echo '<script>alert("Data has been changed")</script>';
-                header('location: index.php?menu=dosen');
+                echo '<script>window.location = "index.php?menu=dosen";</script>';
             } else {
                 echo '<script>alert("Error when delete data")</script>';
             }
@@ -32,7 +32,7 @@ class DosenController
 
             if ($delResult) {
                 echo '<script>alert("Data has been deleted")</script>';
-                header('location: index.php?menu=dosen');
+                echo '<script>window.location = "index.php?menu=dosen";</script>';
             } else {
                 echo '<script>alert("Error when delete data")</script>';
             }

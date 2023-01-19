@@ -48,6 +48,7 @@ if (!isset($_SESSION['is_logged'])) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="Author" content="Michael Mathew Setiadi (2072007)">
     <title>Berita Acara PBM</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -116,7 +117,7 @@ if ($_SESSION['is_logged']):
                         <a class="nav-link" href="?menu=asdos">Asisten Dosen</a>
                     </li>
                 <?php
-                endif; ?>
+                endif;?>
                 <li class="nav-item">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <a class="nav-link" href="?menu=profile">Profile</a>
@@ -209,7 +210,7 @@ if ($_SESSION['is_logged']):
             $OTPController = new  OTPController();
             $OTPController->index();
             $OTPController->updateindex();
-        } 
+        }
         // else if ($menu == "changepw1") {
         //     $changepwController = new ChangePWController();
         //     $changepwController->updateindex();

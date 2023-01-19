@@ -56,8 +56,7 @@ class JadwalController
         } else if ($btnDel == 2) {
 
             $delResult = $this->jadwalDao->deleteJadwal($type,$kelas,$hari);
-
-            if ($delResult) {
+                if ($delResult) {
                 echo "
                 <script>$.toast({
                 heading: 'DELETE',
@@ -66,6 +65,8 @@ class JadwalController
                 stack: false,
                 icon: 'error'
                 })</script>";
+                echo '<script>window.location = "index.php?menu=jadwal";</script>';
+;
             } else {
                 echo '<script>alert("Error when delete data")</script>';
             }
@@ -103,7 +104,7 @@ class JadwalController
                     $result = $this->jadwalDao->insertNewJadwal($jadwal);
                     if ($result) {
                         echo '<script>alert(\'Jadwal berhasil diinput!\')</script>';
-                        header('location: index.php?menu=jadwal');
+                        echo '<script>window.location = "index.php?menu=jadwal";</script>';
                     } else {
                         echo '<script>alert(\'Jadwal gagal diinput!\')</script>';
                     }
@@ -202,6 +203,7 @@ class JadwalController
                     stack: false,
                     icon: 'success'
                 })</script>";
+                echo '<script>window.location = "index.php?menu=jadwal";</script>';
             } else {
                 echo "<script>$.toast({
                     heading: 'Error',

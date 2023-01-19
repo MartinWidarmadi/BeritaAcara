@@ -41,235 +41,256 @@ if ($_SESSION['roles'] == "dosen") :
     </div>
 <?php
 else :
-    ?>
-    <div class="row" style="padding: 50px">
-        <div class="col-2">
-            <form method="post">
-                <h5 class="fw-bold">FILTER</h5>
-                <select class="form-select" id="filterSemester" name="filterSemester"
-                        aria-label="Default select example" style="margin: 10px">
-                    <?php
-                    if (!isset($filSemester)) {
-                        echo "<option selected value=>Semua Semester</option>";
+?>
+<div class="row" style="padding: 50px">
+    <div class="col-2">
+        <form method="post">
+            <h5 class="fw-bold">FILTER</h5>
+            <select class="form-select" id="filterSemester" name="filterSemester"
+                    aria-label="Default select example" style="margin: 10px">
+                <?php
+                if (!isset($filSemester)) {
+                    echo "<option selected value=>Semua Semester</option>";
+                } else {
+                    echo '<option value=>Semua Semester</option>';
+                }
+                ?>
+                <?php foreach ($semester as $smstr):
+                    if ($smstr->getIdSemester() == $filSemester) {
+                        echo "<option selected value='" . $smstr->getIdSemester() . "'>" . $smstr->getNamaSemester() . "</option>";
                     } else {
-                        echo '<option value=>Semua Semester</option>';
-                    }
-                    ?>
-                    <?php foreach ($semester as $smstr):
-                        if ($smstr->getIdSemester() == $filSemester){
-                            echo"<option selected value='" . $smstr->getIdSemester() . "'>" .  $smstr->getNamaSemester() . "</option>";
-                        } else{
-                            echo"<option value='" . $smstr->getIdSemester() . "'>" .  $smstr->getNamaSemester() . "</option>";
-                        }?>
-                    <?php endforeach; ?>
-                </select>
-                <select class="form-select" id="filterDosen" name="filterDosen" aria-label="Default select example"
-                        style="margin: 10px">
-                    <?php
-                    if (!isset($filDosen)){
-                        echo "<option selected value=>Semua Dosen</option>";
-                    }else{
-                        echo '<option value=>Semua Dosen</option>';
-                    }
-                    ?>
-                    <?php foreach ($dosen as $item):
-                        if ($item->getNIP() == $filDosen){
-                            echo"<option selected value='" . $item->getNIP() . "'>" .  $item->getNamaDosen() . "</option>";
-                        } else{
-                            echo"<option value='" . $item->getNIP() . "'>" .  $item->getNamaDosen() . "</option>";
-                        }?>
-                    <?php endforeach; ?>
-                </select>
-                <button type="submit" name="btnFilter" class="btn btn-success">Submit</button>
-            </form>
-        </div>
+                        echo "<option value='" . $smstr->getIdSemester() . "'>" . $smstr->getNamaSemester() . "</option>";
+                    } ?>
+                <?php endforeach; ?>
+            </select>
+            <select class="form-select" id="filterDosen" name="filterDosen" aria-label="Default select example"
+                    style="margin: 10px">
+                <?php
+                if (!isset($filDosen)) {
+                    echo "<option selected value=>Semua Dosen</option>";
+                } else {
+                    echo '<option value=>Semua Dosen</option>';
+                }
+                ?>
+                <?php foreach ($dosen as $item):
+                    if ($item->getNIP() == $filDosen) {
+                        echo "<option selected value='" . $item->getNIP() . "'>" . $item->getNamaDosen() . "</option>";
+                    } else {
+                        echo "<option value='" . $item->getNIP() . "'>" . $item->getNamaDosen() . "</option>";
+                    } ?>
+                <?php endforeach; ?>
+            </select>
+            <button type="submit" name="btnFilter" class="btn btn-success">Submit</button>
+        </form>
+    </div>
     <div class="col-10">
-    <table class="table" id="example">
-        <thead>
-        <tr>
-            <th scope="col">Nama Dosen</th>
-            <th scope="col">Id MK</th>
-            <th scope="col">Mata Kuliah</th>
-            <th scope="col">Hari</th>
-            <th scope="col">Jam Mulai</th>
-            <th scope="col">Jam Selesai</th>
-            <th scope="col">Tipe</th>
-            <th scope="col">Kelas</th>
-            <th scope="col">Semester</th>
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        foreach ($jadwals as $index => $item):
-        ?>
-        <tr>
-            <td><?= $item->getNipDosen()->getNamaDosen(); ?></td>
-            <td><?= $item->getIdMatkul()->getIdMataKuliah(); ?></td>
-            <td><?= $item->getIdMatkul()->getNamaMataKuliah(); ?></td>
-            <td><?= $item->getHari(); ?></td>
-            <td><?= $item->getJamAwal(); ?></td>
-            <td><?= $item->getJamAkhir(); ?></td>
-            <td><?= $item->getType(); ?></td>
-            <td><?= $item->getKelas(); ?></td>
-            <td><?= $item->getIdSemester()->getNamaSemester(); ?></td>
-            <?php if ($item->getStatus() == 0): ?>
-                <td>Aktif</td>
-            <?php else: ?>
-                <td>Non Aktif</td>
-            <?php endif; ?>
-            <td>
-                <?php if ($item->getStatus() == 0): ?>
-                    <button class="btn btn-success" style='margin: 5px' type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>
-                    <button class="btn btn-primary" style='margin: 5px' onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', '<?= $item->getType();?>', '<?= $item->getKelas();?>', '<?= $item->getIdSemester()->getIdSemester();?>', 0)">Aktif/Non Aktif</button>
-                <?php else: ?>
-                    <button class="btn btn-success" style='margin: 5px' type="button" data-bs-toggle="modal" data-bs-target="#modalEditJadwal-<?= $index;?>">Edit</button>
-                    <button class="btn btn-primary" style='margin: 5px' onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah();?>', '<?= $item->getType();?>', '<?= $item->getKelas();?>', '<?= $item->getIdSemester()->getIdSemester();?>', 1)">Aktif/Non Aktif</button>
-                    <button class="btn btn-danger" style='margin: 5px' onclick="delJadwal('<?= $item->getHari();?>')">Delete</button>
-                <?php endif; ?>
-            </td>
-        </tr>
+        <table class="table" id="example">
+            <thead>
+            <tr>
+                <th scope="col">Nama Dosen</th>
+                <th scope="col">Id MK</th>
+                <th scope="col">Mata Kuliah</th>
+                <th scope="col">Hari</th>
+                <th scope="col">Jam Mulai</th>
+                <th scope="col">Jam Selesai</th>
+                <th scope="col">Tipe</th>
+                <th scope="col">Kelas</th>
+                <th scope="col">Semester</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($jadwals as $index => $item):
+                ?>
+                <tr>
+                    <td><?= $item->getNipDosen()->getNamaDosen(); ?></td>
+                    <td><?= $item->getIdMatkul()->getIdMataKuliah(); ?></td>
+                    <td><?= $item->getIdMatkul()->getNamaMataKuliah(); ?></td>
+                    <td><?= $item->getHari(); ?></td>
+                    <td><?= $item->getJamAwal(); ?></td>
+                    <td><?= $item->getJamAkhir(); ?></td>
+                    <td><?= $item->getType(); ?></td>
+                    <td><?= $item->getKelas(); ?></td>
+                    <td><?= $item->getIdSemester()->getNamaSemester(); ?></td>
+                    <?php if ($item->getStatus() == 0): ?>
+                        <td>Aktif</td>
+                    <?php else: ?>
+                        <td>Non Aktif</td>
+                    <?php endif; ?>
+                    <td>
+                        <?php if ($item->getStatus() == 0): ?>
+                            <button class="btn btn-success" style='margin: 5px' type="button" data-bs-toggle="modal"
+                                    data-bs-target="#modalEditJadwal-<?= $index; ?>">Edit
+                            </button>
+                            <button class="btn btn-primary" style='margin: 5px'
+                                    onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah(); ?>', '<?= $item->getType(); ?>', '<?= $item->getKelas(); ?>', '<?= $item->getIdSemester()->getIdSemester(); ?>', 0)">
+                                Aktif/Non Aktif
+                            </button>
+                        <?php else: ?>
+                            <button class="btn btn-success" style='margin: 5px' type="button" data-bs-toggle="modal"
+                                    data-bs-target="#modalEditJadwal-<?= $index; ?>">Edit
+                            </button>
+                            <button class="btn btn-primary" style='margin: 5px'
+                                    onclick="activeJadwal('<?= $item->getIdMatkul()->getIdMataKuliah(); ?>', '<?= $item->getType(); ?>', '<?= $item->getKelas(); ?>', '<?= $item->getIdSemester()->getIdSemester(); ?>', 1)">
+                                Aktif/Non Aktif
+                            </button>
+                            <button class="btn btn-danger" style='margin: 5px'
+                                    onclick="delJadwal('<?= $item->getType(); ?>','<?= $item->getKelas(); ?>','<?= $item->getHari(); ?>')">
+                                Delete
+                            </button>
+                        <?php endif; ?>
+                    </td>
+                </tr>
 
-        <?php endforeach; ?>
+            <?php endforeach; ?>
 
 
-        </tbody>
-        <thead>
-        <tr></tr>
-        </thead>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
-    </table>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Add Jadwal
-    </button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-        Add Batch Jadwal
-    </button>
-<!--        <div class="mb-3">-->
-<!--            <form method="post" enctype="multipart/form-data">-->
-<!--                <input type="file" name="jadwalFile" id="jadwalFile" class="form-control form-second" accept=".xls,.xlsx">-->
-<!--                <button type="submit" name="btnBatchFile" class="btn btn-primary">Add Batch Jadwal</button>-->
-<!--        </div>-->
+            </tbody>
+            <thead>
+            <tr></tr>
+            </thead>
+            <link rel="stylesheet" type="text/css"
+                  href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"/>
+            <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
+        </table>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add Jadwal
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            Add Batch Jadwal
+        </button>
+        <!--        <div class="mb-3">-->
+        <!--            <form method="post" enctype="multipart/form-data">-->
+        <!--                <input type="file" name="jadwalFile" id="jadwalFile" class="form-control form-second" accept=".xls,.xlsx">-->
+        <!--                <button type="submit" name="btnBatchFile" class="btn btn-primary">Add Batch Jadwal</button>-->
+        <!--        </div>-->
     </div>
     <!-- modal edit jadwal -->
-    <?php foreach ($jadwals as $index => $item) {?>
-        <div class="modal fade" id="modalEditJadwal-<?= $index;?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <?php foreach ($jadwals as $index => $item) { ?>
+        <div class="modal fade" id="modalEditJadwal-<?= $index; ?>" data-bs-backdrop="static" data-bs-keyboard="false"
+             tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalEditLabel">Edit Jadwal</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method="post">
-                    <div class="modal-body">
-                        <!-- MK readonly -->
-                        <div class="form-group mt-3">
-                            <label for="idMatkul" class="form-label">Id Jadwal</label>
-                            <input type="text" name="idMatkul" id="idMatkul"  class="form-control" value="<?= $item->getIdMatkul()->getIdMataKuliah() . ' ' .$item->getIdMatkul()->getNamaMataKuliah();?>" readonly>
-                        </div>
-
-                        <!-- pilih dosen -->
-                        <div class="form-group mt-3">
-                            <label for="dosen" class="form-label">Dosen</label>
-                            <select class="form-select" name="dosen" id="dosen">
-                                <option value="<?= $item->getNipDosen()->getNIP(); ?>" selected><?= $item->getNipDosen()->getNamaDosen(); ?></option>
-                                <?php foreach($dosen as $d) :
-                                    if ($d->getNIP() != $item->getNipDosen()->getNIP()):
-                                    ?>
-                                    <option value="<?= $d->getNIP(); ?>" ><?= $d->getNamaDosen(); ?></option>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <!-- pilih hari -->
-                        <div class="form-group mt-3">
-                            <label for="hari" class="form-label">Hari</label>
-                            <select class="form-select" name="hari" id="hari">
-                                <option value="<?= $item->getHari(); ?>" selected><?= $item->getHari(); ?></option>
-                                <?php
-                                $hari = array("Senin", "Selasa", "Rabu", "Kamis", "Jumat");
-                                foreach($hari as $h):
-                                    if ($h != $item->getHari()):
-                                ?>
-                                <option value="<?= $h; ?>"><?= $h; ?></option>
-                                <?php endif; ?>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <!-- pilih jam mulai dan jam selesai -->
-                        <div class="form-group mt-3 d-flex">
-                            <div class="w-100">
-                                <label for="jamMulai" class="form-label">Jam Mulai</label>
-                                <input class="form-control" type="time" name="jamMulai" id="jamMulai" value="<?= $item->getJamAwal(); ?>" required>
-                            </div>
-                            <div class="w-100 ms-2">
-                                <label for="jamSelesai" class="form-label">Jam Selesai</label>
-                                <input class="form-control" type="time" name="jamSelesai" id="jamSelesai" value="<?= $item->getJamAkhir(); ?>" required>
-                            </div>
-                        </div>
-
-                        <!-- pilih tipe -->
-                        <div class="form-group mt-3">
-                            <label for="tipe" class="form-label">Tipe</label>
-                            <select class="form-select" name="tipe" id="tipe">
-                                <option value="<?= $item->getType(); ?>" selected><?= $item->getType(); ?></option>
-                                <?php
-                                $tipe = array("Teori", "Praktikum");
-                                foreach($tipe as $t):
-                                    if ($t != $item->getType()):
-                                ?>
-                                <option value="<?= $t; ?>"><?= $t; ?></option>
-                                <?php endif; ?>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <!-- pilih kelas -->
-                        <div class="form-group mt-3">
-                            <label for="kelas" class="form-label">Kelas</label>
-                            <select class="form-select" name="kelas" id="kelas">
-                                <option value="<?= $item->getKelas(); ?>" selected><?= $item->getKelas(); ?></option>
-                                <?php
-                                $kelas = array("A", "B");
-                                foreach($kelas as $k):
-                                    if ($k != $item->getKelas()):
-                                ?>
-                                <option value="<?= $k; ?>"><?= $k; ?></option>
-                                <?php endif; ?>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <!-- pilih semester -->
-                        <div class="form-group mt-3">
-                            <label for="semester" class="form-label">Semester</label>
-                            <select class="form-select" name="semester" id="semester">
-                                <option value="<?= $item->getIdSemester()->getIdSemester(); ?>" selected><?= $item->getIdSemester()->getNamaSemester(); ?></option>
-                                <?php
-                                foreach($semester as $s):
-                                    if ($s->getIdSemester() != $item->getIdSemester()->getIdSemester()):
-                                ?>
-                                <option value="<?= $s->getIdSemester(); ?>"><?= $s->getNamaSemester(); ?></option>
-                                <?php endif; ?>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEditLabel">Edit Jadwal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <form method="post">
+                        <div class="modal-body">
+                            <!-- MK readonly -->
+                            <div class="form-group mt-3">
+                                <label for="idMatkul" class="form-label">Id Jadwal</label>
+                                <input type="text" name="idMatkul" id="idMatkul" class="form-control"
+                                       value="<?= $item->getIdMatkul()->getIdMataKuliah() . ' ' . $item->getIdMatkul()->getNamaMataKuliah(); ?>"
+                                       readonly>
+                            </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="btnUpdate">Update</button>
-                    </div>
-                </form>
+                            <!-- pilih dosen -->
+                            <div class="form-group mt-3">
+                                <label for="dosen" class="form-label">Dosen</label>
+                                <select class="form-select" name="dosen" id="dosen">
+                                    <option value="<?= $item->getNipDosen()->getNIP(); ?>"
+                                            selected><?= $item->getNipDosen()->getNamaDosen(); ?></option>
+                                    <?php foreach ($dosen as $d) :
+                                        if ($d->getNIP() != $item->getNipDosen()->getNIP()):
+                                            ?>
+                                            <option value="<?= $d->getNIP(); ?>"><?= $d->getNamaDosen(); ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+
+                            <!-- pilih hari -->
+                            <div class="form-group mt-3">
+                                <label for="hari" class="form-label">Hari</label>
+                                <select class="form-select" name="hari" id="hari">
+                                    <option value="<?= $item->getHari(); ?>" selected><?= $item->getHari(); ?></option>
+                                    <?php
+                                    $hari = array("Senin", "Selasa", "Rabu", "Kamis", "Jumat");
+                                    foreach ($hari as $h):
+                                        if ($h != $item->getHari()):
+                                            ?>
+                                            <option value="<?= $h; ?>"><?= $h; ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+
+                            <!-- pilih jam mulai dan jam selesai -->
+                            <div class="form-group mt-3 d-flex">
+                                <div class="w-100">
+                                    <label for="jamMulai" class="form-label">Jam Mulai</label>
+                                    <input class="form-control" type="time" name="jamMulai" id="jamMulai"
+                                           value="<?= $item->getJamAwal(); ?>" required>
+                                </div>
+                                <div class="w-100 ms-2">
+                                    <label for="jamSelesai" class="form-label">Jam Selesai</label>
+                                    <input class="form-control" type="time" name="jamSelesai" id="jamSelesai"
+                                           value="<?= $item->getJamAkhir(); ?>" required>
+                                </div>
+                            </div>
+
+                            <!-- pilih tipe -->
+                            <div class="form-group mt-3">
+                                <label for="tipe" class="form-label">Tipe</label>
+                                <select class="form-select" name="tipe" id="tipe">
+                                    <option value="<?= $item->getType(); ?>" selected><?= $item->getType(); ?></option>
+                                    <?php
+                                    $tipe = array("Teori", "Praktikum");
+                                    foreach ($tipe as $t):
+                                        if ($t != $item->getType()):
+                                            ?>
+                                            <option value="<?= $t; ?>"><?= $t; ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+
+                            <!-- pilih kelas -->
+                            <div class="form-group mt-3">
+                                <label for="kelas" class="form-label">Kelas</label>
+                                <select class="form-select" name="kelas" id="kelas">
+                                    <option value="<?= $item->getKelas(); ?>"
+                                            selected><?= $item->getKelas(); ?></option>
+                                    <?php
+                                    $kelas = array("A", "B");
+                                    foreach ($kelas as $k):
+                                        if ($k != $item->getKelas()):
+                                            ?>
+                                            <option value="<?= $k; ?>"><?= $k; ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+
+                            <!-- pilih semester -->
+                            <div class="form-group mt-3">
+                                <label for="semester" class="form-label">Semester</label>
+                                <select class="form-select" name="semester" id="semester">
+                                    <option value="<?= $item->getIdSemester()->getIdSemester(); ?>"
+                                            selected><?= $item->getIdSemester()->getNamaSemester(); ?></option>
+                                    <?php
+                                    foreach ($semester as $s):
+                                        if ($s->getIdSemester() != $item->getIdSemester()->getIdSemester()):
+                                            ?>
+                                            <option value="<?= $s->getIdSemester(); ?>"><?= $s->getNamaSemester(); ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="btnUpdate">Update</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     <?php } ?>
-
 
 
     <!-- Add Jadwal -->
@@ -406,27 +427,26 @@ else :
             </div>
         </div>
     </div>
-<?php
-endif; ?>
+    <?php
+    endif; ?>
 
 
-
-<script>
-    const editJadwal = (id) => {
-        window.location = `index.php?menu=editjadwal&jid=%{id}`;
-    }
-
-    const activeJadwal = (id, type, kelas, semester, aktif) => {
-        let confirmed = confirm('Are you sure deactivate this data?');
-        if (confirmed) {
-            window.location = `index.php?menu=jadwal&delcom=1&jid=${id}&type=${type}&kelas=${kelas}&semester=${semester}&aktif=${aktif}`;
+    <script>
+        const editJadwal = (id) => {
+            window.location = `index.php?menu=editjadwal&jid=%{id}`;
         }
-    }
 
-    const delJadwal = (id,hari) => {
-        let confirmed = confirm('Are you sure delete this data?');
-        if (confirmed) {
-            window.location = `index.php?menu=matkul&delcom=2&hari=${hari}`;
+        const activeJadwal = (id, type, kelas, semester, aktif) => {
+            let confirmed = confirm('Are you sure deactivate this data?');
+            if (confirmed) {
+                window.location = `index.php?menu=jadwal&delcom=1&jid=${id}&type=${type}&kelas=${kelas}&semester=${semester}&aktif=${aktif}`;
+            }
         }
-    }
-</script>
+
+        const delJadwal = (type, kelas, hari) => {
+            let confirmed = confirm('Are you sure delete this data?');
+            if (confirmed) {
+                window.location = `index.php?menu=jadwal&delcom=2&type=${type}&kelas=${kelas}&hari=${hari}`;
+            }
+        }
+    </script>
