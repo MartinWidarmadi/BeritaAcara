@@ -37,11 +37,23 @@ class SemesterController
         $btnAdd = filter_input(INPUT_POST,'addSemester');
         if (isset($btnAdd)){
             $nama = filter_input(INPUT_POST, 'nama');
+            $trimNama = trim($nama);
             $smtr = new Semester();
-            $smtr->setNamaSemester($nama);
-            $result = $this->semesterDao->insertNewSemester($smtr);
-            if ($result){
+            $smtr->setNamaSemester($trimNama);
+            if (empty($trimNama)){
                 echo "
+                <script>$.toast({
+                heading: 'Error',
+                text: 'Please Input All Fields',
+                showHideTransition: 'slide',
+                stack: false,
+                icon: 'error'
+            })</script>";
+            }
+            else {
+                $result = $this->semesterDao->insertNewSemester($smtr);
+                if ($result){
+                    echo "
                 <script>$.toast({
                 heading: 'Success',
                 text: 'Success Add Data Semester',
@@ -49,8 +61,8 @@ class SemesterController
                 stack: false,
                 icon: 'success'
             })</script>";
-            } else {
-                echo "
+                } else {
+                    echo "
                 <script>$.toast({
                 heading: 'Error',
                 text: 'Add Data Semester',
@@ -58,7 +70,9 @@ class SemesterController
                 stack: false,
                 icon: 'error'
             })</script>";
+                }
             }
+
         }
 
         $btnUpdate = filter_input(INPUT_POST,'btnUpdate');
