@@ -13,6 +13,7 @@ include_once 'controller/MataKuliahController.php';
 include_once 'controller/MahasiswaController.php';
 include_once 'controller/ProfileController.php';
 include_once 'controller/AsistenController.php';
+include_once 'controller/SemesterController.php';
 include_once 'dao/UserDaoImpl.php';
 include_once 'dao/MataKuliahDaoImpl.php';
 include_once 'dao/DosenDaoImpl.php';
@@ -99,6 +100,10 @@ if ($_SESSION['is_logged']):
                         <i class="fa-solid fa-bag-shopping nav-img"></i>
                         <a class="nav-link" href="?menu=matkul">Mata Kuliah</a>
                     </li>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-bag-shopping nav-img"></i>
+                        <a class="nav-link" href="?menu=semester">Semester</a>
+                    </li>
                 <?php
                 endif; ?>
                 <li class="nav-item">
@@ -154,6 +159,10 @@ if ($_SESSION['is_logged']):
         case 'mahasiswa' :
             $mahasiswaController = new MahasiswaController();
             $mahasiswaController->index();
+            break;
+        case 'semester' :
+            $semesterController = new SemesterController();
+            $semesterController->index();
             break;
         case 'jadwal' :
             $jadwalController = new JadwalController();

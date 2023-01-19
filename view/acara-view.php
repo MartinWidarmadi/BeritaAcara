@@ -257,19 +257,19 @@ else:
                             echo '<td>' . $item->getWaktuMulai() . '</td>';
                             echo '<td>' . $item->getWaktuSelesai() . '</td>';
                             echo '<td>' . $item->getRangkuman() . '</td>';
-                            if ($item->asisten != null && $item->asisten[0] != null) {
+                            if (isset($item->asisten) && isset($item->asisten[0])) {
                                 echo '<td>' . $item->asisten[0]->getNrpMahasiswa()->getNama() . ' - ' . $item->asisten[0]->getJumlahJam() . ' Jam' . '</td>';
                             } else {
                                 echo '<td>' . '' . '</td>';
                             }
 
-                            if ($item->asisten != null && $item->asisten[1] != null) {
+                            if (isset($item->asisten) && isset($item->asisten[1])) {
                                 echo '<td>' . $item->asisten[1]->getNrpMahasiswa()->getNama() . ' - ' . $item->asisten[1]->getJumlahJam() . ' Jam' . '</td>';
                             } else {
                                 echo '<td>' . '' . '</td>';
                             }
 
-                            if ($item->asisten != null && $item->asisten[2] != null) {
+                            if (isset($item->asisten) && isset($item->asisten[2])) {
                                 echo '<td>' . $item->asisten[2]->getNrpMahasiswa()->getNama() . ' - ' . $item->asisten[2]->getJumlahJam() . ' Jam' . '</td>';
                             } else {
                                 echo '<td>' . '' . '</td>';
